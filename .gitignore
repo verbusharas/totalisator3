@@ -2,7 +2,7 @@
 ######################
 # Project Specific
 ######################
-**/application.properties
+/tot-server-side/src/main/resources/application.properties
 ######################
 # Node
 ######################
