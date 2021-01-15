@@ -1,0 +1,13 @@
+package lt.verbus.totalisator;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class TotalisatorApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(TotalisatorApplication.class, args);
+    }
+
+}
