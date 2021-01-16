@@ -1,0 +1,26 @@
+.page-container {
+    color: #43696b;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.section {
+    margin: 10px;
+    width: 400px;
+    background-color: #f3f3f3;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    min-height: 500px;
+}
+
+.fixture-selection {
+
+}
+
+.selected-fixtures {
+
+}

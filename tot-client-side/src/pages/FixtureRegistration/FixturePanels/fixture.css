@@ -1,0 +1,44 @@
+.enabled {
+    background-color: #d7e4e1;
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0px 10px 0px;
+    text-align: center;
+    color: cadetblue;
+}
+
+button {
+    cursor:pointer;
+}
+
+.enabled:hover{
+    background-color: #ccdbd8;
+    color: #43696b;
+}
+
+.disabled {
+    background-color: #e7e7e7;
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0px 10px 0px;
+    text-align: center;
+    color: #cdcdcd;
+}
+
+.added-match {
+    background-color: #fde8a7;
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0px 10px 0px;
+    text-align: center;
+    color: #a79664;
+}
+
+.empty-list {
+    padding: 50px 20px 50px 20px;
+    border-style: dashed;
+    border-width: 2px;
+    border-color: #d3d3d3;
+    color: #9d9d9d;
+    text-align: center;
+}
