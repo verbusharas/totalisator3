@@ -14,7 +14,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class FixtureDate {
+public class FixtureDateDTO {
     @JsonProperty("datetime")
     private String datetime;
 }

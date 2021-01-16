@@ -12,7 +12,7 @@ import java.util.Map;
 @Getter
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Fixture {
+public class FixtureDTO {
     @JsonProperty("id")
     private Integer id;
     @JsonProperty("status_name")
@@ -20,13 +20,13 @@ public class Fixture {
     @JsonProperty("winner_team_id")
     private Integer winnerTeamId;
     @JsonProperty("league")
-    private League league;
+    private LeagueDTO league;
 
-    private String time;
+    private String date;
 
-    private Team homeTeam;
+    private TeamDTO homeTeam;
 
-    private Team awayTeam;
+    private TeamDTO awayTeam;
 
     private String homeScore;
 
@@ -42,15 +42,15 @@ public class Fixture {
 
     @SuppressWarnings("unchecked")
     @JsonProperty("teams")
-    private void getTeams(Map<String, Team> teams) {
+    private void getTeams(Map<String, TeamDTO> teams) {
         this.homeTeam = teams.get("home");
         this.awayTeam = teams.get("away");
     }
 
     @SuppressWarnings("unchecked")
     @JsonProperty("time")
-    private void getTime(Map<String,String> timeInfo) {
-        this.time = timeInfo.get("datetime");
+    private void getDate(Map<String,String> timeInfo) {
+        this.date = timeInfo.get("datetime");
     }
 
     @SuppressWarnings("unchecked")

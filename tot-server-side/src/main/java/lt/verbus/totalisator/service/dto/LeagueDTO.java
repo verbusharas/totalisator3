@@ -9,15 +9,19 @@ import lombok.Setter;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-        "home",
-        "away"
+        "id",
+        "name",
+        "country_name"
 })
 @Getter
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Teams {
-    @JsonProperty("home")
-    private Team home;
-    @JsonProperty("away")
-    private Team away;
+public class LeagueDTO {
+    @JsonProperty("id")
+    private Integer id;
+    @JsonProperty("name")
+    private String name;
+    @JsonProperty("country_name")
+    private String countryName;
 }
+

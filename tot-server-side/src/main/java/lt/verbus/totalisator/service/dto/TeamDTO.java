@@ -11,17 +11,22 @@ import lombok.Setter;
 @JsonPropertyOrder({
         "id",
         "name",
-        "country_name"
+        "short_code",
+        "img"
 })
 @Getter
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class League {
+public class TeamDTO {
+
     @JsonProperty("id")
     private Integer id;
     @JsonProperty("name")
     private String name;
-    @JsonProperty("country_name")
-    private String countryName;
+    @JsonProperty("short_code")
+    private String shortCode;
+    @JsonProperty("img")
+    private String img;
+
 }
 

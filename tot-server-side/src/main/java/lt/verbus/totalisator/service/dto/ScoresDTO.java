@@ -19,7 +19,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Scores {
+public class ScoresDTO {
     @JsonProperty("home_score")
     private Byte homeScore;
     @JsonProperty("away_score")
