@@ -1,20 +1,27 @@
 package lt.verbus.totalisator.service;
 
-import lt.verbus.totalisator.integration.SoccersApi;
-import lt.verbus.totalisator.service.dto.FixturesResponse;
+import lt.verbus.totalisator.entity.Fixture;
+import lt.verbus.totalisator.repository.FixtureRepository;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 public class FixtureService {
-    private final SoccersApi soccersApi;
+    private final FixtureRepository fixtureRepository;
 
-    public FixtureService(SoccersApi soccersApi) {
-        this.soccersApi = soccersApi;
+    public FixtureService(FixtureRepository fixtureRepository) {
+        this.fixtureRepository = fixtureRepository;
     }
 
-    public FixturesResponse getFixturesByDate(String date) {
-        return soccersApi.getFixturesByDate(date);
+    @Transactional
+    public List<Fixture> saveFixtures(List<Fixture> fixtures) {
+        return fixtureRepository.saveAll(fixtures);
     }
 
+    public List<Fixture> getTotalisatorFixtures() {
+        return fixtureRepository.findAll();
+    }
 }
+
