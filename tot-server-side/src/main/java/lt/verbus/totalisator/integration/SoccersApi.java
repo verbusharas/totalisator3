@@ -5,11 +5,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.List;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lt.verbus.totalisator.service.dto.Fixture;
-import lt.verbus.totalisator.service.dto.FixturesResponse;
+import lt.verbus.totalisator.service.dto.FixturesResponseDTO;
 import org.springframework.beans.factory.annotation.Value;
 
 import org.springframework.stereotype.Component;
@@ -28,10 +26,10 @@ public class SoccersApi {
     }
 
 
-    public FixturesResponse getFixturesByDate(String date) {
+    public FixturesResponseDTO getFixturesByDate(String date) {
         HttpURLConnection con = null;
         StringBuilder jsonString = new StringBuilder();
-        FixturesResponse data = null;
+        FixturesResponseDTO data = null;
         try {
             URL url = new URL(fixtureByDateURL + date);
             con = (HttpURLConnection) url.openConnection();
@@ -45,7 +43,7 @@ public class SoccersApi {
             }
             in.close();
             con.disconnect();
-            data = objectMapper.readValue(jsonString.toString(), FixturesResponse.class);
+            data = objectMapper.readValue(jsonString.toString(), FixturesResponseDTO.class);
         } catch (IOException e) {
             e.printStackTrace();
         }
