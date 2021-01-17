@@ -1,7 +1,7 @@
 import 'date-fns';
 import "./fixture-register.css";
 import {useState, useEffect} from "react";
-import {fetchFifaFixtures, saveFixtures} from "../../api/soccersApi";
+import {fetchFifaFixtures, saveAsMatches} from "../../api/soccersApi";
 import Fixture from "./FixturePanels/Fixture";
 import React from "react";
 import DateFnsUtils from '@date-io/date-fns';
@@ -67,9 +67,9 @@ const FixtureRegistration = () => {
             <Fixture
                 key={fixture.id}
                 id={fixture.id}
-                country={fixture.league.country_name}
+                country={fixture.league.countryName}
                 league={fixture.league.name}
-                date={fixture.time}
+                date={fixture.date}
                 homeTeam={fixture.homeTeam.name}
                 awayTeam={fixture.awayTeam.name}
                 isSelected={isFixtureSelected(fixture)}
@@ -80,18 +80,18 @@ const FixtureRegistration = () => {
         )
     }
 
-    const createFixtureSelectedPanel = (match) => {
+    const createFixtureSelectedPanel = (fixture) => {
         return (
             <SelectedFixture
-                key={match.id}
-                id={match.id}
-                country={match.league.country_name}
-                league={match.league.name}
-                date={match.time}
-                homeTeam={match.homeTeam.name}
-                awayTeam={match.awayTeam.name}
+                key={fixture.id}
+                id={fixture.id}
+                country={fixture.league.countryName}
+                league={fixture.league.name}
+                date={fixture.date}
+                homeTeam={fixture.homeTeam.name}
+                awayTeam={fixture.awayTeam.name}
                 removeClicked={() => {
-                    handleFixtureUnselectClick(match)
+                    handleFixtureUnselectClick(fixture)
                 }}
             />
         )
@@ -100,7 +100,7 @@ const FixtureRegistration = () => {
     const handleOnSubmit = (e) => {
         e.preventDefault();
         console.log("selectedFixtures", selectedFixtures);
-        saveFixtures(selectedFixtures)
+        saveAsMatches(selectedFixtures)
             .then(response => {
                 console.log("Saved selected fixtures and got a response: ", response);
             })
