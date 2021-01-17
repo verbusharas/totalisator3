@@ -2,7 +2,7 @@ import './panels.css';
 import {makeStyles} from "@material-ui/core";
 
 
-const FixturePanel = ({fixture, handleClick, isAdded}) => {
+const FixtureToteboard = ({fixture, handleClick, isAdded}) => {
 
     const status = fixture.status_name;
     let message = "ADD TO TOTALISATOR";
@@ -92,4 +92,4 @@ const FixturePanel = ({fixture, handleClick, isAdded}) => {
     )
 }
 
-export default FixturePanel;
+export default FixtureToteboard;

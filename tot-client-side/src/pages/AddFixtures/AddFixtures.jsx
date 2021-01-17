@@ -1,17 +1,16 @@
-import Feed from "./Feed";
+import Feed from "./Feed/Feed";
 import {fetchFifaFixtures, fetchMatches, saveAsMatch, saveAsMatches} from "../../api/soccersApi";
 import React, {useEffect, useState} from "react";
-import FifaFixturePanel from "./Panels/FixturePanel";
+import FifaFixtureToteboard from "./Toteboards/FixtureToteboard";
 import DateFnsUtils from "@date-io/date-fns";
 import {Grid} from "@material-ui/core";
 import {KeyboardDatePicker, MuiPickersUtilsProvider} from "@material-ui/pickers";
-import './fixture-registration-new.css';
-import MatchPanel from "./Panels/MatchPanel";
+import './add-fixtures.css';
+import MatchToteboard from "./Toteboards/MatchToteboard";
 
 
-const FixtureRegistrationNew = () => {
+const AddFixtures = () => {
     const [fifaFixtures, setFifaFixtures] = useState([]);
-    const [requestsLeft, setRequestsLeft] = useState([]);
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [totalisatorMatches, setTotalisatorMatches] = useState({});
 
@@ -21,7 +20,6 @@ const FixtureRegistrationNew = () => {
         fetchFifaFixtures(dateToString(date))
             .then(response => {
                 setFifaFixtures(response.data.data)
-                setRequestsLeft(response.data.requestsLeft)
             }).catch(err => {
             console.log("Error:", err);
         });
@@ -31,15 +29,19 @@ const FixtureRegistrationNew = () => {
         fetchMatches()
             .then(response => {
                 setTotalisatorMatches(response.data)
-                console.log("MATCHES RESPONSE.DATA is: ", response.data)
             }).catch(err => {
-            console.log("Error:", err);
+            console.log("Klaida:", err);
         });
     }
 
     useEffect(() => {
-        loadFifaFixtures(selectedDate);
-        loadTotalisatorMatches();
+        fetchMatches()
+            .then(response => {
+                setTotalisatorMatches(response.data);
+                loadFifaFixtures(selectedDate);
+            }).catch(err => {
+            console.log("Klaida:", err);
+        });
     }, []);
 
     const handleDateChange = (date) => {
@@ -68,51 +70,40 @@ const FixtureRegistrationNew = () => {
     }
 
     const handleFifaFixtureSelect = (fixture) => {
-        saveAsMatch(fixture)
-            .then(response => {
-                loadTotalisatorMatches();
-                console.log("Saved selected fixture and got a response: ", response);
-            })
+        saveAsMatch(fixture).then(() => loadTotalisatorMatches())
     }
 
-    const createFifaFixturePanel = (fixture) => {
-        console.log("fixture", fixture);
-        const addedIds = totalisatorMatches.map(m=>m.id);
-        console.log("addedIds", addedIds);
+    const createFifaFixtureToteboard = (fixture) => {
+        const addedIds = totalisatorMatches.map(m => m.id);
         const isInTotalisator = addedIds.includes(fixture.id);
-        console.log("isInTotalisator", isInTotalisator);
         return (
-            <FifaFixturePanel
+            <FifaFixtureToteboard
                 key={fixture.id}
                 fixture={fixture}
-                handleClick={()=>handleFifaFixtureSelect(fixture)}
+                handleClick={() => handleFifaFixtureSelect(fixture)}
                 isAdded={isInTotalisator}
             />
         )
     }
 
-    const createTotalisatorMatchPanel = (match) => {
-        return (
-            <MatchPanel key={match.id} fixture={match}/>
-        )
-    }
+    const createTotalisatorMatchToteboard = (match) =>
+        <MatchToteboard key={match.id} fixture={match}/>
 
     return (
         <div className="content-columns">
             <Feed
                 title="BROWSE UPCOMING FIFA FIXTURES:"
                 list={fifaFixtures}
-                panel={createFifaFixturePanel}
+                panel={createFifaFixtureToteboard}
                 extras={createDatePicker}
             />
             <Feed
                 title="TOTALISATOR MATCHES:"
                 list={totalisatorMatches}
-                panel={createTotalisatorMatchPanel}
+                panel={createTotalisatorMatchToteboard}
             />
-            <button onClick={()=>{console.log(totalisatorMatches)}}>SPAUSK</button>
         </div>
     )
 }
 
-export default FixtureRegistrationNew;
+export default AddFixtures;

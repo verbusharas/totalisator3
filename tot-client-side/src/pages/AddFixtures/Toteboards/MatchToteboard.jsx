@@ -1,6 +1,6 @@
 import './panels.css';
 
-const MatchPanel = ({fixture, handleClick}) => {
+const MatchToteboard = ({fixture, handleClick}) => {
     return (
         <div className="panel">
             <div className="panel-header">
@@ -35,4 +35,4 @@ const MatchPanel = ({fixture, handleClick}) => {
     )
 }
 
-export default MatchPanel;
+export default MatchToteboard;
