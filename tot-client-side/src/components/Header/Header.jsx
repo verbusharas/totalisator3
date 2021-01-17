@@ -61,6 +61,7 @@ export default () => {
                     </Typography>
                     <nav>
                         <Link className={classes.link} component={NavLink} to="/add-fixtures">Add Fixtures</Link>
+                        <Link className={classes.link} component={NavLink} to="/add-fixtures-new">Add Fixtures NEW</Link>
                         <Link className={classes.link} component={NavLink} to="/totalisator">Totalisator</Link>
                         <Link className={classes.link} component={NavLink} to="/about">About</Link>
                     </nav>
