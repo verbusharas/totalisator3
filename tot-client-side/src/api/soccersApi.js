@@ -1,5 +1,6 @@
 import HTTP from "./"
 
-export const fetchFifaFixtures = (date) => HTTP.get("/fixture/fifa?date=" + date);
-export const saveFixtures = (fixtures) => HTTP.post("/fixture", fixtures);
-export const fetchRegisteredFixtures = (fixtures) => HTTP.get("/fixture", fixtures);
+export const fetchFifaFixtures = (date) => HTTP.get("/fixture?date=" + date);
+export const saveAsMatches = (matches) => HTTP.post("/match", matches);
+export const fetchMatches = () => HTTP.get("/match");
+export const saveAsMatch = (match) => HTTP.post("/match", match);
