@@ -15,9 +15,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class TeamsDTO {
+public class FifaFixtureTeamsDTO {
     @JsonProperty("home")
-    private TeamDTO home;
+    private FifaTeamDTO home;
     @JsonProperty("away")
-    private TeamDTO away;
+    private FifaTeamDTO away;
 }

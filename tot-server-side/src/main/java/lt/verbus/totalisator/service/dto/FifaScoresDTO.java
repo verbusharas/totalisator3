@@ -8,22 +8,22 @@ import lombok.Getter;
 import lombok.Setter;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({
-        "home_score",
-        "away_score",
-        "ht_score",
-        "ft_score",
-        "et_score",
-        "ps_score"
-})
+//@JsonPropertyOrder({
+//        "home_score",
+//        "away_score",
+//        "ht_score",
+//        "ft_score",
+//        "et_score",
+//        "ps_score"
+//})
 @Getter
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ScoresDTO {
+public class FifaScoresDTO {
     @JsonProperty("home_score")
-    private Byte homeScore;
+    private String homeScore;
     @JsonProperty("away_score")
-    private Byte awayScore;
+    private String awayScore;
     @JsonProperty("ht_score")
     private String htScore;
     @JsonProperty("ft_score")

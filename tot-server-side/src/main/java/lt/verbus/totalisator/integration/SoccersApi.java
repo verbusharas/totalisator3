@@ -7,7 +7,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lt.verbus.totalisator.service.dto.FixturesResponseDTO;
+import lt.verbus.totalisator.service.dto.FifaFixturesResponseDTO;
 import org.springframework.beans.factory.annotation.Value;
 
 import org.springframework.stereotype.Component;
@@ -26,10 +26,10 @@ public class SoccersApi {
     }
 
 
-    public FixturesResponseDTO getFixturesByDate(String date) {
+    public FifaFixturesResponseDTO getFixturesByDate(String date) {
         HttpURLConnection con = null;
         StringBuilder jsonString = new StringBuilder();
-        FixturesResponseDTO data = null;
+        FifaFixturesResponseDTO data = null;
         try {
             URL url = new URL(fixtureByDateURL + date);
             con = (HttpURLConnection) url.openConnection();
@@ -43,7 +43,7 @@ public class SoccersApi {
             }
             in.close();
             con.disconnect();
-            data = objectMapper.readValue(jsonString.toString(), FixturesResponseDTO.class);
+            data = objectMapper.readValue(jsonString.toString(), FifaFixturesResponseDTO.class);
         } catch (IOException e) {
             e.printStackTrace();
         }

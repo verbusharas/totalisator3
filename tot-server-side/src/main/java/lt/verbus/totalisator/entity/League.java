@@ -21,5 +21,6 @@ public class League {
     private String name;
 
     private String countryName;
+
 }
 

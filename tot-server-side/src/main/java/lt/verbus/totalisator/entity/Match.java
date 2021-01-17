@@ -10,11 +10,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @Entity
 @Getter
 @Setter
-public class Fixture {
+@Table(name = "soccer_match")
+public class Match {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -33,5 +35,5 @@ public class Fixture {
     @OneToOne(cascade = CascadeType.ALL)
     private Team awayTeam;
 
-
+    private String ftScore;
 }

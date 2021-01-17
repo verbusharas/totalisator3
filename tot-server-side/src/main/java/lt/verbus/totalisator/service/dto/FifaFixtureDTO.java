@@ -12,21 +12,21 @@ import java.util.Map;
 @Getter
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class FixtureDTO {
+public class FifaFixtureDTO {
     @JsonProperty("id")
     private Integer id;
     @JsonProperty("status_name")
     private String statusName;
     @JsonProperty("winner_team_id")
-    private Integer winnerTeamId;
+    private String winnerTeamId;
     @JsonProperty("league")
-    private LeagueDTO league;
+    private FifaLeagueDTO league;
 
     private String date;
 
-    private TeamDTO homeTeam;
+    private FifaTeamDTO homeTeam;
 
-    private TeamDTO awayTeam;
+    private FifaTeamDTO awayTeam;
 
     private String homeScore;
 
@@ -40,9 +40,14 @@ public class FixtureDTO {
 
     private String psScore;
 
+    @JsonProperty("scores")
+    private FifaScoresDTO scores;
+
+
+
     @SuppressWarnings("unchecked")
     @JsonProperty("teams")
-    private void getTeams(Map<String, TeamDTO> teams) {
+    private void getTeams(Map<String, FifaTeamDTO> teams) {
         this.homeTeam = teams.get("home");
         this.awayTeam = teams.get("away");
     }
@@ -53,14 +58,14 @@ public class FixtureDTO {
         this.date = timeInfo.get("datetime");
     }
 
-    @SuppressWarnings("unchecked")
-    @JsonProperty("scores")
-    private void getScores(Map<String,String> scores) {
-        this.homeScore = scores.get("home_score");
-        this.awayScore = scores.get("away_score");
-        this.htScore = scores.get("ht_score");
-        this.ftScore = scores.get("ft_score");
-        this.etScore = scores.get("et_score");
-        this.psScore = scores.get("ps_score");
-    }
+
+//    @JsonProperty("scores")
+//    private void getScores(Map<String,String> scores) {
+//        this.homeScore = scores.get("home_score");
+//        this.awayScore = scores.get("away_score");
+//        this.htScore = scores.get("ht_score");
+//        this.ftScore = scores.get("ft_score");
+//        this.etScore = scores.get("et_score");
+//        this.psScore = scores.get("ps_score");
+//    }
 }

@@ -13,9 +13,9 @@ import java.util.Map;
 @Getter
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class FixturesResponseDTO {
+public class FifaFixturesResponseDTO {
     @JsonProperty("data")
-    private List<FixtureDTO> fixtureDTOS = null;
+    private List<FifaFixtureDTO> fifaFixtureDTOS = null;
 
     private String requestsLeft;
 

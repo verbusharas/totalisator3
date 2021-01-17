@@ -2,7 +2,7 @@ package lt.verbus.totalisator.service;
 
 
 import lt.verbus.totalisator.integration.SoccersApi;
-import lt.verbus.totalisator.service.dto.FixturesResponseDTO;
+import lt.verbus.totalisator.service.dto.FifaFixturesResponseDTO;
 import org.springframework.stereotype.Service;
 
 
@@ -17,7 +17,7 @@ public class FifaFixtureService {
         this.soccersApi = soccersApi;
     }
 
-    public FixturesResponseDTO getFifaFixturesByDate(String date) {
+    public FifaFixturesResponseDTO getFifaFixturesByDate(String date) {
         return soccersApi.getFixturesByDate(date);
     }
 
