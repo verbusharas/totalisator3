@@ -3,6 +3,7 @@ import FixtureRegistration from "../../pages/FixtureRegistration/FixtureRegistra
 import About from "../../pages/About/About";
 import Totalisator from "../../pages/Totalisator/Totalisator"
 import "./content.css";
+import FixtureRegistrationNew from "../../pages/FixtureRegistration/FixtureRegistrationNew";
 
 export default () => (
     <main className="content-container">
@@ -12,6 +13,9 @@ export default () => (
             </Route>
             <Route exact path="/add-fixtures">
                 <FixtureRegistration/>
+            </Route>
+            <Route exact path="/add-fixtures-new">
+                <FixtureRegistrationNew/>
             </Route>
             <Route exact path="/about">
                 <About/>
