@@ -6,3 +6,4 @@ export const fetchMatches = () => HTTP.get("/match");
 export const fetchManagerPendingMatches = () => HTTP.get("/match/pending");
 export const fetchManagerFinishedMatches = () => HTTP.get("/match/finished");
 export const saveAsMatch = (match) => HTTP.post("/match", match);
+export const saveUser = (user) => HTTP.post("/user", user);
