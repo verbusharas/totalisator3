@@ -31,8 +31,7 @@ export default ({countdownTo}) => {
     Object.keys(timeLeft).forEach(
         (timeMeasurementUnit) => {
         if (!timeLeft[timeMeasurementUnit]) {return;}
-        timerComponents.push(<span>{timeLeft[timeMeasurementUnit]} {timeMeasurementUnit}{" "}</span>
-        );
+        timerComponents.push(<span key={Math.random() + countdownTo}>{timeLeft[timeMeasurementUnit]} {timeMeasurementUnit}{" "}</span>);
     });
 
     return (
