@@ -1,17 +1,27 @@
 import {Switch, Route} from "react-router-dom";
 import About from "../../pages/About/About";
 import "./content.css";
-import AddFixtures from "../../pages/AddFixtures/AddFixtures";
+import HomePage from "../../pages/HomePage/HomePage";
+import UserRegisterPage from "../../pages/UserRegisterPage/UserRegisterPage";
+import ManageMatchesPage from "../../pages/Manage/ManageMatchesPage";
+import TotalisatorOverviewPage from "../../pages/TotalisatorOverviewPage/TotalisatorOverviewPage";
 
 export default () => (
-    <main className="content-container">
-        <Switch>
-            <Route exact path="/add-fixtures-new">
-                <AddFixtures/>
-            </Route>
-            <Route exact path="/about">
-                <About/>
-            </Route>
-        </Switch>
-    </main>
+            <Switch>
+                <Route exact path="/">
+                    <HomePage/>
+                </Route>
+                <Route exact path="/totalisator">
+                    <TotalisatorOverviewPage/>
+                </Route>
+                <Route exact path="/totalisator/manage/matches">
+                    <ManageMatchesPage/>
+                </Route>
+                <Route exact path="/about">
+                    <About/>
+                </Route>
+                <Route exact path="/user/register">
+                    <UserRegisterPage/>
+                </Route>
+            </Switch>
 )

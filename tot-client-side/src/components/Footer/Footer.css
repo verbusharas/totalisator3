@@ -1,4 +1,6 @@
-/*.footer {*/
-/*    position: absolute;*/
-/*    bottom: 1em;*/
-/*}*/
+footer {
+    color: var(--light-teal);
+    font-size: 9pt;
+    text-align: center;
+    margin-top: 30px;
+}
