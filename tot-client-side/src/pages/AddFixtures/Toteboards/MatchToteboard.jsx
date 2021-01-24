@@ -1,5 +1,3 @@
-import './panels.css';
-
 const MatchToteboard = ({fixture, handleClick}) => {
     return (
         <div className="panel">

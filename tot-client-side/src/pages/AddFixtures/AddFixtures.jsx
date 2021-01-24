@@ -5,7 +5,6 @@ import FifaFixtureToteboard from "./Toteboards/FixtureToteboard";
 import DateFnsUtils from "@date-io/date-fns";
 import {Grid} from "@material-ui/core";
 import {KeyboardDatePicker, MuiPickersUtilsProvider} from "@material-ui/pickers";
-import './add-fixtures.css';
 import MatchToteboard from "./Toteboards/MatchToteboard";
 
 

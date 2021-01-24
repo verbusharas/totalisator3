@@ -1,4 +1,3 @@
-import './panels.css';
 import {makeStyles} from "@material-ui/core";
 
 

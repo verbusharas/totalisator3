@@ -1,6 +1,3 @@
-import './feed.css';
-
-
 const Feed = ({title, list, panel, extras: createDatePicker}) => {
     return (
         <div className="feed">
