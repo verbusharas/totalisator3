@@ -21,7 +21,7 @@ import cx from "classnames";
 // - "user-pending"
 // - "user-finished"
 
-export default ({match, prediction, variant}) => {
+export default ({match, prediction, variant, handleClick}) => {
 
     const environment = variant.split("-")[0];
     const status = variant.split("-")[1];
@@ -71,14 +71,19 @@ export default ({match, prediction, variant}) => {
             return <Scoreboard isEmpty/>;
         }
 
-        if (variant === "fifa-finished" || variant === "manager-finished")
-            {
+        if (variant === "fifa-finished" || variant === "manager-finished") {
             return <Scoreboard
-                homeScore={match.scores.home_score}
-                awayScore={match.scores.away_score}
+                homeScore={match.homeScore}
+                awayScore={match.awayScore}
             />;
         }
 
+    }
+
+    const validateMatchStatus = () => {
+        if (match.statusName === undefined) {
+            match.statusName = "unknown"
+        }
     }
 
     return (
@@ -101,10 +106,12 @@ export default ({match, prediction, variant}) => {
             <ToteboardPayout scores={match.scores} payout={prediction.payout}/>}
             <div className="tote-board__footer">
                 {status === "not_predicted" && <ToteboardButton text="REGISTER PREDICTION"/>}
-                {variant === "fifa-listed" && <ToteboardButton text="ADD TO TOTALISATOR"/>}
+                {variant === "fifa-listed" && <ToteboardButton text="ADD TO TOTALISATOR" handleClick={handleClick}/>}
                 {variant === "fifa-finished" && <ToteboardButton text="FINISHED" disabled/>}
                 {variant === "fifa-added" && <ToteboardButton text="ADDED" disabled/>}
-                {variant === "fifa-invalid" && <ToteboardButton text={`STATUS: ${match.status_name.toUpperCase()}`} disabled/>}
+                {validateMatchStatus()}
+                {variant === "fifa-invalid" &&
+                <ToteboardButton text={`STATUS: ${match.statusName.toUpperCase()}`} disabled/>}
             </div>
         </article>
     )
