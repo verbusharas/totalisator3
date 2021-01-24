@@ -21,5 +21,14 @@ public class MatchService {
     public List<Match> getTotalisatorFixtures() {
         return matchRepository.findAll();
     }
+
+    public List<Match> getPendingMatches() {
+        return matchRepository.findMatchesByStatusName("Notstarted");
+    }
+
+    public List<Match> getFinishedMatches() {
+        return matchRepository.findMatchesByStatusName("Finished");
+    }
+
 }
 
