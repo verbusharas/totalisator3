@@ -1,0 +1,90 @@
+.feed--fifa {
+  background-color: var(--medium-teal);
+}
+
+.feed--fifa .feed__title {
+  color: var(--white-blue);
+}
+
+.feed--fifa .feed__description {
+  color: var(--white-blue);
+}
+
+/* change to datepicker style */
+.feed--fifa input {
+  height: 30px;
+  border: none;
+  background-color: var(--white-blue);
+}
+
+/* FIFA TOTE BOARDS */
+
+.feed--fifa .tote-board {
+  padding-bottom: 5px;
+  border: 1px solid var(--white-blue);
+}
+
+.feed--fifa .tote-board:hover {
+  box-shadow: none;
+}
+
+.feed--fifa .tote-board__header p {
+  color: var(--white-blue);
+  margin-bottom: 20px;
+}
+
+.feed--fifa .tote-board__score-predict {
+  justify-content: center;
+  color: var(--white-blue);
+}
+
+.feed--fifa .tote-board__score-predict input {
+  height:50px;
+}
+
+
+.feed--fifa .tote-board__name p {
+  color: var(--white-blue);
+}
+
+.feed--fifa .tote-board__heraldics span {
+  color: var(--white-blue);
+}
+
+.feed--fifa .tote-board__button {
+  margin-top: 25px;
+  color: var(--white-blue);
+  font-weight: bold;
+}
+
+.feed--fifa .tote-board__button:hover {
+  /* NEUMORPHISM */
+  /* box-shadow: 4px 4px 4px 1px #285853, -5px -5px 5px 1px #3a8079; */
+  box-shadow: none;
+  border: 1px solid var(--white-blue);
+}
+
+.feed--fifa .tote-board__button:disabled{
+  border: none;
+  cursor: unset;
+}
+
+
+.tote-board--disabled .tote-board__header p,
+.tote-board--disabled .tote-board__name p,
+.tote-board--disabled .tote-board__heraldics span,
+.tote-board--disabled .tote-board__score-predict h2,
+.tote-board--disabled .tote-board__button {
+  color: var(--light-teal);
+}
+
+.tote-board--disabled .tote-board__score-predict input {
+  background-color: transparent;
+  color: var(--light-teal);
+  border: 1px solid var(--light-teal);
+  margin: 5px;
+}
+
+.tote-board--disabled.tote-board {
+  border: 1px solid var(--light-teal);
+}

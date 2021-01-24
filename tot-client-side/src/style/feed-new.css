@@ -1,0 +1,47 @@
+/* FEED - NOT YET PREDICTED */ 
+  .feed--not-predicted {
+    background: radial-gradient(
+      circle,
+      rgba(34, 30, 31, 1) 1%,
+      rgba(26, 58, 55, 1) 90%
+    );
+  }
+
+  .feed--not-predicted .feed__title {
+    color: var(--light-teal);
+    margin-bottom: 50px;
+  }
+  
+  /* FEED - NOT YET PREDICTED - TOTE BOARD */
+  .feed--not-predicted .tote-board {
+    background-color: var(--dark-teal);
+  }
+ 
+  .feed--not-predicted .tote-board__header p {
+    color: var(--light-teal);
+  }
+  
+  .feed--not-predicted .tote-board__label {
+    color: var(--white-blue);
+  }
+  
+  .feed--not-predicted .tote-board__score-predict input {
+    background-color: var(--white-blue);
+  }
+  
+  .feed--not-predicted .tote-board__score-predict input:focus {
+    outline: none;
+    background-color: var(--yellow);
+  }
+  
+  .feed--not-predicted .tote-board__name p {
+    color: var(--white-blue);
+  }
+  
+  .feed--not-predicted .tote-board__heraldics span {
+    color: var(--yellow);
+  }
+  
+  .feed--not-predicted .tote-board__button {
+    color: var(--yellow);
+  }

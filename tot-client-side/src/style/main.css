@@ -1,0 +1,58 @@
+@import "colors.css";
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap");
+@import "header.css";
+@import "default.css";
+@import "tote-board.css";
+@import "feed-new.css";
+@import "standings.css";
+@import "feed-pending.css";
+@import "feed-history.css";
+@import "feed-fifa.css";
+@import "feed-added.css";
+@import "feed-finished.css";
+@import "parallex.css";
+
+
+body {
+  background-color: var(--black-teal);
+  font-family: "Montserrat", sans-serif;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+section {
+  width: 100%;
+}
+
+.feed {
+  box-sizing: border-box;
+  padding: 20px 50px 50px 50px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+  
+.feed__title {
+  width: 100%;
+  font-size: 20pt;
+  font-weight: normal;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+.feed__description {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.feed__description p {
+  width: 40%;
+  text-align: center;
+}
+
+

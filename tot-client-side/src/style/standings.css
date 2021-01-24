@@ -1,0 +1,61 @@
+
+/* STANDINGS SECTION */
+
+.overview {
+  /*position: absolute;*/
+  /*z-index: 10;*/
+    background-color: var(--black-teal);
+    padding-top: 130px;
+    background-color: var(--black-teal);
+    /* background-image: url("../../bg-img/feet1-mid.png");
+    background-size: 800px; */
+    background-position: bottom -20px right -100px;
+    background-repeat: no-repeat;
+  }
+  
+  .overview__title {
+    /*position: absolute;*/
+    /*z-index: 10;*/
+    color: var(--white-blue);
+    text-align: center;
+    width: 100%;
+    font-size: 20pt;
+    font-weight: normal;
+    top: 100px;
+  }
+
+  
+  .overview__container {
+    /*position: absolute;*/
+    /*z-index: 10;*/
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    margin-right: 300px;
+  }
+  
+  .rules {
+    width: 30%;
+    margin-left: 50px;
+    color: var(--white-blue);
+    font-size: 10pt;
+  }
+  
+  .rules p {
+    margin: 0;
+  }
+  
+  .standings__player {
+    padding: 7px;
+    text-align: right;
+    color: var(--white-blue);
+  }
+  
+  .standings__points {
+    color: var(--yellow);
+  }
+  
+  .standings__player--highlighted,
+  .standings__points--highlighted {
+    font-weight: bold;
+  }

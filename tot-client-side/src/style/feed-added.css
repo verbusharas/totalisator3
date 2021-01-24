@@ -1,0 +1,48 @@
+.feed--added {
+  background-color: var(--black-teal);
+}
+
+.feed--added .feed__title {
+  color: var(--light-teal);
+}
+
+.feed--added .feed__description {
+  color: var(--white-blue);
+}
+
+.feed--added input {
+  height: 30px;
+  border: none;
+  background-color: var(--white-blue);
+}
+
+.feed--added .tote-board {
+  background-color: var(--dark-teal);
+}
+
+.feed--added .tote-board__header p {
+  color: var(--light-teal);
+  margin-bottom: 20px;
+}
+
+.feed--added .tote-board__score-predict {
+  justify-content: center;
+  color: var(--white-blue);
+}
+
+.feed--added .tote-board__name p {
+  color: var(--white-blue);
+}
+
+.feed--added .tote-board__heraldics span {
+  color: var(--white-blue);
+}
+
+.feed--added .tote-board__incentives {
+  margin-bottom: 20px;
+}
+
+
+
+
+

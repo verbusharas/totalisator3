@@ -1,0 +1,170 @@
+.tote-board {
+  width: 450px;
+  margin: 30px;
+  color: aquamarine;
+  background-color: transparent;
+  border-radius: 10px;
+  transition-duration: 0.4s;
+  /* background-color: */
+  /* padding-bottom: */
+  /* border: */
+  /* backdrop-filter: */
+}
+
+.tote-board:hover {
+  box-shadow: 0px 0px 30px 0 #221e1f;
+}
+
+.tote-board__header p {
+  font-size: 12pt;
+  margin: 10px 0 0 0;
+  text-align: center;
+}
+
+.tote-board__main {
+  display: flex;
+  justify-content: center;
+}
+
+.tote-board__label {
+  margin: 5px 0px 10px 0px;
+  font-size: 10pt;
+  text-align: center;
+}
+
+.tote-board__label p {
+  margin: 5px 0px 10px 0px;
+}
+
+.tote-board__crest img {
+  width: 60px;
+  height: 60px;
+  margin: 5px 20px;
+}
+
+.tote-board__score-predict {
+  width: 80px;
+  display: flex;
+  justify-content: space-between;
+  margin: 0px 20px 0px 20px;
+}
+
+.tote-board__score-predict input {
+  border: none;
+  height: 50px;
+  width: 25px;
+  font-weight: bold;
+  font-size: 18pt;
+  text-align: center;
+  /* height:  */
+  /* background-color: */
+  /* border: */
+  /* color: */
+}
+
+.tote-board__team {
+  width: 40%;
+}
+
+.tote-board__name p {
+  font-size: 12pt;
+  margin: 0;
+}
+
+.tote-board__team--away {
+  text-align: left;
+}
+
+.tote-board__team--home {
+  text-align: right;
+}
+
+.tote-board__heraldics {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.tote-board__heraldics span {
+  display: flex;
+  font-size: 20pt;
+  font-weight: bold;
+  margin: 0;
+}
+
+.tote-board__incentives {
+  margin-top: -30px;
+  text-align: center;
+  color: var(--light-teal);
+  font-size: 10pt;
+}
+
+.tote-board__incentives p {
+  margin: 5px;
+  /* margin: */
+}
+
+.tote-board__incentives--highlighted {
+  color: var(--white-blue);
+}
+
+.tote-board__incentives--link {
+  text-decoration: none;
+  color: var(--white-blue);
+}
+
+.tote-board__incentives--link:hover {
+  border-bottom: 1px solid var(--light-teal);
+}
+
+.tote-board__footer {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.tote-board__error {
+  margin: -30px 5px 5px 5px;
+  padding: 5px;
+  font-size: 10pt;
+  color: var(--yellow);
+  text-align: center;
+}
+
+.tote-board__error p {
+  background-color: var(--light-teal);
+}
+
+.tote-board__button {
+  height: 35px;
+  width: 250px;
+  padding: 0 30px 0 30px;
+  margin: 10px 0px 20px 0px;
+  border-radius: 5px;
+  border: none;
+  background-color: transparent;
+  font-size: 11pt;
+  transition-duration: 0.3s;
+}
+
+.tote-board__button:hover {
+  /* NEUMORPHISM */
+  box-shadow: 5px 5px 5px 0 #221e1f, -5px -5px 5px 0 #1f4642;
+  cursor: pointer;
+}
+
+.tote-board__del-button {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.tote-board__del-button a {
+  text-decoration: none;
+  color: var(--white-blue);
+  font-weight: bold;
+  margin: 5px 10px -15px;
+}
+
+.tote-board__del-button a:hover {
+  color: var(--yellow);
+}

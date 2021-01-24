@@ -1,0 +1,51 @@
+.feed--finished {
+    background-color: var(--black-teal);
+  }
+  
+  .feed--finished .feed__title {
+    color: var(--light-teal);
+  }
+  
+  .feed--finished .feed__description {
+    color: var(--white-blue);
+  }
+
+/* FINISHED TOTE BOARDS */
+
+.feed--finished .tote-board {
+    padding-bottom: 5px;
+    border: 1px solid var(--light-teal);
+  }
+
+  .feed--finished .tote-board:hover {
+    box-shadow: none;
+  }
+
+  .feed--finished .tote-board__header p {
+    color: var(--light-teal);
+    margin-bottom: 20px;
+  }
+
+  .feed--finished .tote-board__score-predict {
+    justify-content: center;
+    color: var(--light-teal);
+  }
+  
+  .feed--finished .tote-board__name p {
+    color: var(--light-teal);
+  }
+
+  .feed--finished .tote-board__heraldics span {
+    color: var(--light-teal);
+  }
+  
+  .feed--finished .tote-board__incentives {
+      margin: 10px;
+  }
+
+  .feed--finished .tote-board__score-predict input {
+    background-color: var(--dark-teal);
+    border: 1px solid var(--light-teal);
+    color: var(--light-teal);
+    margin: 0 10px 0 10px;
+  }
