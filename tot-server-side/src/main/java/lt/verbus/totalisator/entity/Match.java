@@ -35,5 +35,10 @@ public class Match {
     @OneToOne(cascade = CascadeType.ALL)
     private Team awayTeam;
 
-    private String ftScore;
+    private String homeScore;
+    
+    private String awayScore;
+
+    private String statusName;
+
 }
