@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -28,5 +29,15 @@ public class MatchController {
     @GetMapping
     private List<Match> getMatches() {
         return matchService.getTotalisatorFixtures();
+    }
+
+    @GetMapping("/pending")
+    private List<Match> getPendingMatches() {
+        return matchService.getPendingMatches();
+    }
+
+    @GetMapping("/finished")
+    private List<Match> getFinishedMatches() {
+        return matchService.getFinishedMatches();
     }
 }
