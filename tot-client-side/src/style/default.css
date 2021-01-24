@@ -1,39 +1,39 @@
 .default {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  background-color: var(--black-teal);
-  width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background-color: var(--black-teal);
+    width: 100%;
 }
 
 .default .text-section {
     color: var(--white-blue);
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
 }
 
 .text-section__article {
-  width: 80%;
+    width: 80%;
 }
 
 .text-section__article h2 {
-  font-weight: normal;
-  margin-top: 70px;
-  margin-bottom: 40px;
+    font-weight: normal;
+    margin-top: 70px;
+    margin-bottom: 40px;
 }
 
 .text-section__description {
-  padding-left: 100px;
+    padding-left: 100px;
 }
 
 .default a {
-  color: var(--light-teal);
-  text-decoration: none;
+    color: var(--light-teal);
+    text-decoration: none;
 }
 
 .default a:hover {
-  text-decoration: underline;
+    text-decoration: underline;
 }
 
 
@@ -43,7 +43,8 @@
     margin-bottom: 20px;
     margin-top: 50px;
 }
-.text-section__article--secondary 
+
+.text-section__article--secondary
 .text-section__description {
     margin-bottom: 50px;
 }
@@ -74,9 +75,15 @@
 }
 
 .form-section__article input {
+    color: var(--white-blue);
+    padding-left: 15px;
     height: 40px;
     background-color: transparent;
     border: 1px solid var(--light-teal);
+}
+
+::placeholder {
+    color: var(--medium-teal);
 }
 
 .form-section__article label {
@@ -93,22 +100,39 @@
     font-family: "Montserrat", sans-serif;
     font-size: 12pt;
     cursor: pointer;
- 
-  }
-  .form-section .form-section__button {
+}
+
+.form-section .form-section__button {
     margin-top: 40px;
-  }
+}
 
-  .form-section__button:hover {
+
+.form-section__button:hover {
     background-color: var(--medium-teal);
-  }
+}
 
-  .form-section__undertext {
+.form-section__undertext {
     font-size: 10pt;
-  }
+}
 
-  .form-section .form-section__undertext {
+.form-section .form-section__undertext {
     color: var(--white-blue);
     margin-bottom: 50px;
-  }
+}
+
+.form-section__field-error {
+    margin-top: 8px;
+    margin-bottom: 0;
+    font-size: 9pt;
+    color: var(--yellow);
+    text-align: right;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active  {
+    -webkit-box-shadow: 0 0 0 30px var(--black-brown) inset;
+    -webkit-text-fill-color: var(--white-blue);
+}
   
