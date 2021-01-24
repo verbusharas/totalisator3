@@ -20,9 +20,7 @@ export default () => {
     const [addingIds, setAddingIds] = useState([]);
     const [managerPendingMatches, setManagerPendingMatches] = useState([]);
     const [managerFinishedMatches, setManagerFinishedMatches] = useState([])
-    // const [totalisatorMatches, setTotalisatorMatches] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-
 
     const dateToString = date => date.toISOString().split('T')[0];
 
