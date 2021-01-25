@@ -13,14 +13,6 @@ function App() {
         <Provider store={store}>
             <Router>
                 <Header/>
-                <h1
-                    style={{color:"white"}}
-                    onClick={()=>store.dispatch(login({name:"Tomukas", surname:"Tomukaitis"}))}>
-                    Login Tomas</h1>
-                <h1
-                    style={{color:"white"}}
-                    onClick={()=>store.dispatch(logout())}>
-                    Logout</h1>
                 <Content/>
                 <Footer/>
             </Router>

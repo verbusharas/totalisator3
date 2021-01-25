@@ -13,7 +13,9 @@ const userSlice = createSlice({
 
 export default () => {
     return configureStore({
-        reducer: userSlice.reducer
+        reducer: {
+            user:userSlice.reducer
+        }
     })
 }
 
