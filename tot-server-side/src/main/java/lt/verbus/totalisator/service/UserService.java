@@ -28,4 +28,8 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    public List<User> getUsersByPartialName(String partialName) {
+        return userRepository.findUsersByNameContainingIgnoreCase(partialName);
+    }
+
 }

@@ -3,13 +3,7 @@ package lt.verbus.totalisator.controller;
 import lt.verbus.totalisator.entity.User;
 import lt.verbus.totalisator.service.UserService;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -32,6 +26,11 @@ public class UserController {
     @GetMapping("/{id}")
     public User getUserById(@PathVariable long id) {
         return userService.getUserById(id);
+    }
+
+    @GetMapping("find")
+    public List<User> getUsersByPartialName(@RequestParam String name) {
+        return userService.getUsersByPartialName(name);
     }
 
     @PostMapping
