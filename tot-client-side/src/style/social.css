@@ -1,0 +1,36 @@
+.found-users{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.found-user{
+    padding: 5px 20px 5px 20px;
+    margin: 5px;
+    display: flex;
+    width: 200px;
+
+}
+
+.found-user p{
+ margin: 0;
+}
+
+.found-user__add {
+    width: 45px;
+    height: 45px;
+}
+
+.found-user__add img{
+    width: 40px;
+    height: 40px;
+}
+
+.found-user__add img:hover {
+    filter: brightness(2000%);
+    cursor: pointer;
+}
+
+.found-user__info p{
+    font-size: 10pt;
+    margin: 10px;
+}

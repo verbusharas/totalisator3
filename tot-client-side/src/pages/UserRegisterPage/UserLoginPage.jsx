@@ -9,6 +9,8 @@ export default () => {
         return null;
     }
 
+
+
     const validationSchema = Yup.object().shape({
             username: Yup
                 .string()

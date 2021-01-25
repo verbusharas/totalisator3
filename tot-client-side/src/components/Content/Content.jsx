@@ -6,6 +6,7 @@ import UserRegisterPage from "../../pages/UserRegisterPage/UserRegisterPage";
 import ManageMatchesPage from "../../pages/Manage/ManageMatchesPage";
 import TotalisatorOverviewPage from "../../pages/TotalisatorOverviewPage/TotalisatorOverviewPage";
 import UserLoginPage from "../../pages/UserRegisterPage/UserLoginPage";
+import UserFriendsPage from "../../pages/UserFriendsPage/UserFriendsPage";
 
 export default () => (
             <Switch>
@@ -26,6 +27,9 @@ export default () => (
                 </Route>
                 <Route exact path="/user/login">
                     <UserLoginPage/>
+                </Route>
+                <Route exact path="/user/friends">
+                    <UserFriendsPage/>
                 </Route>
             </Switch>
 )
