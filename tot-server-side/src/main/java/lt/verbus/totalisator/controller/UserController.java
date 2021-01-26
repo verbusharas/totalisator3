@@ -56,10 +56,10 @@ public class UserController {
         return friendshipService.createFriendRequest(requesterId, receiverId);
     }
 
-    @PostMapping("/{receiverId}/friends/accept/{requesterId}")
+    @PostMapping("/{accepterId}/friends/accept/{requesterId}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public FriendshipDTO acceptFriendRequest(@PathVariable long requesterId, @PathVariable long receiverId) {
-        return friendshipService.acceptFriendRequest(receiverId, requesterId);
+    public FriendshipDTO acceptFriendRequest(@PathVariable long requesterId, @PathVariable long accepterId) {
+        return friendshipService.acceptFriendRequest(accepterId, requesterId);
     }
 
 }
