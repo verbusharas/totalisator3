@@ -42,6 +42,11 @@
     margin: 10px;
 }
 
+.found-user__info {
+    color: var(--light-teal);
+    font-size: 9pt;
+}
+
 .found-user__link:hover {
     text-decoration: underline;
     cursor: pointer;

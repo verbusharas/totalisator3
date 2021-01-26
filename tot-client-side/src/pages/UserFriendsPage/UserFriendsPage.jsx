@@ -1,26 +1,33 @@
 import {Field, Form, Formik} from "formik";
 import {useEffect, useState} from "react";
-import {findFriendshipsByUserId, findUsersByPartialName} from "../../api/soccersApi";
+import {createFriendRequest, findFriendshipsByUserId, findUsersByPartialName} from "../../api/soccersApi";
 import FoundPersonCard from "./FoundPersonCard";
 import {connect} from "react-redux";
 import FriendCard from "./FriendCard";
 
- const UserFriendsPage = ({loggedInUserId}) => {
+const UserFriendsPage = ({loggedInUserId}) => {
 
     const [partialName, setPartialName] = useState("");
     const [foundUsers, setFoundUsers] = useState({typed: "", users: []});
     const [foundFriendships, setFoundFriendships] = useState([]);
 
-    useEffect(()=>{
+
+    const loadFriends = () => {
         findFriendshipsByUserId(loggedInUserId).then(res => {
             setFoundFriendships(res.data);
+            console.log("CURRENT FRIENDSHIPS FROM API (res.data): ", res.data)
         }).catch(err => {
             console.log("Returned -> Error:", err.response.data)
         });
+    }
+
+    useEffect(() => {
+        loadFriends();
     }, [])
 
 
     const handleChange = (e) => {
+        loadFriends();
         let value = e.target.value;
         setPartialName(value);
         if (value.length > 2) {
@@ -32,13 +39,32 @@ import FriendCard from "./FriendCard";
         }
     }
 
-    const renderUser = (user) => {
-        return <FoundPersonCard key={"l" + user.id} user={user} typedPart={foundUsers.typed}/>
+
+    const sendFriendRequest = (receivingUser) => {
+        createFriendRequest(loggedInUserId, receivingUser.id)
+            .then(loadFriends())
     }
 
-     const renderFriendRequest = (user) => {
-         return <FriendCard key={"fr" + user.id} user={user} />
-     }
+    const renderUser = (user) => {
+
+        const requestedFriendIds = foundFriendships.map(f=>f.receiver.id);
+        const isRequested = requestedFriendIds.includes(user.id);
+
+        return <FoundPersonCard
+            key={"l" + user.id}
+            user={user}
+            typedPart={foundUsers.typed}
+            isRequested={isRequested}
+        />
+    }
+
+    const renderFriendRequest = (requester) => {
+        if (requester.id !== loggedInUserId) {
+            return <FriendCard
+                key={"fr" + requester.id}
+                user={requester}/>
+        }
+    }
 
     return (
         <main className="default">
@@ -66,8 +92,10 @@ import FriendCard from "./FriendCard";
                 <article className="form-section__article">
                     <h2>FRIENDS</h2>
                     <p>Received friend requests waiting for your action:</p>
-                    {foundFriendships.map((requester)=>renderFriendRequest(requester))}
+                    <div className="found-users">
+                    {foundFriendships.map((f) => renderFriendRequest(f.requester))}
                     <p>Friend list:</p>
+                    </div>
                 </article>
 
             </section>
@@ -75,7 +103,7 @@ import FriendCard from "./FriendCard";
     )
 }
 
-const mapStateToProps = ({ user }) => ({
+const mapStateToProps = ({user}) => ({
     loggedInUserId: user.id,
 })
 
