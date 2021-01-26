@@ -7,30 +7,42 @@
     padding: 5px 20px 5px 20px;
     margin: 5px;
     display: flex;
-    width: 200px;
-
+    width: 300px;
+    justify-items: center;
+    align-items: center;
 }
 
 .found-user p{
  margin: 0;
 }
 
-.found-user__add {
+.found-user__image-container {
     width: 45px;
     height: 45px;
 }
 
-.found-user__add img{
+.found-user__image-container img{
     width: 40px;
     height: 40px;
 }
 
-.found-user__add img:hover {
+.found-user__image-container img:hover {
     filter: brightness(2000%);
     cursor: pointer;
 }
 
-.found-user__info p{
+.found-user__info-container p{
     font-size: 10pt;
     margin: 10px;
+}
+
+.found-user__link {
+    color: var(--white-blue);
+    font-size: 9pt;
+    margin: 10px;
+}
+
+.found-user__link:hover {
+    text-decoration: underline;
+    cursor: pointer;
 }

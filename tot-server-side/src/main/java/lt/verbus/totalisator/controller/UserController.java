@@ -50,10 +50,16 @@ public class UserController {
         return userService.saveUser(user);
     }
 
-    @PostMapping("/{requesterId}/friends/add/{receiverId}")
+    @PostMapping("/{requesterId}/friends/request/{receiverId}")
     @ResponseStatus(HttpStatus.CREATED)
-    public FriendshipDTO createFriendship(@PathVariable long requesterId, @PathVariable long receiverId) {
-        return friendshipService.createFriendship(requesterId, receiverId);
+    public FriendshipDTO createFriendRequest(@PathVariable long requesterId, @PathVariable long receiverId) {
+        return friendshipService.createFriendRequest(requesterId, receiverId);
+    }
+
+    @PostMapping("/{receiverId}/friends/accept/{requesterId}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public FriendshipDTO acceptFriendRequest(@PathVariable long requesterId, @PathVariable long receiverId) {
+        return friendshipService.acceptFriendRequest(receiverId, requesterId);
     }
 
 }

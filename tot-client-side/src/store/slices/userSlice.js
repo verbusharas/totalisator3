@@ -1,8 +1,8 @@
-import {configureStore, createSlice} from "@reduxjs/toolkit";
+import {createSlice} from "@reduxjs/toolkit";
 
-const anonymousUser = {name:"_Anonymous", surname:"_Anonymous"}
+const anonymousUser = {id:17}
 
-const userSlice = createSlice({
+export const userSlice = createSlice({
     name: 'user',
     initialState: anonymousUser,
     reducers: {
@@ -11,13 +11,4 @@ const userSlice = createSlice({
     }
 })
 
-export default () => {
-    return configureStore({
-        reducer: {
-            user:userSlice.reducer
-        }
-    })
-}
-
 export const {login, logout} = userSlice.actions
-export const {user} = userSlice.reducer

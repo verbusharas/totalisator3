@@ -60,13 +60,15 @@
     width: 70%;
 }
 
+
 .form-section h2 {
     font-weight: normal;
     color: var(--white-blue);
 }
 
+/*cia*/
 .form-section__article {
-    width: 50%;
+    width: 80%;
 }
 
 .form-section__article form {
@@ -80,6 +82,7 @@
     height: 40px;
     background-color: transparent;
     border: 1px solid var(--light-teal);
+    max-width: 500px;
 }
 
 ::placeholder {

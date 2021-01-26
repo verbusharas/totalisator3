@@ -3,7 +3,7 @@ import Header from "./components/Header";
 import Content from "./components/Content/Content";
 import Footer from "./components/Footer/Footer";
 import {Provider} from "react-redux";
-import configStore, {login, logout} from "./store/slices/userSlice";
+import configStore from "./store/";
 
 const store = configStore();
 

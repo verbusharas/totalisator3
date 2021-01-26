@@ -4,7 +4,7 @@ import lt.verbus.totalisator.entity.Friendship;
 import lt.verbus.totalisator.entity.User;
 import lt.verbus.totalisator.repository.FriendshipRepository;
 import lt.verbus.totalisator.service.dto.FriendshipDTO;
-import lt.verbus.totalisator.service.dto.UserDTO;
+import lt.verbus.totalisator.service.exception.EntityNotFoundException;
 import lt.verbus.totalisator.util.FriendshipMapper;
 import org.springframework.stereotype.Service;
 
@@ -24,20 +24,24 @@ public class FriendshipService {
         this.friendshipMapper = friendshipMapper;
     }
 
-    public FriendshipDTO createFriendship(long requesterId, long receiverId){
+    public FriendshipDTO createFriendRequest(long requesterId, long receiverId){
         User requester =  userService.getUserById(requesterId);
         User receiver =  userService.getUserById(receiverId);
         Friendship friendship = new Friendship();
         friendship.setRequester(requester);
         friendship.setReceiver(receiver);
-        friendship.setIsAccepted(true);
+        friendship.setIsAccepted(false);
         Friendship savedFriendship = friendshipRepository.save(friendship);
         return friendshipMapper.convertFriendshipEntityToDTO(savedFriendship);
     }
 
+    public FriendshipDTO acceptFriendRequest(long receiverId, long requesterId) {
+        Friendship friendship = friendshipRepository.findByReceiverIdAndRequesterId(receiverId, requesterId).orElseThrow(()->new EntityNotFoundException(receiverId));
+        friendship.setIsAccepted(true);
+        return friendshipMapper.convertFriendshipEntityToDTO(friendshipRepository.save(friendship));
+    }
 
     public List<FriendshipDTO> getFriendshipsByUserId(long id) {
-
         return friendshipRepository.findAllByUserId(id).stream().map(friendshipMapper::convertFriendshipEntityToDTO).collect(Collectors.toList());
     }
 }

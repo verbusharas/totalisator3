@@ -2,10 +2,13 @@ import Toteboard from "../../components/Toteboards/Toteboard";
 import matches from "../../components/Toteboards/match";
 import Standings from "../../components/Standings/Standings";
 import Rules from "../../components/Standings/Rules";
+import {login, logout} from "../../store/slices/userSlice";
+import {connect} from "react-redux";
 
-export default () => {
+const TotalisatorOverviewPage = ({loggedInUserId}) => {
     return (
         <main>
+            {/*<h1>{loggedInUserId}</h1>*/}
             <section className="feed feed--not-predicted">
                 <h2 className="feed__title">MATCHES WAITING FOR YOUR PREDICTION</h2>
                 <Toteboard variant="user-not_predicted" match={matches[0]}/>
@@ -33,3 +36,10 @@ export default () => {
         </main>
     )
 }
+
+const mapStateToProps = ({ user }) => ({
+    loggedInUserId: user.id
+})
+
+
+export default connect(mapStateToProps, null)(TotalisatorOverviewPage);
