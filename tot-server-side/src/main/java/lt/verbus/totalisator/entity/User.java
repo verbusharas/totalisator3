@@ -3,15 +3,12 @@ package lt.verbus.totalisator.entity;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -30,10 +27,24 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    @Transient
-    private String confirmPassword;
-
     @Size(min = 3, max = 30)
     @Column(nullable = false)
     private String name;
+
+
+    @OneToMany(mappedBy = "requester", cascade = CascadeType.ALL)
+    private Set<Friendship> friendships;
+
+//    @ManyToMany(fetch = FetchType.EAGER)
+//    @JoinTable(
+//            name="friends",
+//            joinColumns = {@JoinColumn(name = "user1_id")},
+//            inverseJoinColumns = {@JoinColumn(name ="user2_id")}
+//    )
+//    private List<Long> friends;
+
+//    @ManyToMany
+//    private List<User> receivedFriendRequests;
+
+
 }
