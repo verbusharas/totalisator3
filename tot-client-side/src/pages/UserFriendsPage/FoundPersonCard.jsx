@@ -18,6 +18,7 @@ const FoundPersonCard = ({user, typedPart, isRequested, loggedInUserId}) => {
 
     const notTypedParts = user.name.toLowerCase().split(typedPart);
 
+    // Splits person name into parts and highlights the "searched part"
     const splitUser = [<span key={user.id + "typed" + 0}
                              style={{color: "var(--light-teal)"}}>{(notTypedParts[0].toUpperCase())}</span>];
     for (let i = 1; i <= notTypedParts.length - 1; i++) {
