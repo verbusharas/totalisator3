@@ -15,12 +15,11 @@ const Header = ({login, logout, loggedInUsername, loggedInUserId}) => {
     const handleclick=(id)=>{
         findUserById(id).then(res => {
             dispatch(login(res.data));
+            console.log("Logging in user with id: ", id)
         }).catch(err => {
             console.log("Returned -> Error:", err.response.data)
         });
     }
-
-
 
     return (
         <header>

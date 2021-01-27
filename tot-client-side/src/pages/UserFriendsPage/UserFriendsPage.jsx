@@ -1,6 +1,11 @@
 import {Field, Form, Formik} from "formik";
 import {useEffect, useState} from "react";
-import {createFriendRequest, findFriendshipsByUserId, findUsersByPartialName} from "../../api/soccersApi";
+import {
+    acceptFriendRequest,
+    dismissFriendRequest,
+    findFriendshipsByUserId,
+    findUsersByPartialName
+} from "../../api/soccersApi";
 import FoundPersonCard from "./FoundPersonCard";
 import {connect} from "react-redux";
 import FriendCard from "./FriendCard";
@@ -10,7 +15,6 @@ const UserFriendsPage = ({loggedInUserId}) => {
     const [partialName, setPartialName] = useState("");
     const [foundUsers, setFoundUsers] = useState({typed: "", users: []});
     const [foundFriendships, setFoundFriendships] = useState([]);
-
 
     const loadFriends = () => {
         findFriendshipsByUserId(loggedInUserId).then(res => {
@@ -25,7 +29,6 @@ const UserFriendsPage = ({loggedInUserId}) => {
         loadFriends();
     }, [])
 
-
     const handleChange = (e) => {
         loadFriends();
         let value = e.target.value;
@@ -39,15 +42,25 @@ const UserFriendsPage = ({loggedInUserId}) => {
         }
     }
 
+    const handleFriendAccept = (friendship) => {
+        acceptFriendRequest(loggedInUserId, friendship.requester.id)
+            .then((res) => {
+                loadFriends();
+                console.log("Friend Request Accepted", res)
+            });
+    }
 
-    const sendFriendRequest = (receivingUser) => {
-        createFriendRequest(loggedInUserId, receivingUser.id)
-            .then(loadFriends())
+    const handleFriendDismiss = ({requester, receiver}) => {
+        dismissFriendRequest(requester.id, receiver.id)
+            .then((res) => {
+                loadFriends();
+                console.log("Friendship Deleted", res)
+            });
     }
 
     const renderUser = (user) => {
 
-        const requestedFriendIds = foundFriendships.map(f=>f.receiver.id);
+        const requestedFriendIds = foundFriendships.map(f => f.receiver.id);
         const isRequested = requestedFriendIds.includes(user.id);
 
         return <FoundPersonCard
@@ -58,12 +71,25 @@ const UserFriendsPage = ({loggedInUserId}) => {
         />
     }
 
-    const renderFriendRequest = (requester) => {
-        if (requester.id !== loggedInUserId) {
-            return <FriendCard
-                key={"fr" + requester.id}
-                user={requester}/>
+    const renderFriendRequest = (friendship) => {
+        // Show only incomming requests, not outgoing
+        if ((friendship.requester.id !== loggedInUserId) && !friendship.isAccepted) {
+            return <FriendCard key={"fr" + friendship.requester.id}
+                               user={friendship.requester}
+                               isRequest
+                               handleAccept={() => handleFriendAccept(friendship)}
+                               handleDismiss={() => handleFriendDismiss(friendship)}
+            />
         }
+    }
+
+    const renderFriend = (friendship) => {
+        // Regardless of who is requester/receiver render the one who is not the current user
+        const friend = (friendship.requester.id === loggedInUserId) ? friendship.receiver : friendship.requester;
+        return <FriendCard key={"f" + friend.id}
+                           user={friend}
+                           handleDismiss={() => handleFriendDismiss(friendship)}
+        />
     }
 
     return (
@@ -71,6 +97,18 @@ const UserFriendsPage = ({loggedInUserId}) => {
             <section className="graph-section">
             </section>
             <section className="form-section">
+
+                <article className="form-section__article">
+                    <h2>FRIEND REQUESTS</h2>
+                    <p>Received friend requests waiting for your action:</p>
+                    <div className="found-users">
+                        {foundFriendships.map((f) => renderFriendRequest(f))}
+                    </div>
+                    <h2>FRIENDS</h2>
+                    <div className="found-users">
+                        {foundFriendships.filter((f) => f.isAccepted).map((f) => renderFriend(f))}
+                    </div>
+                </article>
                 <article className="form-section__article">
                     <h2>FIND PEOPLE</h2>
                     <Formik initialValues={{name: ""}}>
@@ -89,15 +127,6 @@ const UserFriendsPage = ({loggedInUserId}) => {
                         }
                     </Formik>
                 </article>
-                <article className="form-section__article">
-                    <h2>FRIENDS</h2>
-                    <p>Received friend requests waiting for your action:</p>
-                    <div className="found-users">
-                    {foundFriendships.map((f) => renderFriendRequest(f.requester))}
-                    <p>Friend list:</p>
-                    </div>
-                </article>
-
             </section>
         </main>
     )
