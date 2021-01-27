@@ -1,5 +1,6 @@
 package lt.verbus.totalisator.service;
 
+import lt.verbus.totalisator.entity.Role;
 import lt.verbus.totalisator.entity.User;
 import lt.verbus.totalisator.repository.UserRepository;
 import lt.verbus.totalisator.service.dto.UserDTO;
@@ -10,6 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -31,7 +33,7 @@ public class UserService implements UserDetailsService {
         return userMapper.convertUserEntityToDTO(getUserById(id));
     }
 
-    protected User getUserById(Long id){
+    public User getUserById(Long id){
         return userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(id));
     }
 
@@ -46,7 +48,14 @@ public class UserService implements UserDetailsService {
 
     @Override
     public User loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findWithRolesByUsername(username).orElseThrow(()->new EntityNotFoundException("User not found"));
+        User user = new User();
+        user.setRoles(Set.of(new Role(1L, "USER")));
+        user.setUsername("user");
+        user.setPassword("{bcrypt}$2y$12$putkufw4WFK1XrZv1Za/jOdb1z.F.J9M37VidmaxAclCauk4HMdhm");
+        user.setId(99L);
+//        return user;
+
+        return userRepository.findWithRolesByUsername(username).orElseThrow(()->new UsernameNotFoundException("User not found"));
     }
 
 }

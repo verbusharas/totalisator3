@@ -1,19 +1,19 @@
 package lt.verbus.totalisator.controller;
 
-import lt.verbus.totalisator.entity.Friendship;
 import lt.verbus.totalisator.entity.User;
 import lt.verbus.totalisator.service.FriendshipService;
 import lt.verbus.totalisator.service.UserService;
 import lt.verbus.totalisator.service.dto.FriendshipDTO;
 import lt.verbus.totalisator.service.dto.UserDTO;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/user")
 public class UserController {
 
     private final UserService userService;
@@ -22,6 +22,12 @@ public class UserController {
     public UserController(UserService userService, FriendshipService friendshipService) {
         this.userService = userService;
         this.friendshipService = friendshipService;
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public User registerUser(@Valid @RequestBody User user) {
+        return userService.saveUser(user);
     }
 
     @GetMapping
@@ -44,12 +50,6 @@ public class UserController {
         return userService.getUsersByPartialName(name);
     }
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public User saveUser(@Valid @RequestBody User user) {
-        return userService.saveUser(user);
-    }
-
     @PostMapping("/{requesterId}/friends/request/{receiverId}")
     @ResponseStatus(HttpStatus.CREATED)
     public FriendshipDTO createFriendRequest(@PathVariable long requesterId, @PathVariable long receiverId) {
@@ -67,5 +67,6 @@ public class UserController {
     public void deleteFriendRequest(@PathVariable long userId, @PathVariable long deleteId) {
         friendshipService.deleteFriendRequest(userId, deleteId);
     }
+
 
 }
