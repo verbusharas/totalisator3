@@ -5,15 +5,16 @@ import Footer from "./components/Footer/Footer";
 import {Provider} from "react-redux";
 import store from "./store"
 
+
 function App() {
 
     return (
         <Provider store={store}>
-            <Router>
-                <Header/>
-                <Content/>
-                <Footer/>
-            </Router>
+                <Router>
+                    <Header/>
+                    <Content/>
+                    <Footer/>
+                </Router>
         </Provider>
     );
 }
