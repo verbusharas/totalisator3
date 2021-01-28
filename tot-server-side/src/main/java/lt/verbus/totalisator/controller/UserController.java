@@ -25,12 +25,12 @@ public class UserController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public User registerUser(@Valid @RequestBody User user) {
+    public UserDTO registerUser(@Valid @RequestBody User user) {
         return userService.saveUser(user);
     }
 
     @GetMapping
-    public List<User> getAllUsers() {
+    public List<UserDTO> getAllUsers() {
         return userService.getAllUsers();
     }
 

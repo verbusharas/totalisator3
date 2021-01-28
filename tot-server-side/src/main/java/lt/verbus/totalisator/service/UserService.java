@@ -3,8 +3,10 @@ package lt.verbus.totalisator.service;
 import lt.verbus.totalisator.entity.Role;
 import lt.verbus.totalisator.entity.User;
 import lt.verbus.totalisator.repository.UserRepository;
+import lt.verbus.totalisator.service.dto.PlayerDTO;
 import lt.verbus.totalisator.service.dto.UserDTO;
 import lt.verbus.totalisator.service.exception.EntityNotFoundException;
+import lt.verbus.totalisator.util.PlayerMapper;
 import lt.verbus.totalisator.util.UserMapper;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -25,8 +27,12 @@ public class UserService implements UserDetailsService {
         this.userMapper = userMapper;
     }
 
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
+    public List<UserDTO> getAllUsers() {
+        return userRepository
+                .findAll()
+                .stream()
+                .map(userMapper::convertUserEntityToDTO)
+                .collect(Collectors.toList());
     }
 
     public UserDTO getUserDTOById(Long id){
@@ -37,8 +43,9 @@ public class UserService implements UserDetailsService {
         return userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(id));
     }
 
-    public User saveUser(User user){
-        return userRepository.save(user);
+    public UserDTO saveUser(User user){
+        User savedUser = userRepository.save(user);
+        return userMapper.convertUserEntityToDTO(savedUser);
     }
 
     public List<UserDTO> getUsersByPartialName(String partialName) {
@@ -48,14 +55,11 @@ public class UserService implements UserDetailsService {
 
     @Override
     public User loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = new User();
-        user.setRoles(Set.of(new Role(1L, "USER")));
-        user.setUsername("user");
-        user.setPassword("{bcrypt}$2y$12$putkufw4WFK1XrZv1Za/jOdb1z.F.J9M37VidmaxAclCauk4HMdhm");
-        user.setId(99L);
-//        return user;
-
         return userRepository.findWithRolesByUsername(username).orElseThrow(()->new UsernameNotFoundException("User not found"));
     }
 
+//    public User getUserWithTotalisators(String username) {
+//        return userRepository.findWithTotalisatorsByUsername(username).orElseThrow(()->new UsernameNotFoundException("User not found"));
+////        return playerMapper.convertUserEntityToPlayerDTO(user);
+//    }
 }

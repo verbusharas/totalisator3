@@ -2,6 +2,7 @@ package lt.verbus.totalisator.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.util.List;
@@ -21,7 +22,12 @@ public class Totalisator {
 //    List<Match> matches;
 
     @ManyToMany
-    @Column(name="user")
+    @Cascade({org.hibernate.annotations.CascadeType.ALL})
+    @JoinTable(
+            name="user_totalisator",
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name ="totalisator_id")}
+    )
     List<User> players;
 
 }

@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lt.verbus.totalisator.entity.Role;
+import lt.verbus.totalisator.entity.Totalisator;
 import lt.verbus.totalisator.entity.User;
 
 import java.util.List;
@@ -22,6 +23,8 @@ public class UserDTO {
     private String name;
 
     private Set<String> roles;
+
+    private List<Long> totalisators;
 
     public UserDTO (User user) {
         this.id = user.getId();

@@ -8,6 +8,7 @@ import lt.verbus.totalisator.util.TotalisatorMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TotalisatorService {
@@ -22,8 +23,12 @@ public class TotalisatorService {
         this.totalisatorMapper = totalisatorMapper;
     }
 
-    public List<Totalisator> getAllTotalisators() {
-        return totalisatorRepository.findAll();
+    public List<TotalisatorDTO> getAllTotalisators() {
+        return totalisatorRepository
+                .findAll()
+                .stream()
+                .map(totalisatorMapper::convertTotalisatorEntityToDTO)
+                .collect(Collectors.toList());
     }
 
     public TotalisatorDTO save(Totalisator totalisator) {
@@ -34,6 +39,17 @@ public class TotalisatorService {
     public TotalisatorDTO addUserByIdToTotalisatorById(Long userId, Long totalisatorId) {
         User user = userService.getUserById(userId);
         Totalisator totalisator = totalisatorRepository.getOne(totalisatorId);
+        boolean isUserInTotalisator = user
+                .getTotalisators()
+                .stream()
+                .anyMatch(tot-> tot.getId().equals(totalisator.getId()));
+
+        if (isUserInTotalisator) {
+            return totalisatorMapper
+                    .convertTotalisatorEntityToDTO(totalisator);
+        }
+
+        user.getTotalisators().add(totalisator);
         totalisator.getPlayers().add(user);
         return save(totalisator);
     }

@@ -18,7 +18,7 @@ public class TotalisatorController {
     }
 
     @GetMapping
-    public List<Totalisator> getAllTotalisators() {
+    public List<TotalisatorDTO> getAllTotalisators() {
         return totalisatorService.getAllTotalisators();
     }
 
