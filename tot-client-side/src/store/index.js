@@ -1,12 +1,13 @@
 import {configureStore} from "@reduxjs/toolkit";
-import {userSlice} from "./slices/userSlice"
-import {totalisatorSlice} from "./slices/totalisatorSlice"
+import user from "./slices/userSlice"
 
-export default () => {
-    return configureStore({
+export const createStore = (initialState) => {
+    const store = configureStore({
         reducer: {
-            user:userSlice.reducer,
-            totalisator:totalisatorSlice.reducer
+            user
         }
     })
+    return store
 }
+
+export default createStore();

@@ -1,24 +1,17 @@
 import logo from "../../assets/logo.svg"
 import {Link, NavLink} from "react-router-dom";
-import {connect,useDispatch, useSelector} from "react-redux";
-import {login, logout} from "../../store/slices/userSlice";
-import {findUserById} from "../../api/soccersApi";
+import {useDispatch, useSelector} from "react-redux";
+import {clearJwt, clearUserData} from "../../store/slices/userSlice";
+import Button from "../Forms/Button";
 
-const Header = ({login, logout, loggedInUsername, loggedInUserId}) => {
+const Header = () => {
 
-    let person = {name: "Jonas", id: "7"}
-
-    const game = {title: "SwedbankTotalisator2021", members: ["Jonaitis", "Kazys"]}
-    const user_user = useSelector(state => {return state.user})
+    const user = useSelector(state => {return state.user.userData})
     const dispatch = useDispatch()
 
-    const handleclick=(id)=>{
-        findUserById(id).then(res => {
-            dispatch(login(res.data));
-            console.log("Logging in user with id: ", id)
-        }).catch(err => {
-            console.log("Returned -> Error:", err.response.data)
-        });
+    const logout = () => {
+        dispatch(clearJwt())
+        dispatch(clearUserData())
     }
 
     return (
@@ -64,9 +57,21 @@ const Header = ({login, logout, loggedInUsername, loggedInUserId}) => {
                 </div>
             </nav>
             <div className="user-menu">
-                <p onClick={() => handleclick(17)}>Login</p>
-                <p onClick={() => logout()}>Logout</p>
-                <p>{loggedInUserId}{loggedInUsername}</p>
+                {/*<p onClick={() => handleclick(17)}>Login</p>*/}
+                {/*<p onClick={() => logout()}>Logout</p>*/}
+                {/*<p>{loggedInUserId}{loggedInUsername}</p>*/}
+
+                {
+                    !!user ? (
+                        <>
+                            <span>{`${user.name}`}</span>
+                            <Button onClick={logout} text="Logout"/>
+                        </>
+                    ): (
+                        <a href="/user/login" className="user-menu__link">SIGN IN</a>
+                    )
+                }
+
                 {/*<a href="" className="user-menu__link">SIGN OUT</a>*/}
                 {/*<NavLink exact to="/user/register"*/}
                 {/*         className="nav__link"*/}
@@ -78,11 +83,4 @@ const Header = ({login, logout, loggedInUsername, loggedInUserId}) => {
     )
 }
 
-const mapStateToProps = ({ user }) => ({
-    loggedInUsername: user.name, // loggedInUser: user.name
-    loggedInUserId: user.id,
-})
-
-const mapDispatchToProps = {login, logout}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default Header;

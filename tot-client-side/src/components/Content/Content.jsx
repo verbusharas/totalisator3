@@ -5,7 +5,7 @@ import HomePage from "../../pages/HomePage/HomePage";
 import UserRegisterPage from "../../pages/UserRegisterPage/UserRegisterPage";
 import ManageMatchesPage from "../../pages/Manage/ManageMatchesPage";
 import TotalisatorOverviewPage from "../../pages/TotalisatorOverviewPage/TotalisatorOverviewPage";
-import UserLoginPage from "../../pages/UserRegisterPage/UserLoginPage";
+import UserLoginPage from "../../pages/UserLoginPage/UserLoginPage";
 import UserFriendsPage from "../../pages/UserFriendsPage/UserFriendsPage";
 
 export default () => (

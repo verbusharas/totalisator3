@@ -21,7 +21,7 @@ VALUES (1, 'mjordan@gmail.com', '{bcrypt}$2y$12$putkufw4WFK1XrZv1Za/jOdb1z.F.J9M
        (20, 'ros@gmail.com', '{bcrypt}$2y$12$putkufw4WFK1XrZv1Za/jOdb1z.F.J9M37VidmaxAclCauk4HMdhm', 'Rosita Čivilytė'),
        (21, 'isim@gmail.com', '{bcrypt}$2y$12$putkufw4WFK1XrZv1Za/jOdb1z.F.J9M37VidmaxAclCauk4HMdhm', 'Ingrida Šimonytė'),
        (22, 'aa@gmail.com', '{bcrypt}$2y$12$putkufw4WFK1XrZv1Za/jOdb1z.F.J9M37VidmaxAclCauk4HMdhm', 'Aušrinė Armonaitė'),
-       (23, 'aa@gmail.com', '{bcrypt}$2y$12$putkufw4WFK1XrZv1Za/jOdb1z.F.J9M37VidmaxAclCauk4HMdhm', 'Kasabas Sabutsabersab'),
+       (23, 'ks@gmail.com', '{bcrypt}$2y$12$putkufw4WFK1XrZv1Za/jOdb1z.F.J9M37VidmaxAclCauk4HMdhm', 'Kasabas Sabutsabersab'),
        (24, 'ss@gmail.com', '{bcrypt}$2y$12$putkufw4WFK1XrZv1Za/jOdb1z.F.J9M37VidmaxAclCauk4HMdhm', 'Sabina Sabinienė'),
        (25, 'user', '{bcrypt}$2y$12$putkufw4WFK1XrZv1Za/jOdb1z.F.J9M37VidmaxAclCauk4HMdhm', 'Šarūnas Verbus');
 

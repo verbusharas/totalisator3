@@ -13,3 +13,4 @@ export const findFriendshipsByUserId = (id) => HTTP.get("/user/" + id + "/friend
 export const createFriendRequest = (requesterId, receiverId) => HTTP.post("/user/" + requesterId + "/friends/request/" + receiverId);
 export const acceptFriendRequest = (accepterId, requesterId) => HTTP.post("/user/" + accepterId + "/friends/accept/" + requesterId);
 export const dismissFriendRequest = (userId, deleteId) => HTTP.delete("/user/" + userId + "/friends/" + deleteId);
+export const loginUser = loginData => HTTP.post("/login", loginData);
