@@ -1,30 +1,31 @@
-import profilePic from "../../assets/images/profile-small.png"
+import profilePic from "../../../assets/images/profile-small.png"
 import {useState} from "react";
-import {createFriendRequest} from "../../api/soccersApi";
-import {connect} from "react-redux";
+import {createFriendRequest} from "../../../api/soccersApi";
+import useUser from "../../../hooks/useUser";
 
-const FoundPersonCard = ({user, typedPart, isRequested, loggedInUserId}) => {
+const FoundPersonCard = ({person, typedPart, isRequested}) => {
 
     const [gotRequested, setGotRequested] = useState(isRequested);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const user = useUser();
 
     const handleClick = () => {
         setIsSubmitting(true);
-        createFriendRequest(loggedInUserId, user.id)
+        createFriendRequest(user.id, person.id)
             .then(() => setGotRequested(true)).catch(err => {
             console.log("Failed to send friend request: ", err.response.data)
         }).finally(() => setIsSubmitting(false));
     }
 
-    const notTypedParts = user.name.toLowerCase().split(typedPart);
+    const notTypedParts = person.name.toLowerCase().split(typedPart);
 
     // Splits person name into parts and highlights the "searched part"
-    const splitUser = [<span key={user.id + "typed" + 0}
+    const splitPerson = [<span key={person.id + "typed" + 0}
                              style={{color: "var(--light-teal)"}}>{(notTypedParts[0].toUpperCase())}</span>];
     for (let i = 1; i <= notTypedParts.length - 1; i++) {
-        splitUser.push(<span key={user.id + "typed" + i}
+        splitPerson.push(<span key={person.id + "typed" + i}
                              style={{color: "var(--yellow)"}}>{typedPart.toUpperCase()}</span>);
-        splitUser.push(<span key={user.id + "notTyped" + i}
+        splitPerson.push(<span key={person.id + "notTyped" + i}
                              style={{color: "var(--light-teal)"}}>{notTypedParts[i].toUpperCase()}</span>);
     }
     return (
@@ -45,14 +46,10 @@ const FoundPersonCard = ({user, typedPart, isRequested, loggedInUserId}) => {
                 <p className="found-user__info">
                     Friend request was sent
                 </p>}
-                <p>{splitUser}</p>
+                <p>{splitPerson}</p>
             </div>
         </div>
     )
 }
 
-const mapStateToProps = ({user}) => ({
-    loggedInUserId: user.id,
-})
-
-export default connect(mapStateToProps, null)(FoundPersonCard);
+export default FoundPersonCard;

@@ -7,15 +7,16 @@ import ManageMatchesPage from "../../pages/Manage/ManageMatchesPage";
 import TotalisatorOverviewPage from "../../pages/TotalisatorOverviewPage/TotalisatorOverviewPage";
 import UserLoginPage from "../../pages/UserLoginPage/UserLoginPage";
 import UserFriendsPage from "../../pages/UserFriendsPage/UserFriendsPage";
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 export default () => (
             <Switch>
                 <Route exact path="/">
                     <HomePage/>
                 </Route>
-                <Route exact path="/totalisator">
+                <PrivateRoute path="/totalisator" roles={['USER']}>
                     <TotalisatorOverviewPage/>
-                </Route>
+                </PrivateRoute>
                 <Route exact path="/totalisator/manage/matches">
                     <ManageMatchesPage/>
                 </Route>
@@ -28,8 +29,8 @@ export default () => (
                 <Route exact path="/user/login">
                     <UserLoginPage/>
                 </Route>
-                <Route exact path="/user/friends">
+                <PrivateRoute path="/user/friends" roles={['USER']}>
                     <UserFriendsPage/>
-                </Route>
+                </PrivateRoute>
             </Switch>
 )

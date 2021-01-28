@@ -1,0 +1,14 @@
+@media only screen and (max-width: 800px) {
+    .form-section {
+        width: 90%;
+    }
+
+    .graph-section {
+        width: 10%;
+    }
+    .body {
+        color: #ffda1f;
+        background-color: #ffda1f;
+    }
+
+}

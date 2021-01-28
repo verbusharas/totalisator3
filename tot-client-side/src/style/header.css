@@ -61,18 +61,29 @@ header {
   /* HEADER - USER MENU */
   
   .user-menu {
+    width: 170px;
     font-size: 10pt;
     display: flex;
     flex-direction: column;
     align-items: center;
   }
-  
+
+.user-menu__lang-select {
+  margin: 5px;
+}
+
   .user-menu__text {
-    color: var(--light-teal);
+    color: var(--white-blue);
+    margin: 5px;
   }
   
   .user-menu__link {
-    color: var(--white-blue);
+    color: var(--light-teal);
     text-decoration: none;
-    margin: 10px;
+    margin: 5px;
   }
+
+.user-menu__link:hover {
+  border-bottom: 1px solid var(--light-teal);
+  cursor: pointer;
+}

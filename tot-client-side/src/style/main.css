@@ -12,6 +12,7 @@
 @import "feed-finished.css";
 @import "parallex.css";
 @import "social.css";
+@import "media-queries.css";
 
 
 body {
@@ -55,5 +56,4 @@ section {
   width: 40%;
   text-align: center;
 }
-
 

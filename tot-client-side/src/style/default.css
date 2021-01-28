@@ -51,22 +51,33 @@
 
 .graph-section {
     width: 50%;
-    background-image: url('../assets/bg-images/ball2.png');
-    background-repeat: no-repeat;
+    justify-content: flex-start;
+    /*background-image: url('../assets/bg-images/ball2.png');*/
+    /*background-repeat: no-repeat;*/
+    /*background-size: cover;*/
+}
+
+.graph-section img {
+    max-width: 755px;
+    object-fit: cover;
+
 }
 
 .form-section {
+    padding-left: 30px;
     color: var(--light-teal);
     width: 70%;
+    background-color: rgba(22, 30, 33, 0.7);
+    backdrop-filter: blur(7px);
 }
 
 
 .form-section h2 {
+    margin-top: 40px;
     font-weight: normal;
     color: var(--white-blue);
 }
 
-/*cia*/
 .form-section__article {
     width: 80%;
 }
@@ -90,7 +101,7 @@
 }
 
 .form-section__article label {
-    margin-top: 25px;
+    margin-top: 20px;
     margin-bottom: 10px;
 }
 
