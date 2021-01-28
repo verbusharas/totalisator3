@@ -1,8 +1,8 @@
 package lt.verbus.totalisator.controller;
 
 import lt.verbus.totalisator.entity.Totalisator;
-import lt.verbus.totalisator.entity.User;
 import lt.verbus.totalisator.service.TotalisatorService;
+import lt.verbus.totalisator.service.dto.TotalisatorDTO;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,18 +18,17 @@ public class TotalisatorController {
     }
 
     @GetMapping
-    public List<Totalisator> getAllUsers() {
+    public List<Totalisator> getAllTotalisators() {
         return totalisatorService.getAllTotalisators();
     }
 
-    @PostMapping("/mock/{id}")
-    public Totalisator createTotalisatorWithUser(@PathVariable Long id) {
-        return totalisatorService.mockWithUserId(id);
+    @PutMapping("/{totalisatorId}/invite/{playerId}")
+    public TotalisatorDTO addPlayer(@PathVariable Long playerId, @PathVariable Long totalisatorId) {
+        return totalisatorService.addUserByIdToTotalisatorById(playerId, totalisatorId);
     }
 
-
     @PostMapping
-    public Totalisator createTotalisator(@RequestBody Totalisator totalisator) {
+    public TotalisatorDTO createTotalisator(@RequestBody Totalisator totalisator) {
         return totalisatorService.save(totalisator);
     }
 

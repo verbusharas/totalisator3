@@ -6,6 +6,7 @@ import lombok.Setter;
 import lt.verbus.totalisator.entity.Role;
 import lt.verbus.totalisator.entity.User;
 
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
