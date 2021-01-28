@@ -1,4 +1,4 @@
-package lt.verbus.totalisator.service.exception;
+package lt.verbus.totalisator.exception;
 
 public class EntityNotFoundException extends RuntimeException {
     public EntityNotFoundException(Long id) {

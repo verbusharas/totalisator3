@@ -1,35 +1,32 @@
-package lt.verbus.totalisator.service.dto;
+package lt.verbus.totalisator.integration.soccersapi.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Map;
-
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({
-        "id",
-        "name",
-        "country_name"
-})
 @Getter
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class FifaLeagueDTO {
+public class FifaTeamDTO {
+
     @JsonProperty("id")
     private Integer id;
     @JsonProperty("name")
     private String name;
 
-    private String countryName;
+    private String shortCode;
+
+    @JsonProperty("img")
+    private String img;
 
     @SuppressWarnings("unchecked")
-    @JsonProperty("country_name")
-    private void getCountryName(String countryName) {
-        this.countryName = countryName;
+    @JsonProperty("short_code")
+    private void getCountryName(String shortCode) {
+        this.shortCode = shortCode;
     }
+
 }
 

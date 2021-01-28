@@ -1,4 +1,4 @@
-package lt.verbus.totalisator.service.exception;
+package lt.verbus.totalisator.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

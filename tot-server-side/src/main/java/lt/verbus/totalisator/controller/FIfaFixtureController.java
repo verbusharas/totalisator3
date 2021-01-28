@@ -1,6 +1,6 @@
 package lt.verbus.totalisator.controller;
 
-import lt.verbus.totalisator.service.dto.FifaFixturesResponseDTO;
+import lt.verbus.totalisator.integration.soccersapi.dto.FifaFixturesResponseDTO;
 import lt.verbus.totalisator.service.FifaFixtureService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

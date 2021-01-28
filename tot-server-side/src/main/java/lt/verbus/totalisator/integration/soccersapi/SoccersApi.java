@@ -1,4 +1,4 @@
-package lt.verbus.totalisator.integration;
+package lt.verbus.totalisator.integration.soccersapi;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -7,7 +7,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lt.verbus.totalisator.service.dto.FifaFixturesResponseDTO;
+import lt.verbus.totalisator.integration.soccersapi.dto.FifaFixturesResponseDTO;
 import org.springframework.beans.factory.annotation.Value;
 
 import org.springframework.stereotype.Component;
@@ -19,7 +19,7 @@ public class SoccersApi {
     @Value("${soccersapi.fixture.by.date.url}")
     private String fixtureByDateURL;
 
-    private ObjectMapper objectMapper;
+    private final ObjectMapper objectMapper;
 
     public SoccersApi(ObjectMapper objectMapper) {
         this.objectMapper = objectMapper;

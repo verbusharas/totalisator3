@@ -3,8 +3,8 @@ package lt.verbus.totalisator.service;
 import lt.verbus.totalisator.entity.Friendship;
 import lt.verbus.totalisator.entity.User;
 import lt.verbus.totalisator.repository.FriendshipRepository;
-import lt.verbus.totalisator.service.dto.FriendshipDTO;
-import lt.verbus.totalisator.service.exception.EntityNotFoundException;
+import lt.verbus.totalisator.controller.dto.FriendshipDTO;
+import lt.verbus.totalisator.exception.EntityNotFoundException;
 import lt.verbus.totalisator.util.FriendshipMapper;
 import org.springframework.stereotype.Service;
 

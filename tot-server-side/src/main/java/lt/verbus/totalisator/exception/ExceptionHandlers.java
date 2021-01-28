@@ -1,4 +1,4 @@
-package lt.verbus.totalisator.service.exception;
+package lt.verbus.totalisator.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;

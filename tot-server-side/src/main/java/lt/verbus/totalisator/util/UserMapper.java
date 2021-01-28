@@ -3,7 +3,7 @@ package lt.verbus.totalisator.util;
 import lt.verbus.totalisator.entity.Role;
 import lt.verbus.totalisator.entity.Totalisator;
 import lt.verbus.totalisator.entity.User;
-import lt.verbus.totalisator.service.dto.UserDTO;
+import lt.verbus.totalisator.controller.dto.UserDTO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 

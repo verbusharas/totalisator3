@@ -1,7 +1,7 @@
 package lt.verbus.totalisator.util;
 
 import lt.verbus.totalisator.entity.Friendship;
-import lt.verbus.totalisator.service.dto.FriendshipDTO;
+import lt.verbus.totalisator.controller.dto.FriendshipDTO;
 import org.springframework.stereotype.Component;
 
 @Component

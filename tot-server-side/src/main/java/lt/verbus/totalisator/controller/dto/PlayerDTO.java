@@ -1,4 +1,4 @@
-package lt.verbus.totalisator.service.dto;
+package lt.verbus.totalisator.controller.dto;
 
 import lombok.Getter;
 import lombok.Setter;

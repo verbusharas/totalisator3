@@ -1,4 +1,4 @@
-package lt.verbus.totalisator.service.dto;
+package lt.verbus.totalisator.integration.soccersapi.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -15,7 +15,7 @@ import java.util.Map;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class FifaFixturesResponseDTO {
     @JsonProperty("data")
-    private List<FifaFixtureDTO> fifaFixtureDTOS = null;
+    private List<FifaFixtureDTO> fifaFixtureDTOS;
 
     private String requestsLeft;
 

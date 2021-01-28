@@ -3,7 +3,7 @@ package lt.verbus.totalisator.service;
 import lt.verbus.totalisator.entity.Totalisator;
 import lt.verbus.totalisator.entity.User;
 import lt.verbus.totalisator.repository.TotalisatorRepository;
-import lt.verbus.totalisator.service.dto.TotalisatorDTO;
+import lt.verbus.totalisator.controller.dto.TotalisatorDTO;
 import lt.verbus.totalisator.util.TotalisatorMapper;
 import org.springframework.stereotype.Service;
 
