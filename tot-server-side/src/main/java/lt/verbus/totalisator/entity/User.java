@@ -11,6 +11,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -36,6 +37,9 @@ public class User implements UserDetails {
 
     @OneToMany(mappedBy = "requester", cascade = CascadeType.ALL)
     private Set<Friendship> friendships;
+
+    @ManyToMany
+    private List<Totalisator> totalisators;
 
     @ManyToMany
     @Cascade(org.hibernate.annotations.CascadeType.PERSIST)

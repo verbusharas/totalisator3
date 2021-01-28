@@ -6,7 +6,6 @@ import lt.verbus.totalisator.service.UserService;
 import lt.verbus.totalisator.service.dto.FriendshipDTO;
 import lt.verbus.totalisator.service.dto.UserDTO;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
