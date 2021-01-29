@@ -7,7 +7,7 @@ import {useHistory} from "react-router-dom";
 import {useState} from "react";
 import ServerErrorMessage from "../../components/Forms/ServerErrorMessage";
 
-export default () => {
+const UserRegisterPage = () => {
     const [serverValidationErrors, setServerValidationErrors] = useState({});
     const history = useHistory();
 
@@ -87,3 +87,5 @@ export default () => {
         </main>
     )
 }
+
+export default UserRegisterPage;

@@ -1,4 +1,4 @@
-export default ({team, status, hasCrest}) => {
+const ToteboardTeam = ({team, status, hasCrest}) => {
     return (
             <div className={`tote-board__team tote-board__team--${status}`}>
                 <div className="tote-board__name">
@@ -14,3 +14,5 @@ export default ({team, status, hasCrest}) => {
             </div>
     )
 }
+
+export default ToteboardTeam;

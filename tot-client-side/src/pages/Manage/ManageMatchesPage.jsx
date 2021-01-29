@@ -1,14 +1,13 @@
 import "../../style/feed-fifa.css"
 import Toteboard from "../../components/Toteboards/Toteboard";
-import matches from "../../components/Toteboards/match";
 import {KeyboardDatePicker, MuiPickersUtilsProvider} from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 import {Grid, makeStyles} from "@material-ui/core";
 import React, {useEffect, useState} from "react";
 import {fetchFifaFixtures} from "../../api/fixtureApi";
-import {fetchManagerFinishedMatches, fetchManagerPendingMatches, fetchMatches, saveAsMatch} from "../../api/matchApi";
+import {fetchManagerFinishedMatches, fetchManagerPendingMatches, saveAsMatch} from "../../api/matchApi";
 
-export default () => {
+const ManageMatchesPage = () => {
 
     const [fifaFixtures, setFifaFixtures] = useState([]);
     const [selectedDate, setSelectedDate] = useState(new Date());
@@ -62,6 +61,7 @@ export default () => {
             }).catch(err => {
             console.log("Klaida:", err);
         });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const handleDateChange = (date) => {
@@ -70,7 +70,6 @@ export default () => {
     };
 
     const handleFifaFixtureSelect = (fixture) => {
-        console.log("attempting to save fixture as match", fixture)
         setAddingIds([...addingIds, fixture.id]);
         saveAsMatch(fixture).then(() => {
             loadTotalisatorMatches()
@@ -114,7 +113,6 @@ export default () => {
                         KeyboardButtonProps={{
                             'aria-label': 'change date',
                         }}
-                        // className="date-picker"
                         className={classes.root}
                     />
                 </Grid>
@@ -140,12 +138,10 @@ export default () => {
     }
 
     const createManagerPendingToteboard = (match) => {
-        console.log("ADDED MATCH TO PENDING: ", match)
         return <Toteboard key={"mp" + match.entity_id} match={match} variant="manager-pending"/>
     }
 
     const createManagerFinishedToteboard = (match) => {
-        console.log("ADDED MATCH TO FINISHED: ", match)
         return <Toteboard key={"mf" + match.entity_id} match={match} variant="manager-finished"/>
     }
 
@@ -208,3 +204,5 @@ export default () => {
         </main>
     )
 }
+
+export default ManageMatchesPage;

@@ -21,7 +21,7 @@ import cx from "classnames";
 // - "user-pending"
 // - "user-finished"
 
-export default ({match, prediction, variant, handleClick}) => {
+const Toteboard = ({match, prediction, variant, handleClick}) => {
 
     const environment = variant.split("-")[0];
     const status = variant.split("-")[1];
@@ -117,3 +117,4 @@ export default ({match, prediction, variant, handleClick}) => {
     )
 }
 
+export default Toteboard;

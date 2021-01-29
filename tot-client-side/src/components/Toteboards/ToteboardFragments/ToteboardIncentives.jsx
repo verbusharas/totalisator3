@@ -1,7 +1,7 @@
 import CountdownTimer from "./CountdownTimer";
 import SeePredictionsLink from "./SeePredictionsLink";
 
-export default ({countdownTo, showPredictionsLink}) => {
+const ToteboardIncentives = ({countdownTo, showPredictionsLink}) => {
     return (
         <div className="tote-board__incentives">
             {countdownTo && <CountdownTimer countdownTo={countdownTo}/>}
@@ -9,3 +9,5 @@ export default ({countdownTo, showPredictionsLink}) => {
         </div>
     )
 }
+
+export default ToteboardIncentives;

@@ -1,4 +1,4 @@
-export default ({isEmpty, homeScore, awayScore, isEditable, homeInput, awayInput}) => {
+const ToteboardScoreboard = ({isEmpty, homeScore, awayScore, isEditable, homeInput, awayInput}) => {
 
     const editableDigits = () => {
         return (
@@ -34,3 +34,5 @@ export default ({isEmpty, homeScore, awayScore, isEditable, homeInput, awayInput
         return noDigits();
     }
 }
+
+export default ToteboardScoreboard;

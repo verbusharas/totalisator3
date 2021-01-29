@@ -28,6 +28,7 @@ const UserFriendsPage = () => {
 
     useEffect(() => {
         loadFriends();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const handleChange = (e) => {
@@ -97,7 +98,7 @@ const UserFriendsPage = () => {
     }
 
     const renderFriend = (friendship) => {
-        const {requester, receiver, isAccepted} = friendship;
+        const {requester, receiver} = friendship;
         // Regardless of who is requester/receiver render the one who is not the current user
         const friend = (requester.id === user.id) ? receiver : requester;
         return <FriendCard key={"f" + friend.id}
@@ -109,7 +110,7 @@ const UserFriendsPage = () => {
     return (
         <main className="default">
             <section className="graph-section">
-                <img src={image} alt="ball image"/>
+                <img src={image} alt="ball"/>
             </section>
             {user &&
             <section className="form-section">
@@ -161,5 +162,4 @@ const UserFriendsPage = () => {
     )
 }
 
-
-export default UserFriendsPage
+export default UserFriendsPage;

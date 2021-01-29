@@ -1,4 +1,4 @@
-export default ({hasStats}) => {
+const SeePredictionsLink = ({hasStats}) => {
 
     const showStatsAndLink = ()=>{
         return (
@@ -7,7 +7,7 @@ export default ({hasStats}) => {
                         {`3/6 `}
                     </span>
                 people have already predicted.
-                <a className="tote-board__incentives--link" href="">
+                <a className="tote-board__incentives--link" href="/">
                     Flip to see >
                 </a>
             </p>
@@ -17,7 +17,7 @@ export default ({hasStats}) => {
     const showLinkOnly = ()=> {
         return (
             <p>
-                <a className="tote-board__incentives--link" href="">
+                <a className="tote-board__incentives--link" href="/">
                    See predictions of other players >
                 </a>
             </p>
@@ -28,3 +28,5 @@ export default ({hasStats}) => {
         hasStats ? showStatsAndLink() : showLinkOnly()
     )
 }
+
+export default SeePredictionsLink;

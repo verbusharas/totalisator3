@@ -6,11 +6,10 @@ import {loginUser} from "../../api/userApi";
 import {useHistory, useLocation} from "react-router-dom"
 import {useDispatch} from "react-redux";
 import {setJwt, setUserData} from "../../store/slices/userSlice";
-import {fetchTotalisatorById, fetchTotalisators, fetchTotalisatorsByUserId} from "../../api/totalisatorApi";
-import {setTotalisator} from "../../store/slices/totalisatorSlice";
-import useUser from "../../hooks/useUser";
+import {fetchTotalisatorById} from "../../api/totalisatorApi";
+import {loadTotalisatorFromStorage, setTotalisator} from "../../store/slices/totalisatorSlice";
 
-export default () => {
+const UserLoginPage = () => {
 
     const history = useHistory();
     const location = useLocation();
@@ -30,9 +29,8 @@ export default () => {
             return data.totalisators;
         }).then((totalisators)=>{
             if (totalisators.length > 0) {
-                // TODO: change to locally stored "Last Active ID"
-                fetchTotalisatorById(totalisators[1].id).then(res=>{
-                    console.log("totalisators[0]", totalisators[0])
+                const prevTotalisator = loadTotalisatorFromStorage().totalisatorData;
+                fetchTotalisatorById(prevTotalisator.id).then(res=>{
                     dispatch(setTotalisator(res.data))
                 })
             }
@@ -61,8 +59,8 @@ export default () => {
                     <h2>USER LOGIN</h2>
 
                     <Formik initialValues={{username: "", password: "", passwordConfirm: "", name: ""}}
-                            onSubmit={handleLogin}>
-                        {/*validationSchema={validationSchema}>*/}
+                            onSubmit={handleLogin}
+                        validationSchema={validationSchema}>
                         {(props) =>
                             (
                                 <Form>
@@ -87,3 +85,5 @@ export default () => {
         </main>
     )
 }
+
+export default UserLoginPage;

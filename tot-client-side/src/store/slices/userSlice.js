@@ -1,4 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
+import {loadFromStorage, saveToStorage} from "../../utils/localStorage";
+import _ from "lodash"
 
 const anonymousUser = {
     userData: null,
@@ -22,10 +24,22 @@ export const userSlice = createSlice({
         clearJwt(state){
             state.jwt = null
         }
-        // login: (state, {payload:user}) => (user),
-        // logout: (state) => (anonymousUser)
     }
 })
+
+let prevUser = anonymousUser;
+
+export const subscribeToUserChanges = (store) => {
+    store.subscribe(_.throttle(() => {
+        const currentUser = store.getState().user
+        if (prevUser !== currentUser) {
+            prevUser = currentUser;
+            saveToStorage("user", currentUser)
+        }
+    }, 1000))
+}
+
+export const loadUserFromStorage = () => loadFromStorage("user");
 
 export default userSlice.reducer
 export const {setUserData, setJwt, clearUserData, clearJwt} = userSlice.actions

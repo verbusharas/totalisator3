@@ -1,6 +1,6 @@
 import {NavLink} from "react-router-dom";
 
-export default () => {
+ const ManagerMenu = () => {
     return (
         <div className="nav nav--manager">
             <span className="nav__text">MANAGER MENU:</span>
@@ -19,3 +19,5 @@ export default () => {
         </div>
     )
 }
+
+export default ManagerMenu;

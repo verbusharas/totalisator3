@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 
-export default ({countdownTo}) => {
+ const CountdownTimer = ({countdownTo}) => {
     useEffect(() => {
         const timer = setTimeout(() => {
             setTimeLeft(calculateTimeLeft());
@@ -9,7 +9,6 @@ export default ({countdownTo}) => {
     });
 
     const calculateTimeLeft = () => {
-        let year = new Date().getFullYear();
         const difference = +new Date(countdownTo) - +new Date();
 
         let timeLeft = {};
@@ -46,3 +45,5 @@ export default ({countdownTo}) => {
     )
 
 }
+
+export default CountdownTimer;

@@ -1,3 +1,4 @@
 import {useSelector} from "react-redux";
 
-export default () => useSelector(state => state.totalisator.totalisatorData)
+const useTotalisator = () => useSelector(state => state.totalisator.totalisatorData)
+export default useTotalisator;

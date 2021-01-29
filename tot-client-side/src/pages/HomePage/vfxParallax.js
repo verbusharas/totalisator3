@@ -1,11 +1,9 @@
-export default () => {
+const vfxParallax = () => {
 // html setup
     const itemsHTMLCollection = document.getElementsByClassName("parallax-item");
     const items = Array.from(itemsHTMLCollection);
 
     const html = document.documentElement;
-
-    const scrollAmount = html.scrollTop;
 
 // input setup
     const input = {
@@ -158,11 +156,6 @@ export default () => {
         window.addEventListener("resize", handleResize);
     }
 
-    const removeListeners = () => {
-        window.removeEventListener("mousemove", handleMouseMove);
-        document.removeEventListener("scroll", handleScroll);
-        window.removeEventListener("resize", handleResize);
-    }
 
     registerInputs();
     offsetOutputs();
@@ -170,6 +163,7 @@ export default () => {
     addListeners();
 }
 
+export default vfxParallax();
 
 
 

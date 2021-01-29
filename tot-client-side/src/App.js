@@ -1,5 +1,5 @@
 import {BrowserRouter as Router} from "react-router-dom";
-import Header from "./components/Header";
+import Header from "./components/Header/Header";
 import Content from "./components/Content/Content";
 import Footer from "./components/Footer/Footer";
 import {Provider} from "react-redux";

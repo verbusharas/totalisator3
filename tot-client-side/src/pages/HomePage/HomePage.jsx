@@ -2,11 +2,10 @@ import top from "../../assets/bg-images/chest/chest3-top.png"
 import mid from "../../assets/bg-images/chest/chest3-mid1.png"
 import preBottom from "../../assets/bg-images/chest/chest3-pre-bottom.png"
 import bottom from "../../assets/bg-images/chest/chest3-bottom.png"
-import parallax from "./vfxParallax";
 import {useEffect} from "react";
 
 
-export default () => {
+const HomePage = () => {
     useEffect(()=> {
 
     }, [])
@@ -31,7 +30,7 @@ export default () => {
                         <button className="form-section__button">
                             Sign Up
                         </button>
-                        <p className="form-section__undertext">Not your first time? <a href="#">Sign In</a></p>
+                        <p className="form-section__undertext">Not your first time? <a href="/">Sign In</a></p>
                     </div>
                 </article>
 
@@ -39,12 +38,12 @@ export default () => {
                     <h2>NOT CONVICED?</h2>
                     <div className="text-section__description">
                         <p>
-                            If having doubts check out these example <a href="#">screenshots</a>.
+                            If having doubts check out these example <a href="/">screenshots</a>.
                         </p>
                         <p>Managing totalisator is easy. You don't need to create matches manually - just select a date
                             and
                             pick out matches you like from the list.</p>
-                        <p>If you have any suggestions how to make this page more awesome feel free to <a href="#">contact
+                        <p>If you have any suggestions how to make this page more awesome feel free to <a href="/">contact
                             us</a>.</p>
                     </div>
                 </article>
@@ -66,3 +65,4 @@ export default () => {
         </main>
     )
 }
+export default HomePage;

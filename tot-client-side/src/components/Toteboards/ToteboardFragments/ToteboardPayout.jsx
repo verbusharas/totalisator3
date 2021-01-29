@@ -1,9 +1,9 @@
-export default ({scores:{home_score}={}, scores:{away_score}={}, payout}) => {
+const ToteboardPayout = ({scores:{home_score}={}, scores:{away_score}={}, payout}) => {
     return (
         <div className="tote-board__results">
             <div className="tote-board__points">
                 <span>{`+${payout} Points`}</span>
-                <a className="tote-board__incentives--link" href="">See all ></a>
+                <a className="tote-board__incentives--link" href="/">See all ></a>
             </div>
             <div>
                 <div className="tote-board__label tote-board__label--highlighted">
@@ -16,8 +16,10 @@ export default ({scores:{home_score}={}, scores:{away_score}={}, payout}) => {
             </div>
             <div className="tote-board__points tote-board__points--hidden">
                 <span>+500 Points</span>
-                <a className="tote-board__incentives--link" href="">See all ></a>
+                <a className="tote-board__incentives--link" href="/">See all ></a>
             </div>
         </div>
     )
 }
+
+export default ToteboardPayout;

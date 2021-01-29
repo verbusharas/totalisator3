@@ -1,6 +1,6 @@
 import profilePic from "../../../assets/images/profile-small.png"
 
-export default({person, handleAccept, handleDismiss, isRequest})=>{
+const FriendCard = ({person, handleAccept, handleDismiss, isRequest})=>{
     return (
         <div className="found-user">
             <div className="found-user__image-container">
@@ -21,3 +21,5 @@ export default({person, handleAccept, handleDismiss, isRequest})=>{
         </div>
     )
 }
+
+export default FriendCard;

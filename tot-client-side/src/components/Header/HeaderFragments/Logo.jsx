@@ -4,11 +4,10 @@ import Select from "react-select";
 import useUser from "../../../hooks/useUser";
 import useTotalisator from "../../../hooks/useTotalisator";
 import {useDispatch} from "react-redux";
-import {clearJwt, clearUserData} from "../../../store/slices/userSlice";
 import {fetchTotalisatorById} from "../../../api/totalisatorApi";
 import {setTotalisator} from "../../../store/slices/totalisatorSlice";
 
-export default () => {
+const Logo = () => {
 
     const customStyles = {
         control: (base, state) => ({...base,
@@ -17,9 +16,6 @@ export default () => {
             borderRadius: state.isFocused ? "3px 3px 0 0" : 3,
             borderColor: state.isFocused ? "var(--yellow)" : "var(--dark-teal)",
             boxShadow: state.isFocused ? null : null,
-            // "&:hover": {
-            //     borderColor: state.isFocused ? "var(--yellow)" : "var(--light-teal)"
-            // },
             width: "300px",
         }),
         menu: base => ({...base,
@@ -90,12 +86,13 @@ export default () => {
                 {totalisator &&
                 <Select styles={customStyles}
                         options={getTotalisatorOptions()}
+                        value={getTotalisatorOptions().find(opt => opt.value === totalisator.id)}
                         defaultValue={getTotalisatorOptions().find(opt => opt.value === totalisator.id)}
                         onChange={(e)=> switchTotalisator(e)}
-
                 />
                 }
             </div>}
         </div>
     )
 }
+export default Logo;

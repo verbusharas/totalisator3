@@ -1,6 +1,6 @@
 import {NavLink} from "react-router-dom";
 
-export default () => {
+const PlayerMenu = () => {
     return (
         <div className="nav">
             <NavLink exact to="/totalisator" className="nav__link" activeClassName="nav__link--active">
@@ -21,3 +21,5 @@ export default () => {
         </div>
     )
 }
+
+export default PlayerMenu;

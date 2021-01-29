@@ -1,14 +1,11 @@
 import {fetchTotalisators} from "../../api/totalisatorApi";
 import {useEffect, useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {setTotalisator, clearTotalisator} from "../../store/slices/totalisatorSlice";
 import useTotalisator from "../../hooks/useTotalisator";
 
-export default () => {
+const About = () => {
 
     const [totalisatorList, setTotalisatorList] = useState([]);
 
-    const dispatch = useDispatch();
     const totalisator = useTotalisator();
 
     useEffect(()=>{
@@ -45,6 +42,6 @@ export default () => {
     )
 }
 
-
+export default About;
 
 

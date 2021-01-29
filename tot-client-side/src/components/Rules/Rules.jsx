@@ -1,4 +1,4 @@
-export default () => {
+const Rules = () => {
     return (
         <article className="rules">
             <h3>Point Calculation Rules</h3>
@@ -29,3 +29,5 @@ export default () => {
         </article>
     )
 }
+
+export default Rules;

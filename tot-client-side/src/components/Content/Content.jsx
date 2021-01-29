@@ -8,29 +8,42 @@ import TotalisatorOverviewPage from "../../pages/TotalisatorOverviewPage/Totalis
 import UserLoginPage from "../../pages/UserLoginPage/UserLoginPage";
 import UserFriendsPage from "../../pages/UserFriendsPage/UserFriendsPage";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
+import TotalisatorNewPage from "../../pages/TotalisatorNewPage/TotalisatorNewPage";
+import ManagerHomePage from "../../pages/ManagerHomePage/ManagerHomePage";
 
-export default () => (
-            <Switch>
-                <Route exact path="/">
-                    <HomePage/>
-                </Route>
-                <PrivateRoute path="/totalisator" roles={['USER']}>
-                    <TotalisatorOverviewPage/>
-                </PrivateRoute>
-                <Route exact path="/totalisator/manage/matches">
-                    <ManageMatchesPage/>
-                </Route>
-                <Route exact path="/about">
-                    <About/>
-                </Route>
-                <Route exact path="/user/register">
-                    <UserRegisterPage/>
-                </Route>
-                <Route exact path="/user/login">
-                    <UserLoginPage/>
-                </Route>
-                <PrivateRoute path="/user/friends" roles={['USER']}>
-                    <UserFriendsPage/>
-                </PrivateRoute>
-            </Switch>
-)
+const Content = () => {
+    return (
+        <Switch>
+            <Route exact path="/">
+                <HomePage/>
+            </Route>
+            <PrivateRoute exact path="/totalisator" roles={['USER']}>
+                <TotalisatorOverviewPage/>
+            </PrivateRoute>
+            <Route exact path="/about">
+                <About/>
+            </Route>
+            <Route exact path="/user/register">
+                <UserRegisterPage/>
+            </Route>
+            <Route exact path="/user/login">
+                <UserLoginPage/>
+            </Route>
+            <PrivateRoute exact path="/user/friends" roles={['USER']}>
+                <UserFriendsPage/>
+            </PrivateRoute>
+
+            <PrivateRoute exact path="/totalisator/new" roles={['USER']}>
+                <TotalisatorNewPage/>
+            </PrivateRoute>
+            <PrivateRoute exact path="/totalisator/manage/matches" roles={['USER']}>
+                <ManageMatchesPage/>
+            </PrivateRoute>
+            <PrivateRoute exact path="/totalisator/manage" roles={['USER']}>
+                <ManagerHomePage/>
+            </PrivateRoute>
+        </Switch>
+    )
+}
+
+export default Content;
