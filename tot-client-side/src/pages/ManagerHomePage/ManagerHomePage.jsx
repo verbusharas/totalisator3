@@ -11,11 +11,11 @@ const ManagerHomePage = () => {
                 <h2 className="feed__title">SUCCESSFULLY CREATED TOTALISATOR, CONGRATULATIONS!</h2>
                 <article className="feed__description">
                     <p>
-                       You will be the manager of "{totalisator.title}". Choose what you want to do next:
+                        You will be the manager of <strong>"{totalisator.title}"</strong>. Choose what you want to do next:
                     </p>
                     <div className="feed__links">
-                        <a href="/totalisator/manage/players">ADD FRIENDS AS PLAYERS</a>
                         <a href="/totalisator/manage/matches">ADD/REMOVE MATCHES FOR PLAYERS TO PREDICT</a>
+                        <a href="/totalisator/manage/players">ADD FRIENDS AS PLAYERS</a>
                         <a href="/totalisator/manage/settings">CONFIGURE TOTALISATOR SETTINGS</a>
                     </div>
 

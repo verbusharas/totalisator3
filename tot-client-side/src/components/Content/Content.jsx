@@ -10,6 +10,10 @@ import UserFriendsPage from "../../pages/UserFriendsPage/UserFriendsPage";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import TotalisatorNewPage from "../../pages/TotalisatorNewPage/TotalisatorNewPage";
 import ManagerHomePage from "../../pages/ManagerHomePage/ManagerHomePage";
+import UserWelcomePage from "../../pages/UserLoginPage/UserWelcomePage";
+import ManagePlayersPage from "../../pages/ManagePlayersPage/ManagePlayersPage";
+import ManagerRoute from "../ManagerRoute/ManagerRoute";
+import DeniedAccessPage from "../../pages/DeniedAccessPage/DeniedAccessPage";
 
 const Content = () => {
     return (
@@ -29,19 +33,30 @@ const Content = () => {
             <Route exact path="/user/login">
                 <UserLoginPage/>
             </Route>
+            <Route exact path="/forbidden">
+                <DeniedAccessPage/>
+            </Route>
+
+            <PrivateRoute exact path="/user/welcome" roles={['USER']}>
+                <UserWelcomePage/>
+            </PrivateRoute>
             <PrivateRoute exact path="/user/friends" roles={['USER']}>
                 <UserFriendsPage/>
             </PrivateRoute>
-
             <PrivateRoute exact path="/totalisator/new" roles={['USER']}>
                 <TotalisatorNewPage/>
             </PrivateRoute>
-            <PrivateRoute exact path="/totalisator/manage/matches" roles={['USER']}>
+
+            <ManagerRoute exact path="/totalisator/manage/matches" roles={['USER']}>
                 <ManageMatchesPage/>
-            </PrivateRoute>
-            <PrivateRoute exact path="/totalisator/manage" roles={['USER']}>
+            </ManagerRoute>
+            <ManagerRoute exact path="/totalisator/manage/players" roles={['USER']}>
+                <ManagePlayersPage/>
+            </ManagerRoute>
+            <ManagerRoute exact path="/totalisator/manage" roles={['USER']}>
                 <ManagerHomePage/>
-            </PrivateRoute>
+            </ManagerRoute>
+
         </Switch>
     )
 }

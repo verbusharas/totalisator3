@@ -6,7 +6,7 @@ import {useEffect} from "react";
 
 
 const HomePage = () => {
-    useEffect(()=> {
+    useEffect(() => {
 
     }, [])
     return (
@@ -16,14 +16,21 @@ const HomePage = () => {
                     <h2>WELCOME TO FRESH NEW <strong>TOTALISATOR 3.0</strong>!</h2>
                     <div className="text-section__description">
                         <p>
-                            Who is better soccer oracle you or Paul the Octopus? Create your custom totalisator and find
-                            out! Invite
-                            colleagues or friends to compete against place your predictions and cheer for your score to
-                            be
-                            the most
-                            precise.
+                            Who is better soccer oracle you or <a href="https://en.wikipedia.org/wiki/Paul_the_Octopus">Paul the Octopus</a>  ?
+
+                            <p>Create your custom totalisator and find
+                                out!
+                            </p>
+                            <p>
+                                Invite
+                                colleagues or friends to compete against place your predictions and cheer for your score
+                                to
+                                be
+                                the most
+                                precise.
+                            </p>
                         </p>
-                        <p>Creating your totalisator is super easy and completely free.</p>
+                        <p>Creating your totalisator is super easy and completely <strong>free</strong>.</p>
 
                         <p>Sign up and try it yourself!</p>
 
@@ -40,7 +47,7 @@ const HomePage = () => {
                         <p>
                             If having doubts check out these example <a href="/">screenshots</a>.
                         </p>
-                        <p>Managing totalisator is easy. You don't need to create matches manually - just select a date
+                        <p>Managing totalisator is clear and simple. You don't need to create matches manually - just select a date
                             and
                             pick out matches you like from the list.</p>
                         <p>If you have any suggestions how to make this page more awesome feel free to <a href="/">contact

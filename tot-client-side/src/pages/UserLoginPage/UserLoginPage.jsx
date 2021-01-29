@@ -14,25 +14,28 @@ const UserLoginPage = () => {
     const history = useHistory();
     const location = useLocation();
     const dispatch = useDispatch();
-
     const handleLogin = (loginData, {setSubmitting}) => {
         setSubmitting(true);
-        loginUser(loginData).then(({data, headers: {authorization}}) => {
+        loginUser(loginData)
+            .then(({data, headers: {authorization}}) => {
             dispatch(setUserData(data))
             dispatch(setJwt(authorization))
-            const {from} = location.state || {
-                from: {
-                    pathname: '/'
+                console.log("location", location);
+                const {from} = location.state || {
+                    from: {
+                        pathname: '/about'
+                    }
                 }
-            }
-            history.push(from)
+                history.push(from)
             return data.totalisators;
-        }).then((totalisators)=>{
+        }).then((totalisators) => {
             if (totalisators.length > 0) {
                 const prevTotalisator = loadTotalisatorFromStorage().totalisatorData;
-                fetchTotalisatorById(prevTotalisator.id).then(res=>{
+                fetchTotalisatorById(prevTotalisator.id).then(res => {
                     dispatch(setTotalisator(res.data))
                 })
+            } else {
+                history.push("/user/welcome")
             }
         })
             .finally(() => setSubmitting(false))
@@ -41,7 +44,6 @@ const UserLoginPage = () => {
     const validationSchema = Yup.object().shape({
         username: Yup
             .string()
-            .email("Please enter a valid email address")
             .required("Enter your email address"),
         password: Yup
             .string()
@@ -60,7 +62,7 @@ const UserLoginPage = () => {
 
                     <Formik initialValues={{username: "", password: "", passwordConfirm: "", name: ""}}
                             onSubmit={handleLogin}
-                        validationSchema={validationSchema}>
+                            validationSchema={validationSchema}>
                         {(props) =>
                             (
                                 <Form>

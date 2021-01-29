@@ -22,7 +22,7 @@ const UserMenu = () => {
                 user ?
                     <>
                         <span className="user-menu__text">{`${user.name}`}</span>
-                        <a href="/" className="user-menu__link" onClick={logout}>Sign Out</a>
+                        <button className="user-menu__link" onClick={logout}>Sign Out</button>
                     </>
                     : <a href="/user/login" className="user-menu__link">Sign In</a>
             }
