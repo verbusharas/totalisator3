@@ -5,7 +5,7 @@ import {
     dismissFriendRequest,
     findFriendshipsByUserId,
     findUsersByPartialName
-} from "../../api/soccersApi";
+} from "../../api/userApi";
 import FoundPersonCard from "./PersonCards/FoundPersonCard";
 import FriendCard from "./PersonCards/FriendCard";
 import useUser from "../../hooks/useUser";

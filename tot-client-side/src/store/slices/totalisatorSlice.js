@@ -1,14 +1,22 @@
 import {createSlice} from "@reduxjs/toolkit";
 
-const unknownTotalisator = {title:"_Unknown", members:["VIP", "NVIP"]}
-
+const initialState = {
+    totalisatorData: null,
+}
 export const totalisatorSlice = createSlice({
     name: 'totalisator',
-    initialState: unknownTotalisator,
+    initialState: initialState,
     reducers: {
-        open: (state, {payload:totalisator}) => (totalisator),
-        close: (state) => (unknownTotalisator)
+        setTotalisator(state, {payload:totalisator}) {
+            state.totalisatorData = totalisator
+        },
+
+
+        clearTotalisator(state){
+            state.totalisatorData = null
+        },
     }
 })
 
-export const {open, close} = totalisatorSlice.actions
+export default totalisatorSlice.reducer
+export const {setTotalisator, clearTotalisator} = totalisatorSlice.actions

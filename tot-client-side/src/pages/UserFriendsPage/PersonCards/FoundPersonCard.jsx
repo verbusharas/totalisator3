@@ -1,6 +1,6 @@
 import profilePic from "../../../assets/images/profile-small.png"
 import {useState} from "react";
-import {createFriendRequest} from "../../../api/soccersApi";
+import {createFriendRequest} from "../../../api/userApi";
 import useUser from "../../../hooks/useUser";
 
 const FoundPersonCard = ({person, typedPart, isRequested}) => {

@@ -1,14 +1,20 @@
 /* HEADER */
 header {
     display: flex;
-    height: 230px;
+    height: 200px;
     color: var(--white-blue);
     justify-content: space-evenly;
     align-items: center;
+  justify-items: flex-start;
     width: 100%;
   background-color: var(--black-brown);
   }
-  
+
+
+.logo {
+  font-size: 9pt;
+}
+
   .logo__img {
     width: 290px;
     height: 32px;

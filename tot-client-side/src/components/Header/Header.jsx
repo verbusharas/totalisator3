@@ -6,12 +6,12 @@ import Logo from "./HeaderFragments/Logo";
 const Header = () => {
     return (
         <header>
-            <Logo/>
-            <nav>
-                <ManagerMenu/>
-                <PlayerMenu/>
-            </nav>
-            <UserMenu/>
+                <Logo/>
+                <nav>
+                    <ManagerMenu/>
+                    <PlayerMenu/>
+                </nav>
+                <UserMenu/>
         </header>
     )
 }

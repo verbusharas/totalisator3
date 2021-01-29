@@ -5,13 +5,8 @@ import {KeyboardDatePicker, MuiPickersUtilsProvider} from "@material-ui/pickers"
 import DateFnsUtils from "@date-io/date-fns";
 import {Grid, makeStyles} from "@material-ui/core";
 import React, {useEffect, useState} from "react";
-import {
-    fetchFifaFixtures,
-    fetchManagerFinishedMatches,
-    fetchManagerPendingMatches,
-    fetchMatches,
-    saveAsMatch
-} from "../../api/soccersApi";
+import {fetchFifaFixtures} from "../../api/fixtureApi";
+import {fetchManagerFinishedMatches, fetchManagerPendingMatches, fetchMatches, saveAsMatch} from "../../api/matchApi";
 
 export default () => {
 

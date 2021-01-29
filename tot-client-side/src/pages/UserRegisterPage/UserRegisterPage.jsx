@@ -2,7 +2,7 @@ import {Form, Formik, Field, ErrorMessage} from "formik";
 import * as Yup from "yup";
 import Button from "../../components/Forms/Button";
 import Undertext from "../../components/Forms/Undertext";
-import {saveUser} from "../../api/soccersApi";
+import {saveUser} from "../../api/userApi";
 import {useHistory} from "react-router-dom";
 import {useState} from "react";
 import ServerErrorMessage from "../../components/Forms/ServerErrorMessage";

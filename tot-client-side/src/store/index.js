@@ -1,10 +1,12 @@
 import {configureStore} from "@reduxjs/toolkit";
 import user from "./slices/userSlice"
+import totalisator from "./slices/totalisatorSlice"
 
 export const createStore = (initialState) => {
     const store = configureStore({
         reducer: {
-            user
+            user,
+            totalisator
         }
     })
     return store
