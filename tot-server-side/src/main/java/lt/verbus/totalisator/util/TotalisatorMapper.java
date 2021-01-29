@@ -1,5 +1,6 @@
 package lt.verbus.totalisator.util;
 
+import lt.verbus.totalisator.controller.dto.TotalisatorBasicDTO;
 import lt.verbus.totalisator.entity.Totalisator;
 import lt.verbus.totalisator.controller.dto.TotalisatorDTO;
 import org.springframework.beans.BeanUtils;
@@ -29,6 +30,8 @@ public class TotalisatorMapper {
         }
         return totalisatorDTO;
     }
+
+
 
     public Totalisator convertTotalisatorDTOtoEntity(TotalisatorDTO totalisatorDTO) {
         Totalisator totalisator = new Totalisator();

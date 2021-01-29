@@ -21,12 +21,11 @@ public class Totalisator {
 //    @OneToMany(mappedBy = "totalisator", cascade = CascadeType.ALL)
 //    List<Match> matches;
 
-    @ManyToMany
-    @Cascade({org.hibernate.annotations.CascadeType.ALL})
+    @ManyToMany(cascade=CascadeType.ALL)
     @JoinTable(
             name="user_totalisator",
-            joinColumns = {@JoinColumn(name = "user_id")},
-            inverseJoinColumns = {@JoinColumn(name ="totalisator_id")}
+            joinColumns = {@JoinColumn(name = "totalisator_id")},
+            inverseJoinColumns = {@JoinColumn(name ="user_id")}
     )
     List<User> players;
 

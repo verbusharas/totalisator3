@@ -1,7 +1,6 @@
 package lt.verbus.totalisator.util;
 
 import lt.verbus.totalisator.entity.Role;
-import lt.verbus.totalisator.entity.Totalisator;
 import lt.verbus.totalisator.entity.User;
 import lt.verbus.totalisator.controller.dto.UserDTO;
 import org.springframework.beans.BeanUtils;
@@ -12,6 +11,12 @@ import java.util.stream.Collectors;
 @Component
 public class UserMapper {
 
+    private final TotalisatorBasicMapper totalisatorBasicMapper;
+
+    public UserMapper(TotalisatorBasicMapper totalisatorBasicMapper) {
+        this.totalisatorBasicMapper = totalisatorBasicMapper;
+    }
+
     public UserDTO convertUserEntityToDTO(User user) {
         UserDTO userDTO = new UserDTO();
         userDTO.setId(user.getId());
@@ -20,10 +25,11 @@ public class UserMapper {
         userDTO.setRoles(user.getRoles().stream()
                 .map(Role::getRoleName)
                 .collect(Collectors.toSet()));
+
         userDTO.setTotalisators(user
                 .getTotalisators()
                 .stream()
-                .map(Totalisator::getId)
+                .map(totalisatorBasicMapper::convertTotalisatorEntityToBasicDTO)
                 .collect(Collectors.toList()));
 
         BeanUtils.copyProperties(user, userDTO);

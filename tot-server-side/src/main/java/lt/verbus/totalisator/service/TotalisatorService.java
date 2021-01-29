@@ -31,6 +31,14 @@ public class TotalisatorService {
                 .collect(Collectors.toList());
     }
 
+    public List<TotalisatorDTO> getAllTotalisatorsByUserId(Long userId) {
+        return totalisatorRepository
+                .findAllByUserId(userId)
+                .stream()
+                .map(totalisatorMapper::convertTotalisatorEntityToDTO)
+                .collect(Collectors.toList());
+    }
+
     public TotalisatorDTO save(Totalisator totalisator) {
         Totalisator savedTotalisator = totalisatorRepository.save(totalisator);
         return totalisatorMapper.convertTotalisatorEntityToDTO(savedTotalisator);
@@ -49,8 +57,13 @@ public class TotalisatorService {
                     .convertTotalisatorEntityToDTO(totalisator);
         }
 
-        user.getTotalisators().add(totalisator);
+//        user.getTotalisators().add(totalisator);
         totalisator.getPlayers().add(user);
+        //TODO:persists but does not return updated list of user totalisators
         return save(totalisator);
+    }
+
+    public TotalisatorDTO getTotalisatorById(Long id) {
+        return totalisatorMapper.convertTotalisatorEntityToDTO(totalisatorRepository.getOne(id));
     }
 }

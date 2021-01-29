@@ -22,6 +22,16 @@ public class TotalisatorController {
         return totalisatorService.getAllTotalisators();
     }
 
+    @GetMapping("player")
+    public List<TotalisatorDTO> getAllTotalisatorsByUserId(@RequestParam Long id) {
+        return totalisatorService.getAllTotalisatorsByUserId(id);
+    }
+
+    @GetMapping("/{id}")
+    public TotalisatorDTO getTotalisatorById(@PathVariable Long id) {
+        return totalisatorService.getTotalisatorById(id);
+    }
+
     @PutMapping("/{totalisatorId}/invite/{playerId}")
     public TotalisatorDTO addPlayer(@PathVariable Long playerId, @PathVariable Long totalisatorId) {
         return totalisatorService.addUserByIdToTotalisatorById(playerId, totalisatorId);

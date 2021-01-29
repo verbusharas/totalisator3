@@ -54,6 +54,10 @@ public class UserService implements UserDetailsService {
         return userRepository.findWithRolesByUsername(username).orElseThrow(()->new UsernameNotFoundException("User not found"));
     }
 
+    public UserDTO getUserDTOByUser(User user) {
+        return userMapper.convertUserEntityToDTO(user);
+    }
+
 //    public User getUserWithTotalisators(String username) {
 //        return userRepository.findWithTotalisatorsByUsername(username).orElseThrow(()->new UsernameNotFoundException("User not found"));
 ////        return playerMapper.convertUserEntityToPlayerDTO(user);

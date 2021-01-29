@@ -3,16 +3,10 @@ package lt.verbus.totalisator.controller.dto;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
-
 @Setter
 @Getter
-public class PlayerDTO {
-
+public class TotalisatorBasicDTO {
     private Long id;
 
-    private String name;
-
-    private List<TotalisatorBasicDTO> totalisators;
-
+    private String title;
 }

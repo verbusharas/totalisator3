@@ -24,7 +24,7 @@ public class UserDTO {
 
     private Set<String> roles;
 
-    private List<Long> totalisators;
+    private List<TotalisatorBasicDTO> totalisators;
 
     public UserDTO (User user) {
         this.id = user.getId();

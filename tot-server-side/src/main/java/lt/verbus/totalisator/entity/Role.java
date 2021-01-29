@@ -7,12 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.List;
 
 @Getter
@@ -31,6 +26,11 @@ public class Role implements GrantedAuthority {
     private String roleName;
 
     @ManyToMany
+    @JoinTable(
+            name="user_role",
+            joinColumns = {@JoinColumn(name = "role_id")},
+            inverseJoinColumns = {@JoinColumn(name ="user_id")}
+    )
     private List<User> users;
 
     public Role(Long id, String roleName) {

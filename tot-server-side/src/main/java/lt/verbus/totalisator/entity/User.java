@@ -38,17 +38,21 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "requester", cascade = CascadeType.ALL)
     private Set<Friendship> friendships;
 
-    @ManyToMany
-    private List<Totalisator> totalisators;
-
-    @ManyToMany
-    @Cascade(org.hibernate.annotations.CascadeType.PERSIST)
+    @ManyToMany(cascade=CascadeType.ALL)
     @JoinTable(
             name="user_role",
             joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns = {@JoinColumn(name ="role_id")}
     )
     private Set<Role> roles;
+
+    @ManyToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(
+            name="user_totalisator",
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name ="totalisator_id")}
+    )
+    private List<Totalisator> totalisators;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
