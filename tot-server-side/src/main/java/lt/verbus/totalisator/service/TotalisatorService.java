@@ -39,7 +39,11 @@ public class TotalisatorService {
                 .collect(Collectors.toList());
     }
 
-    public TotalisatorDTO save(Totalisator totalisator) {
+    public TotalisatorDTO save(TotalisatorDTO totalisatorDTO) {
+        User manager = userService.getUserById(totalisatorDTO.getManagerId());
+        Totalisator totalisator =  totalisatorMapper.convertTotalisatorDTOtoEntity(totalisatorDTO);
+        totalisator.setManager(manager);
+        totalisator.setPlayers(List.of(manager));
         Totalisator savedTotalisator = totalisatorRepository.save(totalisator);
         return totalisatorMapper.convertTotalisatorEntityToDTO(savedTotalisator);
     }
@@ -60,7 +64,8 @@ public class TotalisatorService {
 //        user.getTotalisators().add(totalisator);
         totalisator.getPlayers().add(user);
         //TODO:persists but does not return updated list of user totalisators
-        return save(totalisator);
+        Totalisator savedTotalisator = totalisatorRepository.save(totalisator);
+        return totalisatorMapper.convertTotalisatorEntityToDTO(savedTotalisator);
     }
 
     public TotalisatorDTO getTotalisatorById(Long id) {

@@ -38,8 +38,8 @@ public class TotalisatorController {
     }
 
     @PostMapping
-    public TotalisatorDTO createTotalisator(@RequestBody Totalisator totalisator) {
-        return totalisatorService.save(totalisator);
+    public TotalisatorDTO createTotalisator(@RequestBody TotalisatorDTO totalisatorDTO) {
+        return totalisatorService.save(totalisatorDTO);
     }
 
 }

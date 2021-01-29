@@ -28,6 +28,7 @@ public class TotalisatorMapper {
                     .map(playerMapper::convertUserEntityToPlayerDTO)
                     .collect(Collectors.toList()));
         }
+        totalisatorDTO.setManagerId(totalisator.getManager().getId());
         return totalisatorDTO;
     }
 

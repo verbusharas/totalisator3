@@ -15,4 +15,6 @@ public class TotalisatorDTO {
 
     List<PlayerDTO> players;
 
+    private Long managerId;
+
 }
