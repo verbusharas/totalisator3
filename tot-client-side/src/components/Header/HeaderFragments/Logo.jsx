@@ -60,10 +60,12 @@ export default () => {
 
 
     const getTotalisatorOptions = () => {
+
         return user.totalisators.map(t => {
+            const isUserManager = user.managedTotalisators.includes(t.id);
             return (
                 {
-                    label: t.title,
+                    label: isUserManager ? `✪ ${t.title}`: t.title,
                     value: t.id
                 }
             )

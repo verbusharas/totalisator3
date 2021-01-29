@@ -26,6 +26,8 @@ public class UserDTO {
 
     private List<TotalisatorBasicDTO> totalisators;
 
+    private List<Long> managedTotalisators;
+
     public UserDTO (User user) {
         this.id = user.getId();
         this.username = user.getUsername();

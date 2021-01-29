@@ -18,6 +18,9 @@ public class Totalisator {
 
     private String title;
 
+    @ManyToOne
+    private User manager;
+
 //    @OneToMany(mappedBy = "totalisator", cascade = CascadeType.ALL)
 //    List<Match> matches;
 

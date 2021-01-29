@@ -1,6 +1,7 @@
 package lt.verbus.totalisator.util;
 
 import lt.verbus.totalisator.entity.Role;
+import lt.verbus.totalisator.entity.Totalisator;
 import lt.verbus.totalisator.entity.User;
 import lt.verbus.totalisator.controller.dto.UserDTO;
 import org.springframework.beans.BeanUtils;
@@ -32,10 +33,16 @@ public class UserMapper {
                 .map(totalisatorBasicMapper::convertTotalisatorEntityToBasicDTO)
                 .collect(Collectors.toList()));
 
+        userDTO.setManagedTotalisators(user
+                .getTotalisators()
+                .stream()
+                .filter(t-> t.getManager().getId().equals(user.getId()))
+                .map(Totalisator::getId)
+                .collect(Collectors.toList()));
+
         BeanUtils.copyProperties(user, userDTO);
         return userDTO;
     }
-
 
     public User convertUserDTOtoEntity(UserDTO userDTO) {
         User user = new User();

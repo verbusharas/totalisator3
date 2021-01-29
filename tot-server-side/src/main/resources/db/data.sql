@@ -75,10 +75,10 @@ VALUES (1, 1),
        (25, 1),
        (25, 2);
 
-INSERT INTO totalisator (id, title)
-VALUES (1, 'CodeAcademy Totalisator 2021'),
-       (2, 'WorldCup 21 Uber Staff Totalisator'),
-       (3, 'Šeškinės Ultros');
+INSERT INTO totalisator (id, title, manager_id)
+VALUES (1, 'CodeAcademy Totalisator 2021', 13),
+       (2, 'WorldCup 21 Uber Staff Totalisator', 14),
+       (3, 'Šeškinės Ultros', 25);
 
 INSERT INTO user_totalisator (user_id, totalisator_id)
 VALUES (25, 1),
