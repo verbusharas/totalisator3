@@ -31,14 +31,16 @@ const UserFriendsPage = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    const handleChange = (e) => {
+    const handleSearchTyping = (e) => {
         if (user) {
             loadFriends();
             const value = e.target.value;
             setPartialName(value);
             if (value.length > 1) {
                 findUsersByPartialName(value).then(res => {
-                    setFoundPeople({typed: value, entities: res.data});
+                    const foundUsers = res.data;
+                    const allButCurrent = foundUsers.filter(u=>u.id!==user.id);
+                    setFoundPeople({typed: value, entities: allButCurrent});
                 }).catch(err => {
                     console.log("Returned -> Error:", err.response.data)
                 });
@@ -141,7 +143,7 @@ const UserFriendsPage = () => {
                             (
                                 <Form>
                                     <label>Person's name:</label>
-                                    <Field name="name" id="name" value={partialName} onChange={handleChange}
+                                    <Field name="name" id="name" value={partialName} onChange={handleSearchTyping}
                                            placeholder="Start typing a name..." autoComplete="off"/>
                                     {!!foundPeople.entities.length &&
                                     <>
