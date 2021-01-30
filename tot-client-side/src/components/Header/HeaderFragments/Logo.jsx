@@ -83,7 +83,7 @@ const Logo = () => {
             </Link>
             {user &&
             <div>
-                {totalisator &&
+                {user.totalisators.length > 0 &&
                 <Select styles={customStyles}
                         options={getTotalisatorOptions()}
                         value={getTotalisatorOptions().find(opt => opt.value === totalisator.id)}

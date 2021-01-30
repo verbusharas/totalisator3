@@ -101,9 +101,6 @@ const Toteboard = ({match, prediction, variant, handleClick}) => {
     }
 
 
-    const renderPrediction = (player)=> {
-        return <Prediction player={player.name} isCurrentUser={player.id === user.id}/>
-    }
 
     const showAverse = () => {
         return (
@@ -135,6 +132,11 @@ const Toteboard = ({match, prediction, variant, handleClick}) => {
                 </div>
             </article>
         )
+    }
+
+
+    const renderPrediction = (player)=> {
+        return <Prediction player={player.name} isCurrentUser={player.id === user.id}/>
     }
 
     const showReverse = () => {

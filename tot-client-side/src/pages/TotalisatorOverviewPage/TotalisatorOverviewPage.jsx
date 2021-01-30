@@ -2,15 +2,34 @@ import Toteboard from "../../components/Toteboards/Toteboard";
 import matches from "../../components/Toteboards/match";
 import Standings from "../../components/Standings/Standings";
 import Rules from "../../components/Rules/Rules";
+import useTotalisator from "../../hooks/useTotalisator";
+import useUser from "../../hooks/useUser";
+import {useEffect} from "react";
 
 const TotalisatorOverviewPage = (() => {
+
+    const user = useUser();
+    const totalisator = useTotalisator();
+
+    useEffect(()=>{
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[])
+
+        const renderNotPredictedMatch = (m) => {
+        console.log("m",m)
+            console.log("matches[0]",matches[0])
+        const isPredicted = false;
+        return (
+            !isPredicted && <Toteboard variant="user-not_predicted" match={m}/>
+        )
+        }
+
         return (
             <main>
                 <section className="feed feed--not-predicted">
                     <h2 className="feed__title">MATCHES WAITING FOR YOUR PREDICTION</h2>
-                    <Toteboard variant="user-not_predicted" match={matches[0]}/>
-                    <Toteboard variant="user-not_predicted" match={matches[1]}/>
-                    <Toteboard variant="user-not_predicted" match={matches[2]}/>
+                    {totalisator.matches.map(m=>renderNotPredictedMatch(m))}
                 </section>
                 <section className="overview">
                     <h2 className="overview__title">CURRENT TOTALISATOR STANDINGS</h2>

@@ -1,6 +1,7 @@
 import useUser from "../../../hooks/useUser";
 import {useDispatch} from "react-redux";
 import {clearJwt, clearUserData} from "../../../store/slices/userSlice";
+import {clearTotalisator} from "../../../store/slices/totalisatorSlice";
 
 const UserMenu = () => {
 
@@ -10,6 +11,7 @@ const UserMenu = () => {
     const logout = () => {
         dispatch(clearJwt())
         dispatch(clearUserData())
+        dispatch(clearTotalisator())
     }
 
     return (

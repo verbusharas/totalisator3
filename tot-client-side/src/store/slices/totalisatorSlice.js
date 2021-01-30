@@ -19,7 +19,9 @@ export const totalisatorSlice = createSlice({
 
 
         clearTotalisator(state){
+            const prevTotalisatorId = state.totalisatorData.id || 4;
             state.totalisatorData = null
+            state.totalisatorData = {prevId:prevTotalisatorId}
         },
     }
 })
