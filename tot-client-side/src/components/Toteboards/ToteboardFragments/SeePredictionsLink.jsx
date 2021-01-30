@@ -1,4 +1,4 @@
-const SeePredictionsLink = ({hasStats}) => {
+const SeePredictionsLink = ({hasStats, handleFlip}) => {
 
     const showStatsAndLink = ()=>{
         return (
@@ -7,9 +7,9 @@ const SeePredictionsLink = ({hasStats}) => {
                         {`3/6 `}
                     </span>
                 people have already predicted.
-                <a className="tote-board__incentives--link" href="/">
+                <button className="tote-board__incentives--link" type="button" onClick={handleFlip}>
                     Flip to see >
-                </a>
+                </button>
             </p>
         )
     }
@@ -17,9 +17,9 @@ const SeePredictionsLink = ({hasStats}) => {
     const showLinkOnly = ()=> {
         return (
             <p>
-                <a className="tote-board__incentives--link" href="/">
-                   See predictions of other players >
-                </a>
+                <button className="tote-board__incentives--link" type="button" onClick={handleFlip}>
+                    See predictions of other players >
+                </button>
             </p>
         )
     }

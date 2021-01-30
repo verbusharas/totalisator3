@@ -7,6 +7,9 @@ import ToteboardIncentives from "./ToteboardFragments/ToteboardIncentives";
 import ToteboardButton from "./ToteboardFragments/ToteboardButton";
 import ToteboardPayout from "./ToteboardFragments/ToteboardPayout";
 import cx from "classnames";
+import Prediction from "./ToteboardFragments/Prediction";
+import useTotalisator from "../../hooks/useTotalisator";
+import useUser from "../../hooks/useUser";
 
 // Variant structure: "{environment}-{status}"
 // Supported variants:
@@ -23,12 +26,19 @@ import cx from "classnames";
 
 const Toteboard = ({match, prediction, variant, handleClick}) => {
 
+    const [isFlipped, setIsFlipped] = useState(false);
+
+    const totalisator = useTotalisator();
+    const user = useUser();
+
     const environment = variant.split("-")[0];
     const status = variant.split("-")[1];
 
     const isDisabled = (variant === "fifa-added"
         || variant === "fifa-finished"
         || variant === "fifa-invalid");
+
+    const isFlippable = (environment !== "fifa");
 
     const [homeScore, setHomeScore] = useState("");
     const [awayScore, setAwayScore] = useState("");
@@ -86,35 +96,69 @@ const Toteboard = ({match, prediction, variant, handleClick}) => {
         }
     }
 
-    return (
+    const flipToteboard = () => {
+       setIsFlipped(!isFlipped);
+    }
 
-        <article className={cx({"tote-board": true, "tote-board--disabled": isDisabled})}>
-            <ToteboardHeader date={match.date} league={match.league}/>
-            {environment === "user" && <ToteboardScoreLabel text="Your prediction:"/>}
-            <div className="tote-board__main">
-                <ToteboardTeam team={match.homeTeam} status="home"
-                               hasCrest={environment !== "fifa" && status !== "finished"}/>
+
+    const renderPrediction = (player)=> {
+        return <Prediction player={player.name} isCurrentUser={player.id === user.id}/>
+    }
+
+    const showAverse = () => {
+        return (
+            <article className={cx({"tote-board": true, "tote-board--disabled": isDisabled})}>
+                <ToteboardHeader date={match.date} league={match.league}/>
+                {environment === "user" && <ToteboardScoreLabel text="Your prediction:"/>}
+                <div className="tote-board__main">
+                    <ToteboardTeam team={match.homeTeam} status="home"
+                                   hasCrest={environment !== "fifa" && status !== "finished"}/>
+                    {getScoreboard()}
+                    <ToteboardTeam team={match.awayTeam} status="away"
+                                   hasCrest={environment !== "fifa" && status !== "finished"}/>
+                </div>
+                {variant !== "user-finished" && <ToteboardIncentives
+                    countdownTo={(variant === "manager-pending" || variant === "user-not_predicted") && match.date}
+                    showPredictionsLink={isFlippable}
+                    handleFlip={flipToteboard}
+                />}
+                {variant === "user-finished" &&
+                <ToteboardPayout scores={match.scores} payout={prediction.payout}/>}
+                <div className="tote-board__footer">
+                    {status === "not_predicted" && <ToteboardButton text="REGISTER PREDICTION"/>}
+                    {variant === "fifa-listed" && <ToteboardButton text="ADD TO TOTALISATOR" handleClick={handleClick}/>}
+                    {variant === "fifa-finished" && <ToteboardButton text="FINISHED" disabled/>}
+                    {variant === "fifa-added" && <ToteboardButton text="ADDED" disabled/>}
+                    {validateMatchStatus()}
+                    {variant === "fifa-invalid" &&
+                    <ToteboardButton text={`STATUS: ${match.statusName.toUpperCase()}`} disabled/>}
+                </div>
+            </article>
+        )
+    }
+
+    const showReverse = () => {
+        return (
+        <article className={"tote-board tote-board--flipped"}>
+            <div className="tote-board__heraldics">
+                <span>{match.homeTeam.shortCode}</span>
                 {getScoreboard()}
-                <ToteboardTeam team={match.awayTeam} status="away"
-                               hasCrest={environment !== "fifa" && status !== "finished"}/>
+                <span>{match.awayTeam.shortCode}</span>
             </div>
-            {variant !== "user-finished" && <ToteboardIncentives
-                countdownTo={(variant === "manager-pending" || variant === "user-not_predicted") && match.date}
-                showPredictionsLink={environment !== "fifa"}
-            />}
-            {variant === "user-finished" &&
-            <ToteboardPayout scores={match.scores} payout={prediction.payout}/>}
-            <div className="tote-board__footer">
-                {status === "not_predicted" && <ToteboardButton text="REGISTER PREDICTION"/>}
-                {variant === "fifa-listed" && <ToteboardButton text="ADD TO TOTALISATOR" handleClick={handleClick}/>}
-                {variant === "fifa-finished" && <ToteboardButton text="FINISHED" disabled/>}
-                {variant === "fifa-added" && <ToteboardButton text="ADDED" disabled/>}
-                {validateMatchStatus()}
-                {variant === "fifa-invalid" &&
-                <ToteboardButton text={`STATUS: ${match.statusName.toUpperCase()}`} disabled/>}
+            <div className="tote-board__predictions-list">
+                {totalisator.players.map(p=>renderPrediction(p))}
             </div>
+
+            <p>
+                <button className="tote-board__incentives--link" type="button" onClick={()=>flipToteboard()}>
+                    {"< Flip back"}
+                </button>
+            </p>
         </article>
-    )
+        )
+    }
+
+    return isFlipped ? showReverse() : showAverse();
 }
 
 export default Toteboard;

@@ -110,11 +110,17 @@
 
 .tote-board__incentives--link {
   text-decoration: none;
+  background-color: transparent;
+  border: none;
   color: var(--white-blue);
+  height: 20px;
+  padding-bottom: 10px;
+  font-family: "Montserrat", sans-serif;
 }
 
 .tote-board__incentives--link:hover {
   border-bottom: 1px solid var(--light-teal);
+  cursor: pointer;
 }
 
 .tote-board__footer {
@@ -167,4 +173,60 @@
 
 .tote-board__del-button a:hover {
   color: var(--yellow);
+}
+
+.tote-board--flipped {
+  color: var(--yellow);
+  max-height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.tote-board--flipped p {
+  margin: 0 0 0 20px;
+
+}
+
+.tote-board--flipped .tote-board__heraldics {
+  justify-content: center;
+  align-items: center;
+}
+
+.tote-board--flipped .tote-board__score-predict h2{
+  margin: 10px 0 10px 0;
+}
+
+.tote-board--flipped .tote-board__predictions-list {
+  margin-top: 10px;
+  padding: 10px;
+  column-count: 3;
+  column-gap: 2px;
+}
+
+.tote-board--flipped .tote-board__predictions-list p{
+  color: var(--white-blue);
+  font-size: 9pt;
+  margin: 5px;
+  text-align: right;
+}
+
+
+
+.tote-board--flipped .tote-board__predictions-list p strong{
+  color: var(--black-teal);
+  background-color: var(--white-blue);
+  margin: 0;
+  padding: 2px 5px 2px 5px;
+  width: 5px;
+}
+
+
+.tote-board--flipped .tote-board__incentives--link {
+  margin: 0;
+}
+
+p.tote-board--current-user {
+ font-weight: bold;
+  color: var(--yellow) !important;
 }
