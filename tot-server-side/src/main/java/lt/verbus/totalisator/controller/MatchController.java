@@ -1,11 +1,11 @@
 package lt.verbus.totalisator.controller;
 
 import lt.verbus.totalisator.controller.dto.MatchDTO;
-import lt.verbus.totalisator.controller.dto.TotalisatorDTO;
 import lt.verbus.totalisator.entity.Match;
 import lt.verbus.totalisator.service.MatchService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/match")
+@RequestMapping("/totalisator/{totalisatorId}/match")
 public class MatchController {
 
     private final MatchService matchService;
@@ -31,17 +31,22 @@ public class MatchController {
     }
 
     @GetMapping
-    private List<Match> getMatches() {
-        return matchService.getTotalisatorFixtures();
+    private List<MatchDTO> getTotalisatorMatches(@PathVariable Long totalisatorId) {
+        return matchService.getTotalisatorMatches(totalisatorId);
     }
 
     @GetMapping("/pending")
-    private List<Match> getPendingMatches() {
-        return matchService.getPendingMatches();
+    private List<MatchDTO> getPendingMatches(@PathVariable Long totalisatorId) {
+        return matchService.getPendingMatches(totalisatorId);
+    }
+
+    @GetMapping("/{matchId}")
+    private MatchDTO getMatch(@PathVariable Long totalisatorId, @PathVariable Long matchId) {
+        return matchService.getByTotalisatorIdAndMatchId(totalisatorId, matchId);
     }
 
     @GetMapping("/finished")
-    private List<Match> getFinishedMatches() {
-        return matchService.getFinishedMatches();
+    private List<MatchDTO> getFinishedMatches(@PathVariable Long totalisatorId) {
+        return matchService.getFinishedMatches(totalisatorId);
     }
 }

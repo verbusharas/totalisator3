@@ -23,7 +23,7 @@ public class Match {
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long entityId;
 
-    private Integer id;
+    private Integer fifaId;
 
     @OneToOne(cascade = CascadeType.ALL)
     private League league;

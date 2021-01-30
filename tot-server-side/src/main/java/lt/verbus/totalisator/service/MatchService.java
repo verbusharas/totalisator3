@@ -4,13 +4,13 @@ import lt.verbus.totalisator.controller.dto.MatchDTO;
 import lt.verbus.totalisator.controller.dto.TotalisatorDTO;
 import lt.verbus.totalisator.entity.Match;
 import lt.verbus.totalisator.entity.Totalisator;
+import lt.verbus.totalisator.exception.DuplicateEntryException;
 import lt.verbus.totalisator.repository.MatchRepository;
-import lt.verbus.totalisator.repository.TotalisatorRepository;
 import lt.verbus.totalisator.util.MatchMapper;
-import lt.verbus.totalisator.util.TotalisatorMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class MatchService {
@@ -27,23 +27,47 @@ public class MatchService {
 
     public MatchDTO saveMatch(MatchDTO matchDTO) {
         Totalisator totalisator = totalisatorService.getTotalisatorById(matchDTO.getTotalisatorId());
-        Match match = matchMapper.convertMatchDTOtoEntity(matchDTO);
-        match.setTotalisator(totalisator);
-        Match savedMatch = matchRepository.save(match);
-        return matchMapper.convertMatchEntityToMatchDTO(savedMatch);
+        boolean isUnique = totalisator
+                .getMatches()
+                .stream()
+                .noneMatch(match -> match
+                        .getFifaId()
+                        .equals(matchDTO.getFifaId()));
+        if (isUnique) {
+            Match match = matchMapper.convertMatchDTOtoEntity(matchDTO);
+            match.setTotalisator(totalisator);
+            Match savedMatch = matchRepository.save(match);
+            return matchMapper.convertMatchEntityToMatchDTO(savedMatch);
+        } else throw new DuplicateEntryException("Totalisator already contains this match");
     }
 
-    public List<Match> getTotalisatorFixtures() {
-        return matchRepository.findAll();
+    public List<MatchDTO> getTotalisatorMatches(Long totalisatorId) {
+        return matchRepository
+                .findByTotalisatorId(totalisatorId)
+                .stream()
+                .map(matchMapper::convertMatchEntityToMatchDTO)
+                .collect(Collectors.toList());
     }
 
-    public List<Match> getPendingMatches() {
-        return matchRepository.findMatchesByStatusName("Notstarted");
+    public List<MatchDTO> getPendingMatches(Long totalisatorId) {
+        return matchRepository
+                .findByTotalisatorIdAndStatusName(totalisatorId, "Notstarted")
+                .stream()
+                .map(matchMapper::convertMatchEntityToMatchDTO)
+                .collect(Collectors.toList());
     }
 
-    public List<Match> getFinishedMatches() {
-        return matchRepository.findMatchesByStatusName("Finished");
+    public List<MatchDTO> getFinishedMatches(Long totalisatorId) {
+        return matchRepository
+                .findByTotalisatorIdAndStatusName(totalisatorId, "Finished")
+                .stream()
+                .map(matchMapper::convertMatchEntityToMatchDTO)
+                .collect(Collectors.toList());
     }
 
+    public MatchDTO getByTotalisatorIdAndMatchId(Long totalisatorId, Long matchId) {
+        Match match = matchRepository.findByTotalisatorIdAndMatchId(totalisatorId,matchId);
+        return matchMapper.convertMatchEntityToMatchDTO(match);
+    }
 }
 

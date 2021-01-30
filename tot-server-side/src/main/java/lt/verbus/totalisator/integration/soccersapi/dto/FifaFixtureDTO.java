@@ -13,11 +13,12 @@ import java.util.Map;
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class FifaFixtureDTO {
-    @JsonProperty("id")
-    private Integer id;
+
+    private Integer fifaId;
 
     @JsonProperty("winner_team_id")
     private String winnerTeamId;
+
     @JsonProperty("league")
     private FifaLeagueDTO league;
 
@@ -40,6 +41,13 @@ public class FifaFixtureDTO {
     private String psScore;
 
     private String statusName;
+
+
+    @SuppressWarnings("unchecked")
+    @JsonProperty("id")
+    private void getId(Integer id) {
+        this.fifaId = id;
+    }
 
     @SuppressWarnings("unchecked")
     @JsonProperty("teams")

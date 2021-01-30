@@ -22,10 +22,16 @@ public class ExceptionHandlers {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(OperationNotAllowed.class)
-    public ErrorResponse handleEntityNotFoundException(OperationNotAllowed exception) {
+    public ErrorResponse handleOperationNotAllowedException(OperationNotAllowed exception) {
         return new ErrorResponse(exception.getMessage(), LocalDateTime.now());
     }
 
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(DuplicateEntryException.class)
+    public ErrorResponse handleDuplicateEntryException(DuplicateEntryException exception) {
+        return new ErrorResponse(exception.getMessage(), LocalDateTime.now());
+    }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
