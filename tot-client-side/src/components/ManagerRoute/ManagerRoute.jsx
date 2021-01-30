@@ -9,7 +9,8 @@ const ManagerRoute = ({children, roles, ...props}) => {
     const totalisator = useTotalisator()
 
     const isAuthorized = roles ? !!_.intersection(user?.roles, roles).length : !!user
-    const isManager = user?.managedTotalisators.includes(totalisator.id);
+    const isManager = user?.id === totalisator.managerId;
+
     return (
 
         <Route {...props}>
@@ -17,7 +18,7 @@ const ManagerRoute = ({children, roles, ...props}) => {
                 user && isAuthorized && isManager ? children : user ? (
                         <Redirect
                             to={{
-                                pathname: '/forbidden',
+                                pathname: '/user/welcome',
                                 state: {
                                     from: location
                                 }

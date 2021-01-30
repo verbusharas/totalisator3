@@ -31,9 +31,10 @@ const UserLoginPage = () => {
         }).then((totalisators) => {
             if (totalisators.length > 0) {
                 console.log("USER TOTALISATORS:",totalisators)
-                // If no totalisator info in local storage - pick the first from user totalisator list
+                // If no totalisator info in local storage - pick the first one from the list
                 let prevTotalisator = loadTotalisatorFromStorage()?.totalisatorData || totalisators[0];
-                // If current user is not included in totalisator loaded from local storage, then pick first one from the list
+                // If current user is not included in localStorage preloaded totalisator
+                // then pick first one from the list
                 if (!totalisators.map(t=>t.id).includes(prevTotalisator.id)) {
                   prevTotalisator = totalisators[0];
                 }
