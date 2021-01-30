@@ -7,6 +7,7 @@ import lt.verbus.totalisator.controller.dto.TotalisatorDTO;
 import lt.verbus.totalisator.util.TotalisatorMapper;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -45,6 +46,8 @@ public class TotalisatorService {
         totalisator.setManager(manager);
         totalisator.setPlayers(List.of(manager));
         Totalisator savedTotalisator = totalisatorRepository.save(totalisator);
+        manager.getTotalisators().add(totalisator);
+
         return totalisatorMapper.convertTotalisatorEntityToDTO(savedTotalisator);
     }
 
@@ -60,11 +63,10 @@ public class TotalisatorService {
             return totalisatorMapper
                     .convertTotalisatorEntityToDTO(totalisator);
         }
-
-//        user.getTotalisators().add(totalisator);
         totalisator.getPlayers().add(user);
         //TODO:persists but does not return updated list of user totalisators
         Totalisator savedTotalisator = totalisatorRepository.save(totalisator);
+        user.getTotalisators().add(totalisator);
         return totalisatorMapper.convertTotalisatorEntityToDTO(savedTotalisator);
     }
 
