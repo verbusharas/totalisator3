@@ -1,5 +1,7 @@
 package lt.verbus.totalisator.controller;
 
+import lt.verbus.totalisator.controller.dto.MatchDTO;
+import lt.verbus.totalisator.controller.dto.TotalisatorDTO;
 import lt.verbus.totalisator.entity.Match;
 import lt.verbus.totalisator.service.MatchService;
 import org.springframework.http.HttpStatus;
@@ -24,8 +26,8 @@ public class MatchController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    private Match saveMatch(@RequestBody Match match) {
-        return matchService.saveMatch(match);
+    private MatchDTO saveMatch(@RequestBody MatchDTO matchDTO) {
+        return matchService.saveMatch(matchDTO);
     }
 
     @GetMapping

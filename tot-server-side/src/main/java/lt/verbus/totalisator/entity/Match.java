@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -20,7 +21,7 @@ public class Match {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public Long entity_id;
+    public Long entityId;
 
     private Integer id;
 
@@ -34,6 +35,9 @@ public class Match {
 
     @OneToOne(cascade = CascadeType.ALL)
     private Team awayTeam;
+
+    @ManyToOne
+    private Totalisator totalisator;
 
     private String homeScore;
     

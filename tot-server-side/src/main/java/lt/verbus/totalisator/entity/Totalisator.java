@@ -21,8 +21,8 @@ public class Totalisator {
     @ManyToOne
     private User manager;
 
-//    @OneToMany(mappedBy = "totalisator", cascade = CascadeType.ALL)
-//    List<Match> matches;
+    @OneToMany(mappedBy = "totalisator", cascade = CascadeType.ALL)
+    List<Match> matches;
 
     @ManyToMany(cascade=CascadeType.ALL)
     @JoinTable(

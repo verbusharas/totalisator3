@@ -2,11 +2,14 @@ package lt.verbus.totalisator.service;
 
 import lt.verbus.totalisator.entity.Totalisator;
 import lt.verbus.totalisator.entity.User;
+import lt.verbus.totalisator.exception.OperationNotAllowed;
 import lt.verbus.totalisator.repository.TotalisatorRepository;
 import lt.verbus.totalisator.controller.dto.TotalisatorDTO;
 import lt.verbus.totalisator.util.TotalisatorMapper;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -64,13 +67,32 @@ public class TotalisatorService {
                     .convertTotalisatorEntityToDTO(totalisator);
         }
         totalisator.getPlayers().add(user);
-        //TODO:persists but does not return updated list of user totalisators
         Totalisator savedTotalisator = totalisatorRepository.save(totalisator);
         user.getTotalisators().add(totalisator);
         return totalisatorMapper.convertTotalisatorEntityToDTO(savedTotalisator);
     }
 
-    public TotalisatorDTO getTotalisatorById(Long id) {
+    public TotalisatorDTO getTotalisatorDTOById(Long id) {
         return totalisatorMapper.convertTotalisatorEntityToDTO(totalisatorRepository.getOne(id));
+    }
+
+    public Totalisator getTotalisatorById(Long id) {
+        return totalisatorRepository.findById(id).orElseThrow(()->new EntityNotFoundException("Totalisator Not Found"));
+    }
+
+
+    public TotalisatorDTO kickUserByIdFromTotalisatorById(Long playerId, Long totalisatorId) {
+        Totalisator totalisator = totalisatorRepository.getOne(totalisatorId);
+        User manager = totalisator.getManager();
+        if (playerId.equals(manager.getId())) {
+            throw new OperationNotAllowed("Manager cannot be kicked.");
+        }
+        totalisator.setPlayers(totalisator
+                .getPlayers()
+                .stream()
+                .filter(p-> !p.getId().equals(playerId))
+                .collect(Collectors.toList()));
+        Totalisator savedTotalisator = totalisatorRepository.save(totalisator);
+        return totalisatorMapper.convertTotalisatorEntityToDTO(savedTotalisator);
     }
 }
