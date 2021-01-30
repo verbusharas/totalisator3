@@ -4,7 +4,7 @@ import Standings from "../../components/Standings/Standings";
 import {findFriendshipsByUserId} from "../../api/userApi";
 import useUser from "../../hooks/useUser";
 import FriendCard from "../UserFriendsPage/PersonCards/FriendCard";
-import {addPlayerToTotalisator, fetchTotalisatorById} from "../../api/totalisatorApi";
+import {addPlayerToTotalisator, fetchTotalisatorById, kickPlayerFromTotalisator} from "../../api/totalisatorApi";
 import {useDispatch} from "react-redux";
 import {setTotalisator} from "../../store/slices/totalisatorSlice";
 import convertFriendshipsToFriends from "../../utils/mapper";
@@ -18,32 +18,49 @@ const ManagePlayersPage = () => {
     const [possiblePlayers, setPossiblePlayers] = useState([]);
 
     useEffect(() => {
-        setPlayerIds(totalisator.players.map(p=>p.id));
+        setPlayerIds(totalisator.players.map(p => p.id));
         getPossiblePlayers();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
+    const refreshTotalisator = () => {
+        fetchTotalisatorById(totalisator.id)
+            .then((res) => {
+                dispatch(setTotalisator(res.data))
+            })
+    }
+
     const includeFriend = (friend) => {
         addPlayerToTotalisator(totalisator.id, friend.id).then((res) => {
             setPlayerIds([...playerIds, friend.id])
-            setPossiblePlayers(possiblePlayers.filter(pp=>pp.id !== friend.id))
-            fetchTotalisatorById(totalisator.id)
-                .then((res) => {dispatch(setTotalisator(res.data))})
+            setPossiblePlayers(possiblePlayers.filter(pp => pp.id !== friend.id))
+            refreshTotalisator();
         })
     }
 
     const renderFriend = (friend) => {
-        return <FriendCard key={"f" + friend.id}
+        return <FriendCard key={"f" + Math.random()}
                            person={friend}
                            isForTotalisator
                            handleInclude={() => includeFriend(friend)}
         />
     }
 
-    const printName = (player) => {
-        return <span key={Math.random()}>{player.name}</span>
+    const kickPlayer = (player) => {
+        kickPlayerFromTotalisator(totalisator.id, player.id).then((res) => {
+            console.log("after kick", res.data)
+            setPlayerIds(playerIds.filter(pi => pi !== player.id));
+            setPossiblePlayers([...possiblePlayers, player]);
+            refreshTotalisator();
+        })
     }
 
+    const printName = (player) => {
+        return <div key={Math.random()}>
+            <span>{player.name}</span>
+            {player.id !== user.id && <button type="button" onClick={() => kickPlayer(player)}>KICK</button>}
+        </div>
+    }
 
 
     const getPossiblePlayers = () => {
@@ -51,7 +68,7 @@ const ManagePlayersPage = () => {
             const friends = convertFriendshipsToFriends(user.id, res.data);
             console.log("plauerIds", playerIds)
             console.log("possiblePlayers", possiblePlayers)
-            const includedIds = totalisator.players.map(p=>p.id)
+            const includedIds = totalisator.players.map(p => p.id)
             const unincludedFriends = friends.filter(f => !includedIds.includes(f.id));
             console.log("uncincluded friends", unincludedFriends)
             setPossiblePlayers(unincludedFriends)
@@ -80,7 +97,7 @@ const ManagePlayersPage = () => {
                 <h2 className="feed__title">INCLUDE FRIENDS AS PLAYERS</h2>
                 <article className="feed__description">
                     <div className="found-users">
-                        {possiblePlayers.map(pp=>renderFriend(pp))}
+                        {possiblePlayers.map(pp => renderFriend(pp))}
                         {/*{!getPossiblePlayers()?.length &&*/}
                         {/*<p>You don't have any friends yet.*/}
                         {/*    Find people in the search below and add them as your friends.</p>}*/}

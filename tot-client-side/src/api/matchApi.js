@@ -1,7 +1,7 @@
 import HTTP from "./index";
 
-export const saveAsMatches = (matches) => HTTP.post("/match", matches);
-export const fetchMatches = () => HTTP.get("/match");
-export const fetchManagerPendingMatches = () => HTTP.get("/match/pending");
-export const fetchManagerFinishedMatches = () => HTTP.get("/match/finished");
-export const saveAsMatch = (match) => HTTP.post("/match", match);
+export const saveAsMatches = (totalisatorId, matches) => HTTP.post(`/totalisator/${totalisatorId}/match`, matches);
+export const fetchMatches = (totalisatorId) => HTTP.get(`totalisator/${totalisatorId}/match`);
+export const fetchManagerPendingMatches = (totalisatorId) => HTTP.get(`/totalisator/${totalisatorId}/match/pending`);
+export const fetchManagerFinishedMatches = (totalisatorId) => HTTP.get(`/totalisator/${totalisatorId}/match/finished`);
+export const saveAsMatch = (totalisatorId, match) => HTTP.post(`/totalisator/${totalisatorId}/match`, match);

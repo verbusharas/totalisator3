@@ -6,6 +6,9 @@ import {Grid, makeStyles} from "@material-ui/core";
 import React, {useEffect, useState} from "react";
 import {fetchFifaFixtures} from "../../api/fixtureApi";
 import {fetchManagerFinishedMatches, fetchManagerPendingMatches, saveAsMatch} from "../../api/matchApi";
+import useTotalisator from "../../hooks/useTotalisator";
+import {addMatch} from "../../store/slices/totalisatorSlice";
+import {useDispatch} from "react-redux";
 
 const ManageMatchesPage = () => {
 
@@ -17,6 +20,9 @@ const ManageMatchesPage = () => {
     const [isLoading, setIsLoading] = useState(true);
 
     const dateToString = date => date.toISOString().split('T')[0];
+
+    const totalisator = useTotalisator();
+    const dispatch = useDispatch();
 
     const loadFifaFixtures = (date) => {
         setIsLoading(true);
@@ -32,14 +38,14 @@ const ManageMatchesPage = () => {
 
     const loadTotalisatorMatches = () => {
 
-        fetchManagerPendingMatches()
+        fetchManagerPendingMatches(totalisator.id)
             .then(response => {
                 setManagerPendingMatches(response.data)
             }).catch(err => {
             console.log("Klaida:", err);
         });
 
-        fetchManagerFinishedMatches()
+        fetchManagerFinishedMatches(totalisator.id)
             .then(response => {
                 setManagerFinishedMatches(response.data)
             }).catch(err => {
@@ -48,10 +54,10 @@ const ManageMatchesPage = () => {
     }
 
     useEffect(() => {
-        fetchManagerPendingMatches()
+        fetchManagerPendingMatches(totalisator.id)
             .then(response => {
                 setManagerPendingMatches(response.data)
-                fetchManagerFinishedMatches()
+                fetchManagerFinishedMatches(totalisator.id)
                     .then(response => {
                         setManagerFinishedMatches(response.data)
                         loadFifaFixtures(selectedDate);
@@ -70,9 +76,14 @@ const ManageMatchesPage = () => {
     };
 
     const handleFifaFixtureSelect = (fixture) => {
-        setAddingIds([...addingIds, fixture.id]);
-        saveAsMatch(fixture).then(() => {
-            loadTotalisatorMatches()
+        console.log("FIXTURE BEFORE SAVING:", fixture)
+        setAddingIds([...addingIds, fixture.fifaId]);
+        fixture.totalisatorId = totalisator.id;
+
+        saveAsMatch(totalisator.id, fixture).then((res) => {
+            console.log("RESPONSE.data after saving as match:", res.data)
+            loadTotalisatorMatches();
+            dispatch(addMatch(fixture));
         });
         //TODO vėluoja: .finally(() => setAddingIds([]))
     }
@@ -122,27 +133,28 @@ const ManageMatchesPage = () => {
     }
 
     const createFifaToteboard = (match) => {
-        const addedIds = managerPendingMatches.map(tm => tm.id);
-        if (addedIds.includes(match.id) || addingIds.includes(match.id)) {
-            return <Toteboard key={match.id} match={match} variant="fifa-added"/>
+        const addedIdsFromRedux = totalisator.matches.map(m=>m.fifaId);
+        const addedIds = managerPendingMatches.map(tm => tm.fifaId);
+        if (addedIdsFromRedux.includes(match.fifaId) || addingIds.includes(match.fifaId)) {
+            return <Toteboard key={match.fifaId} match={match} variant="fifa-added"/>
         }
         switch (match.statusName) {
             case "Notstarted":
-                return <Toteboard key={match.id} match={match} variant="fifa-listed"
+                return <Toteboard key={match.fifaId} match={match} variant="fifa-listed"
                                   handleClick={() => handleFifaFixtureSelect(match)}/>;
             case "Finished":
-                return <Toteboard key={match.id} match={match} variant="fifa-finished"/>
+                return <Toteboard key={match.fifaId} match={match} variant="fifa-finished"/>
             default :
-                return <Toteboard key={match.id} match={match} variant="fifa-invalid"/>
+                return <Toteboard key={match.fifaId} match={match} variant="fifa-invalid"/>
         }
     }
 
     const createManagerPendingToteboard = (match) => {
-        return <Toteboard key={"mp" + match.entity_id} match={match} variant="manager-pending"/>
+        return <Toteboard key={"mp" + match.entityId} match={match} variant="manager-pending"/>
     }
 
     const createManagerFinishedToteboard = (match) => {
-        return <Toteboard key={"mf" + match.entity_id} match={match} variant="manager-finished"/>
+        return <Toteboard key={"mf" + match.entityId} match={match} variant="manager-finished"/>
     }
 
     return (

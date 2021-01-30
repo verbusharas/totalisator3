@@ -12,7 +12,7 @@ const FriendCard = ({person,
                 <img src={profilePic} alt="add friend"/>
             </div>
             <div className="found-user__info-container">
-                <p>{person.name.toUpperCase()}</p>
+                {person.name && <p>{person.name.toUpperCase()}</p> }
                 { isRequest && <span className="found-user__link" onClick={handleAccept}>
                     Accept
                 </span> }

@@ -2,13 +2,12 @@ import top from "../../assets/bg-images/chest/chest3-top.png";
 import mid from "../../assets/bg-images/chest/chest3-mid1.png";
 import preBottom from "../../assets/bg-images/chest/chest3-pre-bottom.png";
 import bottom from "../../assets/bg-images/chest/chest3-bottom.png";
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import {findFriendshipsByUserId} from "../../api/userApi";
 import useUser from "../../hooks/useUser";
 
 const UserWelcomePage = () => {
 
-    const [hasFriends, setHasFriends] = useState(false);
 
     const user = useUser();
 
@@ -16,7 +15,6 @@ const UserWelcomePage = () => {
         findFriendshipsByUserId(user.id).then(res=>{
             console.log("friends response:", res.data);
             if (res.data?.filter(friendship=>friendship.isAccepted).length > 0) {
-             setHasFriends(true);
             }
         })
         // eslint-disable-next-line react-hooks/exhaustive-deps

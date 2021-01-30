@@ -2,6 +2,7 @@ const Standings = () => {
     return (
         <article className="standings">
             <table>
+                <tbody>
                 <tr>
                     <td className="standings__player">DALIA IBELHAUPTAITĖ</td>
                     <td className="standings__points">8750</td>
@@ -32,6 +33,7 @@ const Standings = () => {
                     <td className="standings__points">50</td>
                     <td className="standings__player" style={{backgroundColor:"var(--dark-teal)", color:"var(--white-blue)"}}>kick</td>
                 </tr>
+                </tbody>
             </table>
         </article>
     )

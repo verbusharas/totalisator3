@@ -13,6 +13,11 @@ export const totalisatorSlice = createSlice({
             state.totalisatorData = totalisator
         },
 
+        addMatch(state, {payload:match}) {
+            state.totalisatorData.matches.push(match);
+        },
+
+
         clearTotalisator(state){
             state.totalisatorData = null
         },
@@ -34,4 +39,4 @@ export const subscribeToTotalisatorChanges = (store) => {
 export const loadTotalisatorFromStorage = () => loadFromStorage("totalisator");
 
 export default totalisatorSlice.reducer
-export const {setTotalisator, clearTotalisator} = totalisatorSlice.actions
+export const {setTotalisator, clearTotalisator, addMatch} = totalisatorSlice.actions
