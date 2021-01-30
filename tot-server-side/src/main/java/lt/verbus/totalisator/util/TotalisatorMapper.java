@@ -1,6 +1,5 @@
 package lt.verbus.totalisator.util;
 
-import lt.verbus.totalisator.controller.dto.TotalisatorBasicDTO;
 import lt.verbus.totalisator.entity.Match;
 import lt.verbus.totalisator.entity.Totalisator;
 import lt.verbus.totalisator.controller.dto.TotalisatorDTO;
@@ -13,9 +12,11 @@ import java.util.stream.Collectors;
 public class TotalisatorMapper {
 
     private final PlayerMapper playerMapper;
+    private final MatchMapper matchMapper;
 
-    public TotalisatorMapper(PlayerMapper playerMapper) {
+    public TotalisatorMapper(PlayerMapper playerMapper, MatchMapper matchMapper) {
         this.playerMapper = playerMapper;
+        this.matchMapper = matchMapper;
     }
 
     public TotalisatorDTO convertTotalisatorEntityToDTO(Totalisator totalisator) {
@@ -30,11 +31,14 @@ public class TotalisatorMapper {
                     .collect(Collectors.toList()));
         }
         totalisatorDTO.setManagerId(totalisator.getManager().getId());
-        totalisatorDTO.setMatches(totalisator
-                .getMatches()
-                .stream()
-                .map(Match::getEntityId)
-                .collect(Collectors.toList()));
+
+        if (totalisator.getMatches() != null) {
+            totalisatorDTO.setMatches(totalisator
+                    .getMatches()
+                    .stream()
+                    .map(matchMapper::convertMatchEntityToMatchDTO)
+                    .collect(Collectors.toList()));
+        }
         return totalisatorDTO;
     }
 

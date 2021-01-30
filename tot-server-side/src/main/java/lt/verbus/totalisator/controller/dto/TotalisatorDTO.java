@@ -17,6 +17,6 @@ public class TotalisatorDTO {
 
     private Long managerId;
 
-    private List<Long> matches;
+    private List<MatchDTO> matches;
 
 }

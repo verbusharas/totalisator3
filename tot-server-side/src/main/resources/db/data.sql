@@ -75,15 +75,19 @@ INSERT INTO totalisator (id, title, manager_id)
 VALUES (1, 'CodeAcademy Totalisator 2021', 13),
        (2, 'WorldCup 21 Uber Staff Totalisator', 14),
        (3, 'Šeškinės Ultros', 25),
-       (4, 'Humoro Klubo Totalizatorius', 18);
+       (4, 'PVŠ', 29),
+       (5, 'Humoro Klubo Totalizatorius', 18);
+
 
 INSERT INTO user_totalisator (user_id, totalisator_id)
 VALUES (25, 1),
        (25, 3),
        (13, 1),
        (14, 2),
+       (18, 5),
+       (18, 3),
        (18, 4),
-        (17, 4);
+       (17, 5);
 
 INSERT INTO friendship (id, requester_id, receiver_id, is_accepted)
 VALUES (1, 18, 17, true),
