@@ -22,4 +22,9 @@ public class FIfaFixtureController {
         return fifaFixtureService.getFifaFixturesByDate(date);
     }
 
+    @GetMapping("/fake")
+    private FifaFixturesResponseDTO getFakeFixtures() {
+        return fifaFixtureService.getFakeFifaFixtures();
+    }
+
 }

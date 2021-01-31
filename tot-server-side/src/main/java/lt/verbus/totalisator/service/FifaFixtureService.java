@@ -17,4 +17,7 @@ public class FifaFixtureService {
         return soccersApi.getFixturesByDate(date);
     }
 
+    public FifaFixturesResponseDTO getFakeFifaFixtures() {
+        return soccersApi.getFixturesByDate("fake");
+    }
 }

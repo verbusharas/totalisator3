@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lt.verbus.totalisator.integration.soccersapi.dto.FifaFixturesResponseDTO;
@@ -19,6 +20,9 @@ public class SoccersApi {
     @Value("${soccersapi.fixture.by.date.url}")
     private String fixtureByDateURL;
 
+    @Value("${fake.fixture.url}")
+    private String fakeFixtureURL;
+
     private final ObjectMapper objectMapper;
 
     public SoccersApi(ObjectMapper objectMapper) {
@@ -31,8 +35,10 @@ public class SoccersApi {
         StringBuilder jsonString = new StringBuilder();
         FifaFixturesResponseDTO data = null;
         try {
-            URL url = new URL(fixtureByDateURL + date);
+            String urlPath = date.equals("fake") ? fakeFixtureURL : fixtureByDateURL + date;
+            URL url = new URL(urlPath);
             con = (HttpURLConnection) url.openConnection();
+
             con.setRequestMethod("GET");
             con.setRequestProperty("Content-Type", "application/json");
             BufferedReader in = new BufferedReader(
