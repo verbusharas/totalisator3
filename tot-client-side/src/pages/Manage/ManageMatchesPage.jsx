@@ -4,7 +4,7 @@ import {KeyboardDatePicker, MuiPickersUtilsProvider} from "@material-ui/pickers"
 import DateFnsUtils from "@date-io/date-fns";
 import {Grid, makeStyles} from "@material-ui/core";
 import React, {useEffect, useState} from "react";
-import {fetchFifaFixtures} from "../../api/fixtureApi";
+import {fetchFakeFixtures, fetchFifaFixtures} from "../../api/fixtureApi";
 import {fetchManagerFinishedMatches, fetchManagerPendingMatches, saveAsMatch} from "../../api/matchApi";
 import useTotalisator from "../../hooks/useTotalisator";
 import {addMatch} from "../../store/slices/totalisatorSlice";
@@ -29,10 +29,26 @@ const ManageMatchesPage = () => {
         fetchFifaFixtures(dateToString(date))
             .then(response => {
                 setFifaFixtures(response.data.data)
-            }).catch(err => {
+                return response.data.data;
+            }).then((fifaRes)=>{
+
+                if (totalisator.fakeMatchesIncluded) {
+                    fetchFakeFixtures().then(res=>{
+                        if (fifaRes?.length > 0) {
+                            setFifaFixtures((prevArray) => [...prevArray, ...res.data.data])
+                        } else {
+                            setFifaFixtures(res.data.data)
+                        }
+                    })
+                }
+
+        })
+            .catch(err => {
             console.log("Error:", err)
-        }).finally(() => {
+        })
+            .finally(() => {
             setIsLoading(false);
+            console.log("fifaFixtures all", fifaFixtures);
         });
     }
 
