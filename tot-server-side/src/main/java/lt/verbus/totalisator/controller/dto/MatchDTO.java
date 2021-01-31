@@ -23,9 +23,9 @@ public class MatchDTO {
 
     private Long totalisatorId;
 
-    private String homeScore;
+    private Byte homeScore;
 
-    private String awayScore;
+    private Byte awayScore;
 
     private String statusName;
 

@@ -10,8 +10,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import java.util.List;
 
 @Entity
 @Getter
@@ -39,10 +41,13 @@ public class Match {
     @ManyToOne
     private Totalisator totalisator;
 
-    private String homeScore;
+    private Byte homeScore;
     
-    private String awayScore;
+    private Byte awayScore;
 
     private String statusName;
+
+    @OneToMany(mappedBy = "match")
+    private List<Prediction> predictions;
 
 }
