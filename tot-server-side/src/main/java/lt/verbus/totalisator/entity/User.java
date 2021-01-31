@@ -54,10 +54,14 @@ public class User implements UserDetails {
     )
     private List<Totalisator> totalisators;
 
+    @OneToMany(mappedBy = "user")
+    private List<Prediction> predictions;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles;
     }
+
 
     @Override
     public boolean isAccountNonExpired() {

@@ -60,8 +60,8 @@ public class FriendshipService {
     }
 
     private Friendship createFriendship(long requesterId, long receiverId) {
-        User requester = userService.getUserById(requesterId);
-        User receiver = userService.getUserById(receiverId);
+        User requester = userService.getById(requesterId);
+        User receiver = userService.getById(receiverId);
         Friendship friendship = new Friendship();
         friendship.setRequester(requester);
         friendship.setReceiver(receiver);

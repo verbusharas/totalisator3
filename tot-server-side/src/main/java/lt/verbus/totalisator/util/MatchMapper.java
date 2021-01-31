@@ -1,21 +1,37 @@
 package lt.verbus.totalisator.util;
 
 import lt.verbus.totalisator.controller.dto.MatchDTO;
-import lt.verbus.totalisator.controller.dto.PlayerDTO;
-import lt.verbus.totalisator.controller.dto.TotalisatorBasicDTO;
+import lt.verbus.totalisator.controller.dto.PredictionBasicDTO;
 import lt.verbus.totalisator.entity.Match;
-import lt.verbus.totalisator.entity.User;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class MatchMapper {
 
-    public MatchDTO convertMatchEntityToMatchDTO(Match match) {
+    private final PredictionBasicMapper predictionBasicMapper;
+
+    public MatchMapper(PredictionBasicMapper predictionBasicMapper) {
+        this.predictionBasicMapper = predictionBasicMapper;
+    }
+
+    public MatchDTO mapEntityToDTO(Match match) {
         MatchDTO matchDTO = new MatchDTO();
         BeanUtils.copyProperties(match, matchDTO);
         Long totalisatorId = match.getTotalisator().getId();
         matchDTO.setTotalisatorId(totalisatorId);
+
+        if (match.getPredictions() != null) {
+            List<PredictionBasicDTO> predictions = match.getPredictions()
+                    .stream()
+                    .map(predictionBasicMapper::mapEntityToBasicDTO)
+                    .collect(Collectors.toList());
+            matchDTO.setPredictions(predictions);
+        } else matchDTO.setPredictions(new ArrayList<>());
         return matchDTO;
     }
 

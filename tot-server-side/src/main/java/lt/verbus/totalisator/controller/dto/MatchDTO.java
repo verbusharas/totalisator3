@@ -5,6 +5,8 @@ import lombok.Setter;
 import lt.verbus.totalisator.entity.League;
 import lt.verbus.totalisator.entity.Team;
 
+import java.util.List;
+
 @Setter
 @Getter
 public class MatchDTO {
@@ -28,5 +30,7 @@ public class MatchDTO {
     private Byte awayScore;
 
     private String statusName;
+
+    private List<PredictionBasicDTO> predictions;
 
 }

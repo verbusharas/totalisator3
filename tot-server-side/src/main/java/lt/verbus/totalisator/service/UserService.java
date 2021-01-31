@@ -27,26 +27,26 @@ public class UserService implements UserDetailsService {
         return userRepository
                 .findAll()
                 .stream()
-                .map(userMapper::convertUserEntityToDTO)
+                .map(userMapper::mapEntityToDTO)
                 .collect(Collectors.toList());
     }
 
     public UserDTO getUserDTOById(Long id){
-        return userMapper.convertUserEntityToDTO(getUserById(id));
+        return userMapper.mapEntityToDTO(getById(id));
     }
 
-    public User getUserById(Long id){
+    public User getById(Long id){
         return userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(id));
     }
 
     public UserDTO saveUser(User user){
         User savedUser = userRepository.save(user);
-        return userMapper.convertUserEntityToDTO(savedUser);
+        return userMapper.mapEntityToDTO(savedUser);
     }
 
     public List<UserDTO> getUsersByPartialName(String partialName) {
         List<User> users = userRepository.findUsersByNameContainingIgnoreCase(partialName);
-        return users.stream().map(userMapper::convertUserEntityToDTO).collect(Collectors.toList());
+        return users.stream().map(userMapper::mapEntityToDTO).collect(Collectors.toList());
     }
 
     @Override
@@ -55,7 +55,7 @@ public class UserService implements UserDetailsService {
     }
 
     public UserDTO getUserDTOByUser(User user) {
-        return userMapper.convertUserEntityToDTO(user);
+        return userMapper.mapEntityToDTO(user);
     }
 
 //    public User getUserWithTotalisators(String username) {

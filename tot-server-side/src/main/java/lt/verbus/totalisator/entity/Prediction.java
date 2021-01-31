@@ -1,6 +1,9 @@
 package lt.verbus.totalisator.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
@@ -12,11 +15,14 @@ import javax.persistence.ManyToOne;
 @Entity
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class Prediction {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
     @ManyToOne
     private User user;
@@ -27,5 +33,7 @@ public class Prediction {
     private Byte homeScore;
 
     private Byte awayScore;
+
+    private Float accuracy;
 
 }

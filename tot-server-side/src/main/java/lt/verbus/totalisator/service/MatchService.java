@@ -1,7 +1,6 @@
 package lt.verbus.totalisator.service;
 
 import lt.verbus.totalisator.controller.dto.MatchDTO;
-import lt.verbus.totalisator.controller.dto.TotalisatorDTO;
 import lt.verbus.totalisator.entity.Match;
 import lt.verbus.totalisator.entity.Totalisator;
 import lt.verbus.totalisator.exception.DuplicateEntryException;
@@ -9,6 +8,7 @@ import lt.verbus.totalisator.repository.MatchRepository;
 import lt.verbus.totalisator.util.MatchMapper;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,7 +37,7 @@ public class MatchService {
             Match match = matchMapper.convertMatchDTOtoEntity(matchDTO);
             match.setTotalisator(totalisator);
             Match savedMatch = matchRepository.save(match);
-            return matchMapper.convertMatchEntityToMatchDTO(savedMatch);
+            return matchMapper.mapEntityToDTO(savedMatch);
         } else throw new DuplicateEntryException("Totalisator already contains this match");
     }
 
@@ -45,7 +45,7 @@ public class MatchService {
         return matchRepository
                 .findByTotalisatorId(totalisatorId)
                 .stream()
-                .map(matchMapper::convertMatchEntityToMatchDTO)
+                .map(matchMapper::mapEntityToDTO)
                 .collect(Collectors.toList());
     }
 
@@ -53,7 +53,7 @@ public class MatchService {
         return matchRepository
                 .findByTotalisatorIdAndStatusName(totalisatorId, "Notstarted")
                 .stream()
-                .map(matchMapper::convertMatchEntityToMatchDTO)
+                .map(matchMapper::mapEntityToDTO)
                 .collect(Collectors.toList());
     }
 
@@ -61,13 +61,20 @@ public class MatchService {
         return matchRepository
                 .findByTotalisatorIdAndStatusName(totalisatorId, "Finished")
                 .stream()
-                .map(matchMapper::convertMatchEntityToMatchDTO)
+                .map(matchMapper::mapEntityToDTO)
                 .collect(Collectors.toList());
     }
 
     public MatchDTO getByTotalisatorIdAndMatchId(Long totalisatorId, Long matchId) {
         Match match = matchRepository.findByTotalisatorIdAndMatchId(totalisatorId,matchId);
-        return matchMapper.convertMatchEntityToMatchDTO(match);
+        return matchMapper.mapEntityToDTO(match);
     }
+
+    public Match getById(Long id) {
+        return matchRepository
+                .findById(id)
+                .orElseThrow(()-> new EntityNotFoundException("Match was not found"));
+    }
+
 }
 

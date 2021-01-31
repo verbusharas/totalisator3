@@ -17,8 +17,8 @@ public class FriendshipMapper {
     public FriendshipDTO convertFriendshipEntityToDTO(Friendship friendship) {
         FriendshipDTO friendshipDTO = new FriendshipDTO();
         friendshipDTO.setId(friendship.getId());
-        friendshipDTO.setRequester(userMapper.convertUserEntityToDTO(friendship.getRequester()));
-        friendshipDTO.setReceiver(userMapper.convertUserEntityToDTO(friendship.getReceiver()));
+        friendshipDTO.setRequester(userMapper.mapEntityToDTO(friendship.getRequester()));
+        friendshipDTO.setReceiver(userMapper.mapEntityToDTO(friendship.getReceiver()));
         friendshipDTO.setIsAccepted(friendship.getIsAccepted());
         return friendshipDTO;
     }

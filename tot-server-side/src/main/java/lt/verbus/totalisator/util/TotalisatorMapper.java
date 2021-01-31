@@ -1,6 +1,5 @@
 package lt.verbus.totalisator.util;
 
-import lt.verbus.totalisator.entity.Match;
 import lt.verbus.totalisator.entity.Totalisator;
 import lt.verbus.totalisator.controller.dto.TotalisatorDTO;
 import org.springframework.beans.BeanUtils;
@@ -36,7 +35,7 @@ public class TotalisatorMapper {
             totalisatorDTO.setMatches(totalisator
                     .getMatches()
                     .stream()
-                    .map(matchMapper::convertMatchEntityToMatchDTO)
+                    .map(matchMapper::mapEntityToDTO)
                     .collect(Collectors.toList()));
         }
         return totalisatorDTO;

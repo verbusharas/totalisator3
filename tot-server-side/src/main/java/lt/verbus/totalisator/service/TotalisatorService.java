@@ -6,11 +6,9 @@ import lt.verbus.totalisator.exception.OperationNotAllowed;
 import lt.verbus.totalisator.repository.TotalisatorRepository;
 import lt.verbus.totalisator.controller.dto.TotalisatorDTO;
 import lt.verbus.totalisator.util.TotalisatorMapper;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -44,7 +42,7 @@ public class TotalisatorService {
     }
 
     public TotalisatorDTO save(TotalisatorDTO totalisatorDTO) {
-        User manager = userService.getUserById(totalisatorDTO.getManagerId());
+        User manager = userService.getById(totalisatorDTO.getManagerId());
         Totalisator totalisator =  totalisatorMapper.convertTotalisatorDTOtoEntity(totalisatorDTO);
         totalisator.setManager(manager);
         totalisator.setPlayers(List.of(manager));
@@ -55,7 +53,7 @@ public class TotalisatorService {
     }
 
     public TotalisatorDTO addUserByIdToTotalisatorById(Long userId, Long totalisatorId) {
-        User user = userService.getUserById(userId);
+        User user = userService.getById(userId);
         Totalisator totalisator = totalisatorRepository.getOne(totalisatorId);
         boolean isUserInTotalisator = user
                 .getTotalisators()

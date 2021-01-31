@@ -18,7 +18,7 @@ public class UserMapper {
         this.totalisatorBasicMapper = totalisatorBasicMapper;
     }
 
-    public UserDTO convertUserEntityToDTO(User user) {
+    public UserDTO mapEntityToDTO(User user) {
         UserDTO userDTO = new UserDTO();
         userDTO.setId(user.getId());
         userDTO.setUsername(user.getUsername());
