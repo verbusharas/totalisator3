@@ -28,16 +28,16 @@ const ManageMatchesPage = () => {
         setIsLoading(true);
         fetchFifaFixtures(dateToString(date))
             .then(response => {
-                setFifaFixtures(response.data.data)
-                return response.data.data;
+                setFifaFixtures(response.data)
+                return response.data;
             }).then((fifaRes)=>{
 
                 if (totalisator.fakeMatchesIncluded) {
                     fetchFakeFixtures().then(res=>{
                         if (fifaRes?.length > 0) {
-                            setFifaFixtures((prevArray) => [...prevArray, ...res.data.data])
+                            setFifaFixtures((prevArray) => [...prevArray, ...res.data])
                         } else {
-                            setFifaFixtures(res.data.data)
+                            setFifaFixtures(res.data)
                         }
                     })
                 }

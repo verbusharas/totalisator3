@@ -97,8 +97,8 @@ const TotalisatorOverviewPage = (() => {
             <main>
                 <section className="feed feed--not-predicted">
                     <h2 className="feed__title">MATCHES WAITING FOR YOUR PREDICTION</h2>
-                    {getUnpredictedMatches().length === 0 && <p>You currently don't have any unpredicted matches.</p>}
-                    {getUnpredictedMatches().map(m => renderNotPredictedMatch(m))}
+                    {getUnpredictedMatches()?.length === 0 && <p>You currently don't have any unpredicted matches.</p>}
+                    {getUnpredictedMatches()?.map(m => renderNotPredictedMatch(m))}
                 </section>
                 <section className="overview">
                     <h2 className="overview__title">CURRENT TOTALISATOR STANDINGS</h2>
@@ -108,13 +108,13 @@ const TotalisatorOverviewPage = (() => {
                 </section>
                 <section className="feed feed--pending">
                     <h2 className="feed__title">YOUR REGISTERED PREDICTIONS</h2>
-                    {getPendingMatches().length === 0 && <p>You currently don't have any pending matches.</p>}
-                    {getPendingMatches().map(m => renderPredictedMatch(m))}
+                    {getPendingMatches()?.length === 0 && <p>You currently don't have any pending matches.</p>}
+                    {getPendingMatches()?.map(m => renderPredictedMatch(m))}
                 </section>
                 <section className="feed feed--history">
                     <h2 className="feed__title">YOUR PREDICTION HISTORY</h2>
-                    {getFinishedMatches().length === 0 && <p>You currently don't have any finished matches.</p>}
-                    {getFinishedMatches().map(m => renderFinishedMatch(m))}
+                    {getFinishedMatches()?.length === 0 && <p>You currently don't have any finished matches.</p>}
+                    {getFinishedMatches()?.map(m => renderFinishedMatch(m))}
                     <Toteboard variant="user-finished" prediction={{homeScore: 33, awayScore: 27, payout: 10}}
                                match={matches[0]}/>
                     <Toteboard variant="user-finished" prediction={{homeScore: 0, awayScore: 1, payout: 250}}
