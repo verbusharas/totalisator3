@@ -2,11 +2,11 @@
 const About = () => {
 
 
-    const render = (totalisator) => {
-        return (
-            <p>{totalisator.title}</p>
-        )
-    }
+    // const render = (totalisator) => {
+    //     return (
+    //         <p>{totalisator.title}</p>
+    //     )
+    // }
 
     return (
         <main>

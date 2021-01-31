@@ -24,7 +24,7 @@ import useUser from "../../hooks/useUser";
 // - "user-pending"
 // - "user-finished"
 
-const Toteboard = ({match, prediction, variant, handleClick}) => {
+const Toteboard = ({match, prediction, variant, handleClick, handleRegisterPrediction}) => {
 
     const [isFlipped, setIsFlipped] = useState(false);
 
@@ -43,6 +43,12 @@ const Toteboard = ({match, prediction, variant, handleClick}) => {
     const [homeScore, setHomeScore] = useState("");
     const [awayScore, setAwayScore] = useState("");
 
+    const validateValue = (value) => {
+        if (isNaN(value) || value < 0 || value === "" || value === null) {
+            return 0;
+        } else return value;
+    }
+
     const handleHomeInput = (e) => {
         setHomeScore(e.target.value);
         console.log("HomeInputTargetValue", e.target.value);
@@ -51,6 +57,10 @@ const Toteboard = ({match, prediction, variant, handleClick}) => {
     const handleAwayInput = (e) => {
         setAwayScore(e.target.value);
         console.log("AwayInputTargetValue", e.target.value);
+    }
+
+    const registerPrediction = () => {
+        handleRegisterPrediction(match, validateValue(homeScore), validateValue(awayScore));
     }
 
     const getScoreboard = () => {
@@ -122,7 +132,7 @@ const Toteboard = ({match, prediction, variant, handleClick}) => {
                 {variant === "user-finished" &&
                 <ToteboardPayout scores={match.scores} payout={prediction.payout}/>}
                 <div className="tote-board__footer">
-                    {status === "not_predicted" && <ToteboardButton text="REGISTER PREDICTION"/>}
+                    {status === "not_predicted" && <ToteboardButton text="REGISTER PREDICTION" handleClick={registerPrediction}/>}
                     {variant === "fifa-listed" && <ToteboardButton text="ADD TO TOTALISATOR" handleClick={handleClick}/>}
                     {variant === "fifa-finished" && <ToteboardButton text="FINISHED" disabled/>}
                     {variant === "fifa-added" && <ToteboardButton text="ADDED" disabled/>}

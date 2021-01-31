@@ -83,7 +83,7 @@ const ManageMatchesPage = () => {
         saveAsMatch(totalisator.id, fixture).then((res) => {
             console.log("RESPONSE.data after saving as match:", res.data)
             loadTotalisatorMatches();
-            dispatch(addMatch(fixture));
+            dispatch(addMatch(res.data));
         });
         //TODO vėluoja: .finally(() => setAddingIds([]))
     }
