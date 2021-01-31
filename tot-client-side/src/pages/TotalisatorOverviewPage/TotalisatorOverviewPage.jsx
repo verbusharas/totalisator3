@@ -29,7 +29,6 @@ const TotalisatorOverviewPage = (() => {
                 homeScore: home,
                 awayScore: away
             }
-
             const matchIndex = totalisator.matches.indexOf(match)
             savePrediction(prediction).then((res)=>{
                 console.log("RES DATA:", res.data);
@@ -49,6 +48,13 @@ const TotalisatorOverviewPage = (() => {
             console.log("predicted", predictedMatches);
             return predictedMatches;
         }
+
+        const getFinishedMatches = () => {
+            const finishedMatches = totalisator?.matches?.filter(m => m.statusName === "Finished")
+            console.log("finished", finishedMatches);
+            return finishedMatches;
+        }
+
 
         const hasUserPrediction = (m) => {
             return m.predictions.map(p => p.userId).includes(user.id);
@@ -77,6 +83,16 @@ const TotalisatorOverviewPage = (() => {
         }
 
 
+        const renderFinishedMatch = (m) => {
+            const prediction = getUserPrediction(m)
+            prediction.payout = 999
+            return (
+                hasUserPrediction(m) &&
+                <Toteboard  key={"f" + Math.random()} variant="user-finished" prediction={prediction} match={m}/>
+                )
+        }
+
+
         return (
             <main>
                 <section className="feed feed--not-predicted">
@@ -97,6 +113,8 @@ const TotalisatorOverviewPage = (() => {
                 </section>
                 <section className="feed feed--history">
                     <h2 className="feed__title">YOUR PREDICTION HISTORY</h2>
+                    {getFinishedMatches().length === 0 && <p>You currently don't have any finished matches.</p>}
+                    {getFinishedMatches().map(m => renderFinishedMatch(m))}
                     <Toteboard variant="user-finished" prediction={{homeScore: 33, awayScore: 27, payout: 10}}
                                match={matches[0]}/>
                     <Toteboard variant="user-finished" prediction={{homeScore: 0, awayScore: 1, payout: 250}}
