@@ -1,59 +1,36 @@
 package lt.verbus.totalisator.integration.soccersapi;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.ArrayList;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import lt.verbus.totalisator.integration.soccersapi.dto.FifaFixturesResponseDTO;
 import org.springframework.beans.factory.annotation.Value;
-
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Component;
-
+import org.springframework.web.client.RestTemplate;
 
 @Component
 public class SoccersApi {
 
+    @Value("${soccersapi.fixture.by.id.url}")
+    private String fixtureByIdUrl;
+
     @Value("${soccersapi.fixture.by.date.url}")
     private String fixtureByDateURL;
 
-    @Value("${fake.fixture.url}")
-    private String fakeFixtureURL;
+    private final RestTemplateBuilder restTemplateBuilder;
 
-    private final ObjectMapper objectMapper;
+    public SoccersApi(RestTemplateBuilder restTemplateBuilder) {
+        this.restTemplateBuilder = restTemplateBuilder;
+    }
 
-    public SoccersApi(ObjectMapper objectMapper) {
-        this.objectMapper = objectMapper;
+    public String getFixtureJson(String fixtureId) {
+        return getClient().getForObject(fixtureByIdUrl + fixtureId, String.class);
+    }
+
+    private RestTemplate getClient() {
+        return restTemplateBuilder.build();
+    }
+
+    public String getFixturesByDateJson(String date) {
+        return getClient().getForObject(fixtureByDateURL + date, String.class);
     }
 
 
-    public FifaFixturesResponseDTO getFixturesByDate(String date) {
-        HttpURLConnection con = null;
-        StringBuilder jsonString = new StringBuilder();
-        FifaFixturesResponseDTO data = null;
-        try {
-            String urlPath = date.equals("fake") ? fakeFixtureURL : fixtureByDateURL + date;
-            URL url = new URL(urlPath);
-            con = (HttpURLConnection) url.openConnection();
-
-            con.setRequestMethod("GET");
-            con.setRequestProperty("Content-Type", "application/json");
-            BufferedReader in = new BufferedReader(
-                    new InputStreamReader(con.getInputStream()));
-            String inputLine;
-            while ((inputLine = in.readLine()) != null) {
-                jsonString.append(inputLine);
-            }
-            in.close();
-            con.disconnect();
-            data = objectMapper.readValue(jsonString.toString(), FifaFixturesResponseDTO.class);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return data;
-
-    }
 }

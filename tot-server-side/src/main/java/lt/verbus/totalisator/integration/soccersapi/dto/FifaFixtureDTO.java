@@ -1,5 +1,6 @@
 package lt.verbus.totalisator.integration.soccersapi.dto;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -14,9 +15,10 @@ import java.util.Map;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class FifaFixtureDTO {
 
+    @JsonAlias("id")
     private Integer fifaId;
 
-    @JsonProperty("winner_team_id")
+    @JsonAlias("winner_team_id")
     private String winnerTeamId;
 
     @JsonProperty("league")
@@ -32,22 +34,8 @@ public class FifaFixtureDTO {
 
     private String awayScore;
 
-    private String htScore;
-
-    private String ftScore;
-
-    private String etScore;
-
-    private String psScore;
-
+    @JsonAlias("status_name")
     private String statusName;
-
-
-    @SuppressWarnings("unchecked")
-    @JsonProperty("id")
-    private void getId(Integer id) {
-        this.fifaId = id;
-    }
 
     @SuppressWarnings("unchecked")
     @JsonProperty("teams")
@@ -62,19 +50,10 @@ public class FifaFixtureDTO {
         this.date = timeInfo.get("datetime");
     }
 
-    @SuppressWarnings("unchecked")
-    @JsonProperty("status_name")
-    private void getStatusName(String statusNameInfo) {
-        this.statusName = statusNameInfo;
-    }
 
     @JsonProperty("scores")
     private void getScores(Map<String,String> scores) {
         this.homeScore = scores.get("home_score");
         this.awayScore = scores.get("away_score");
-        this.htScore = scores.get("ht_score");
-        this.ftScore = scores.get("ft_score");
-        this.etScore = scores.get("et_score");
-        this.psScore = scores.get("ps_score");
     }
 }
