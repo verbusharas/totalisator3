@@ -8,8 +8,10 @@ import {fetchFakeFixtures, fetchFifaFixtures} from "../../api/fixtureApi";
 import {fetchManagerFinishedMatches, fetchManagerPendingMatches, saveAsMatch} from "../../api/matchApi";
 import useTotalisator from "../../hooks/useTotalisator";
 import {addMatch, setMatches} from "../../store/slices/totalisatorSlice";
+import {includeFakeMatches} from "../../store/slices/preferencesSlice";
 import {useDispatch} from "react-redux";
 import DemoSwitch from "../../components/Header/HeaderFragments/DemoSwitch";
+import usePreferences from "../../hooks/usePreferences";
 
 const ManageMatchesPage = () => {
 
@@ -23,89 +25,72 @@ const ManageMatchesPage = () => {
     const dateToString = date => date.toISOString().split('T')[0];
 
     const totalisator = useTotalisator();
+    const preferences = usePreferences();
     const dispatch = useDispatch();
-
-    const loadFifaFixtures = (date) => {
-        setIsLoading(true);
-        fetchFifaFixtures(dateToString(date))
-            .then(response => {
-                setFifaFixtures(response.data)
-                return response.data;
-            }).then((fifaRes) => {
-
-            if (totalisator.fakeMatchesIncluded) {
-                console.log("Are fake matches included?", totalisator.fakeMatchesIncluded)
-                fetchFakeFixtures().then(res => {
-                    console.log("Fetched fake fixtures:", res.data)
-                    if (fifaRes?.length > 0) {
-                        setFifaFixtures((prevArray) => [...prevArray, ...res.data])
-                    } else {
-                        setFifaFixtures(res.data)
-                    }
-                })
-            }
-
-        })
-            .catch(err => {
-                console.log("Error:", err)
-            })
-            .finally(() => {
-                setIsLoading(false);
-                console.log("fifaFixtures all", fifaFixtures);
-            });
-    }
-
-    const loadTotalisatorMatches = () => {
-
-        fetchManagerPendingMatches(totalisator.id)
-            .then(response => {
-                setManagerPendingMatches(response.data)
-            }).catch(err => {
-            console.log("Klaida:", err);
-        });
-
-        fetchManagerFinishedMatches(totalisator.id)
-            .then(response => {
-                setManagerFinishedMatches(response.data)
-            }).catch(err => {
-            console.log("Klaida:", err);
-        });
-    }
 
     useEffect(() => {
         fetchManagerPendingMatches(totalisator.id)
-            .then(response => {
-                const pending = response.data;
+            .then(res => {
+                const pending = res.data;
                 setManagerPendingMatches(pending)
                 fetchManagerFinishedMatches(totalisator.id)
                     .then(response => {
                         const finished = response.data;
                         setManagerFinishedMatches(finished)
-                        const merged = pending.concat(finished)
-                        console.log("merged", merged)
-                        dispatch(setMatches(merged))
-                        loadFifaFixtures(selectedDate);
-                    }).catch(err => {
-                    console.log("Klaida:", err);
-                });
-            }).catch(err => {
-            console.log("Klaida:", err);
-        });
+                        const registered = pending.concat(finished)
+                        dispatch(setMatches(registered))
+                        loadFixtures(selectedDate);
+                    }).catch(err => console.log("Error:", err.response.data));
+            }).catch(err => console.log("Error:", err.response.data));
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+
+    const loadFixtures = (date) => {
+        setIsLoading(true);
+        fetchFifaFixtures(dateToString(date))
+            .then(res => {
+                setFifaFixtures(res.data)
+                console.log("70.", res.data)
+                console.log("71.", preferences.isFakeMatchesIncluded)
+                return res.data;
+            }).then(() => {
+            if (preferences.isFakeMatchesIncluded) {
+                fetchFakeFixtures().then(res => {
+                    const fakeFixtures = res.data;
+                    if (fifaFixtures?.length > 0) {
+                        setFifaFixtures((prevArray) => [...prevArray, ...fakeFixtures])
+                    } else {
+                        setFifaFixtures(fakeFixtures)
+                    }
+                })
+            }
+        })
+            .catch(err => console.log("Error:", err.response.data))
+            .finally(() => setIsLoading(false));
+    }
+
+    const loadTotalisatorMatches = () => {
+        console.log("72.loading")
+        fetchManagerPendingMatches(totalisator.id)
+            .then(response => setManagerPendingMatches(response.data))
+            .catch(err => console.log("Error:", err));
+
+        fetchManagerFinishedMatches(totalisator.id)
+            .then(response => setManagerFinishedMatches(response.data))
+            .catch(err => console.log("Error:", err));
+    }
+
     const handleDateChange = (date) => {
         setSelectedDate(date);
-        loadFifaFixtures(date);
+        loadFixtures(date);
     };
 
-    const handleFifaFixtureSelect = (fixture) => {
-        console.log("FIXTURE BEFORE SAVING:", fixture)
+    const handleFixtureSelect = (fixture) => {
         setAddingIds([...addingIds, fixture.fifaId]);
         fixture.totalisatorId = totalisator.id;
 
         saveAsMatch(totalisator.id, fixture).then((res) => {
-            console.log("RESPONSE.data after saving as match:", res.data)
             loadTotalisatorMatches();
             dispatch(addMatch(res.data));
         });
@@ -133,7 +118,6 @@ const ManageMatchesPage = () => {
 
     const createDatePicker = () => {
         return (
-
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <Grid container justify="center">
                     <KeyboardDatePicker
@@ -151,26 +135,20 @@ const ManageMatchesPage = () => {
                     />
                 </Grid>
             </MuiPickersUtilsProvider>
-
         )
     }
 
     const createFifaToteboard = (match) => {
-        const addedIdsFromRedux = totalisator.matches.map(m => m.fifaId);
-        const addedIds = managerPendingMatches.map(tm => tm.fifaId);
-        if (addedIdsFromRedux.includes(match.fifaId) || addingIds.includes(match.fifaId)) {
+        const registeredMatches = totalisator.matches.map(m => m.fifaId);
+        if (registeredMatches.includes(match.fifaId) || addingIds.includes(match.fifaId)) {
             return <Toteboard key={match.fifaId} match={match} variant="fifa-added"/>
         }
         switch (match.statusName) {
-            case "Notstarted":
+            case "Notstarted" || "Notannounced":
                 return <Toteboard key={match.fifaId} match={match} variant="fifa-listed"
-                                  handleClick={() => handleFifaFixtureSelect(match)}/>;
+                                  handleClick={() => handleFixtureSelect(match)}/>;
             case "Finished":
                 return <Toteboard key={match.fifaId} match={match} variant="fifa-finished"/>;
-
-            case "Notannounced" :
-                return <Toteboard key={match.fifaId} match={match} variant="fifa-listed"
-                                  handleClick={() => handleFifaFixtureSelect(match)}/>;
             default :
                 return <Toteboard key={match.fifaId} match={match} variant="fifa-invalid"/>
         }
@@ -200,7 +178,6 @@ const ManageMatchesPage = () => {
                     <div style={{display: "flex"}}>
                         <span>Include demo fixtures?</span><DemoSwitch/>
                     </div>
-
                     <p>Choose fixtures:</p>
                     {isLoading && <p>LOADING...</p>}
                 </article>
@@ -224,8 +201,7 @@ const ManageMatchesPage = () => {
                 </article>
                 {managerPendingMatches
                     ? managerPendingMatches.map((m) => createManagerPendingToteboard(m))
-                    :
-                    <p className="feed__description">Currently there are no matches pending for a game. Try adding some
+                    : <p className="feed__description">Currently there are no matches pending. Try adding some
                         in the section above.</p>}
             </section>
             <section className="feed feed--finished">
@@ -240,8 +216,7 @@ const ManageMatchesPage = () => {
                 </article>
                 {managerFinishedMatches
                     ? managerFinishedMatches.map((m) => createManagerFinishedToteboard(m))
-                    :
-                    <p className="feed__description">Currently there are no matches pending for a game. Try adding some
+                    : <p className="feed__description">Currently there are no matches pending for a game. Try adding some
                         in the section above.</p>}
             </section>
         </main>

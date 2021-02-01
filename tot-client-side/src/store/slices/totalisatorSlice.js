@@ -31,14 +31,6 @@ export const totalisatorSlice = createSlice({
             state.totalisatorData.matches[matchIndex].predictions.push(predictionDTO);
         },
 
-        includeFakeMatches(state) {
-            state.totalisatorData.fakeMatchesIncluded = true;
-        },
-
-        excludeFakeMatches(state) {
-            state.totalisatorData.fakeMatchesIncluded = false;
-        },
-
         clearTotalisator(state){
             const prevTotalisatorId = state.totalisatorData.id || 4;
             state.totalisatorData = null
@@ -62,4 +54,4 @@ export const subscribeToTotalisatorChanges = (store) => {
 export const loadTotalisatorFromStorage = () => loadFromStorage("totalisator");
 
 export default totalisatorSlice.reducer
-export const {setTotalisator, clearTotalisator, addMatch, addPrediction, includeFakeMatches, excludeFakeMatches, setMatches} = totalisatorSlice.actions
+export const {setTotalisator, clearTotalisator, addMatch, addPrediction, setMatches} = totalisatorSlice.actions

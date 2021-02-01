@@ -3,7 +3,7 @@ import FormGroup from '@material-ui/core/FormGroup';
 import Switch from '@material-ui/core/Switch';
 import {withStyles} from "@material-ui/core";
 import {useDispatch} from "react-redux";
-import {excludeFakeMatches, includeFakeMatches} from "../../../store/slices/totalisatorSlice";
+import {excludeFakeMatches, includeFakeMatches} from "../../../store/slices/preferencesSlice";
 
 const DemoSwitch = () => {
 

@@ -33,7 +33,10 @@ const Prediction = ({player, isCurrentUser, prediction}) => {
     return (
 
         <p className={cx({"tote-board--current-user": isCurrentUser})}>
-            {sliceName(player.name)}  <strong>{prediction?.homeScore || "_"}</strong> : <strong>{prediction?.awayScore || "_"}</strong>
+            {sliceName(player.name)}
+            <strong>{prediction? prediction.homeScore : "_"}</strong>
+            :
+            <strong>{prediction? prediction.awayScore : "_"}</strong>
         </p>
     )
 }
