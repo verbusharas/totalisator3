@@ -7,8 +7,9 @@ import React, {useEffect, useState} from "react";
 import {fetchFakeFixtures, fetchFifaFixtures} from "../../api/fixtureApi";
 import {fetchManagerFinishedMatches, fetchManagerPendingMatches, saveAsMatch} from "../../api/matchApi";
 import useTotalisator from "../../hooks/useTotalisator";
-import {addMatch} from "../../store/slices/totalisatorSlice";
+import {addMatch, setMatches} from "../../store/slices/totalisatorSlice";
 import {useDispatch} from "react-redux";
+import DemoSwitch from "../../components/Header/HeaderFragments/DemoSwitch";
 
 const ManageMatchesPage = () => {
 
@@ -30,26 +31,28 @@ const ManageMatchesPage = () => {
             .then(response => {
                 setFifaFixtures(response.data)
                 return response.data;
-            }).then((fifaRes)=>{
+            }).then((fifaRes) => {
 
-                if (totalisator.fakeMatchesIncluded) {
-                    fetchFakeFixtures().then(res=>{
-                        if (fifaRes?.length > 0) {
-                            setFifaFixtures((prevArray) => [...prevArray, ...res.data])
-                        } else {
-                            setFifaFixtures(res.data)
-                        }
-                    })
-                }
+            if (totalisator.fakeMatchesIncluded) {
+                console.log("Are fake matches included?", totalisator.fakeMatchesIncluded)
+                fetchFakeFixtures().then(res => {
+                    console.log("Fetched fake fixtures:", res.data)
+                    if (fifaRes?.length > 0) {
+                        setFifaFixtures((prevArray) => [...prevArray, ...res.data])
+                    } else {
+                        setFifaFixtures(res.data)
+                    }
+                })
+            }
 
         })
             .catch(err => {
-            console.log("Error:", err)
-        })
+                console.log("Error:", err)
+            })
             .finally(() => {
-            setIsLoading(false);
-            console.log("fifaFixtures all", fifaFixtures);
-        });
+                setIsLoading(false);
+                console.log("fifaFixtures all", fifaFixtures);
+            });
     }
 
     const loadTotalisatorMatches = () => {
@@ -72,10 +75,15 @@ const ManageMatchesPage = () => {
     useEffect(() => {
         fetchManagerPendingMatches(totalisator.id)
             .then(response => {
-                setManagerPendingMatches(response.data)
+                const pending = response.data;
+                setManagerPendingMatches(pending)
                 fetchManagerFinishedMatches(totalisator.id)
                     .then(response => {
-                        setManagerFinishedMatches(response.data)
+                        const finished = response.data;
+                        setManagerFinishedMatches(finished)
+                        const merged = pending.concat(finished)
+                        console.log("merged", merged)
+                        dispatch(setMatches(merged))
                         loadFifaFixtures(selectedDate);
                     }).catch(err => {
                     console.log("Klaida:", err);
@@ -101,7 +109,6 @@ const ManageMatchesPage = () => {
             loadTotalisatorMatches();
             dispatch(addMatch(res.data));
         });
-        //TODO vėluoja: .finally(() => setAddingIds([]))
     }
 
     const useStyles = makeStyles({
@@ -149,7 +156,7 @@ const ManageMatchesPage = () => {
     }
 
     const createFifaToteboard = (match) => {
-        const addedIdsFromRedux = totalisator.matches.map(m=>m.fifaId);
+        const addedIdsFromRedux = totalisator.matches.map(m => m.fifaId);
         const addedIds = managerPendingMatches.map(tm => tm.fifaId);
         if (addedIdsFromRedux.includes(match.fifaId) || addingIds.includes(match.fifaId)) {
             return <Toteboard key={match.fifaId} match={match} variant="fifa-added"/>
@@ -159,7 +166,11 @@ const ManageMatchesPage = () => {
                 return <Toteboard key={match.fifaId} match={match} variant="fifa-listed"
                                   handleClick={() => handleFifaFixtureSelect(match)}/>;
             case "Finished":
-                return <Toteboard key={match.fifaId} match={match} variant="fifa-finished"/>
+                return <Toteboard key={match.fifaId} match={match} variant="fifa-finished"/>;
+
+            case "Notannounced" :
+                return <Toteboard key={match.fifaId} match={match} variant="fifa-listed"
+                                  handleClick={() => handleFifaFixtureSelect(match)}/>;
             default :
                 return <Toteboard key={match.fifaId} match={match} variant="fifa-invalid"/>
         }
@@ -186,6 +197,10 @@ const ManageMatchesPage = () => {
                     </p>
                     <p>Select date:</p>
                     {createDatePicker()}
+                    <div style={{display: "flex"}}>
+                        <span>Include demo fixtures?</span><DemoSwitch/>
+                    </div>
+
                     <p>Choose fixtures:</p>
                     {isLoading && <p>LOADING...</p>}
                 </article>
