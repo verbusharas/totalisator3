@@ -86,8 +86,8 @@ const Logo = () => {
                 {user.totalisators.length > 0 &&
                 <Select styles={customStyles}
                         options={getTotalisatorOptions()}
-                        value={getTotalisatorOptions().find(opt => opt.value === totalisator.id)}
-                        defaultValue={getTotalisatorOptions().find(opt => opt.value === totalisator.id)}
+                        value={getTotalisatorOptions().find(opt => opt.value === totalisator?.id)}
+                        defaultValue={getTotalisatorOptions().find(opt => opt.value === totalisator?.id)}
                         onChange={(e)=> switchTotalisator(e)}
                 />
                 }

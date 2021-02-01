@@ -106,11 +106,13 @@ const Toteboard = ({match, prediction, variant, handleClick, handleRegisterPredi
         }
     }
 
+    const getPredictionByPlayerId = (id) => {
+        return match.predictions.find(pr=>pr.userId===id)
+    }
+
     const flipToteboard = () => {
        setIsFlipped(!isFlipped);
     }
-
-
 
     const showAverse = () => {
         return (
@@ -128,6 +130,8 @@ const Toteboard = ({match, prediction, variant, handleClick, handleRegisterPredi
                     countdownTo={(variant === "manager-pending" || variant === "user-not_predicted") && match.date}
                     showPredictionsLink={isFlippable}
                     handleFlip={flipToteboard}
+                    totalPlayers={totalisator.players.length}
+                    totalPredictions={match.predictions?.length || 0}
                 />}
                 {variant === "user-finished" &&
                 <ToteboardPayout scores={match.scores} payout={prediction.payout}/>}
@@ -146,7 +150,7 @@ const Toteboard = ({match, prediction, variant, handleClick, handleRegisterPredi
 
 
     const renderPrediction = (player)=> {
-        return <Prediction player={player.name} isCurrentUser={player.id === user.id}/>
+        return <Prediction player={player} prediction={getPredictionByPlayerId(player.id)} isCurrentUser={player.id === user.id}/>
     }
 
     const showReverse = () => {

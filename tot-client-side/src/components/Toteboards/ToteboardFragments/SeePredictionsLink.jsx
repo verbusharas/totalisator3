@@ -1,10 +1,10 @@
-const SeePredictionsLink = ({hasStats, handleFlip}) => {
+const SeePredictionsLink = ({hasStats, handleFlip, totalPlayers, totalPredictions}) => {
 
     const showStatsAndLink = ()=>{
         return (
             <p>
                     <span className="tote-board__incentives--highlighted">
-                        {`3/6 `}
+                        {`${totalPredictions}/${totalPlayers} `}
                     </span>
                 people have already predicted.
                 <button className="tote-board__incentives--link" type="button" onClick={handleFlip}>

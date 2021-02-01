@@ -1,6 +1,6 @@
 import cx from "classnames";
 
-const Prediction = ({player, isCurrentUser}) => {
+const Prediction = ({player, isCurrentUser, prediction}) => {
 
     const sliceName = (name) => {
 
@@ -32,9 +32,8 @@ const Prediction = ({player, isCurrentUser}) => {
 
     return (
 
-
         <p className={cx({"tote-board--current-user": isCurrentUser})}>
-            {sliceName(player)}  <strong>{player.prediction?.homeScore || "_"}</strong> : <strong>{player.prediction?.awayScore || "_"}</strong>
+            {sliceName(player.name)}  <strong>{prediction?.homeScore || "_"}</strong> : <strong>{prediction?.awayScore || "_"}</strong>
         </p>
     )
 }
