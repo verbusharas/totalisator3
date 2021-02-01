@@ -16,38 +16,36 @@ import java.util.stream.Collectors;
 @Service
 public class UpdateService {
 
-public final FifaService fifaService;
-public MatchService matchService;
-public PredictionService predictionService;
+    public final FifaService fifaService;
+    public MatchService matchService;
+    public PredictionService predictionService;
 
-@Value("${minutes.to.match.when.start.monitoring}")
-private String MINUTES_TO_MATCH_WHEN_START_MONITORING;
+    @Value("${minutes.to.match.when.start.monitoring}")
+    private String MINUTES_TO_MATCH_WHEN_START_MONITORING;
 
     public UpdateService(FifaService fifaService) {
         this.fifaService = fifaService;
     }
 
-    public List<Match> updateIfMonitored(List<Match> matches) {
+    public Match updateIfMonitored(Match match) {
 
-        return matches.stream()
-                .map(m -> predictionService.defaultMissingPredictionsIfDue(m))
-                .peek(m ->  {
-                    if(isMonitored(m)) {
-                        FixtureUpdateDTO update =
-                                fifaService.getFixtureUpdateById(m.getFifaId());
-                        if (update.getStatusName() != null) {
-                            m.setStatusName(update.getStatusName());
-                        } else {
-                            m.setStatusName("Notannounced");
-                        }
-                        if (update.getAwayScore() != null && update.getHomeScore() != null) {
-                            m.setHomeScore(Byte.valueOf(update.getHomeScore()));
-                            m.setAwayScore(Byte.valueOf(update.getAwayScore()));
-                        }
-                        matchService.save(m);
-                    }
-                })
-                .collect(Collectors.toList());
+        predictionService.defaultMissingPredictionsIfDue(match);
+
+        if (isMonitored(match)) {
+            FixtureUpdateDTO update =
+                    fifaService.getFixtureUpdateById(match.getFifaId());
+            if (update.getStatusName() != null) {
+                match.setStatusName(update.getStatusName());
+            } else {
+                match.setStatusName("Notannounced");
+            }
+            if (update.getAwayScore() != null && update.getHomeScore() != null) {
+                match.setHomeScore(Byte.valueOf(update.getHomeScore()));
+                match.setAwayScore(Byte.valueOf(update.getAwayScore()));
+            }
+//                        matchService.save(match);
+        }
+        return match;
     }
 
     @Autowired

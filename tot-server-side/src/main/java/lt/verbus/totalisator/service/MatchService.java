@@ -56,26 +56,33 @@ public class MatchService {
                 .collect(Collectors.toList());
     }
 
-    public List<MatchDTO> findByTotalisatorAndStatus(Long totalisatorId, String statusName) {
-
-        return updateService
-                .updateIfMonitored(matchRepository.findByTotalisatorId(totalisatorId))
-                .stream()
+    public List<MatchDTO> findUpdatedByTotalisatorAndStatus(Long totalisatorId, String statusName) {
+        return findAndUpdateByTotalisatorId(totalisatorId).stream()
                 .filter(m->m.getStatusName().equals(statusName))
                 .map(matchMapper::mapEntityToDTO)
                 .collect(Collectors.toList());
     }
 
-    public MatchDTO getByTotalisatorIdAndMatchId(Long totalisatorId, Long matchId) {
-        Match match = matchRepository.findByTotalisatorIdAndMatchId(totalisatorId, matchId);
-        return matchMapper.mapEntityToDTO(match);
+    public MatchDTO update(Long id) {
+      Match match = matchRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Match was not found"));
+      match = updateService.updateIfMonitored(match);
+      return matchMapper.mapEntityToDTO(matchRepository.save(match));
     }
 
     public Match getById(Long id) {
-        return matchRepository
-                .findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Match was not found"));
+        return matchRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Match was not found"));
     }
+
+
+    private List<Match> findAndUpdateByTotalisatorId(Long totalisatorId) {
+        List<Match> updatedMatches =
+                matchRepository.findByTotalisatorId(totalisatorId)
+                        .stream()
+                        .map(m->updateService.updateIfMonitored(m))
+                        .collect(Collectors.toList());
+        return matchRepository.saveAll(updatedMatches);
+    }
+
 
     @Autowired
     public void setUpdateService(UpdateService updateService) {
