@@ -6,6 +6,7 @@ import lt.verbus.totalisator.entity.Totalisator;
 import lt.verbus.totalisator.exception.DuplicateEntryException;
 import lt.verbus.totalisator.repository.MatchRepository;
 import lt.verbus.totalisator.util.MatchMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -17,6 +18,7 @@ public class MatchService {
     private final MatchRepository matchRepository;
     private final MatchMapper matchMapper;
     private final TotalisatorService totalisatorService;
+    private UpdateService updateService;
 
 
     public MatchService(MatchRepository matchRepository, MatchMapper matchMapper, TotalisatorService totalisatorService) {
@@ -25,7 +27,7 @@ public class MatchService {
         this.totalisatorService = totalisatorService;
     }
 
-    public MatchDTO saveMatch(MatchDTO matchDTO) {
+    public MatchDTO create(MatchDTO matchDTO) {
         Totalisator totalisator = totalisatorService.getTotalisatorById(matchDTO.getTotalisatorId());
         boolean isUnique = totalisator
                 .getMatches()
@@ -41,6 +43,11 @@ public class MatchService {
         } else throw new DuplicateEntryException("Totalisator already contains this match");
     }
 
+    public Match save(Match match) {
+        return matchRepository.save(match);
+    }
+
+
     public List<MatchDTO> getTotalisatorMatches(Long totalisatorId) {
         return matchRepository
                 .findByTotalisatorId(totalisatorId)
@@ -49,31 +56,32 @@ public class MatchService {
                 .collect(Collectors.toList());
     }
 
-    public List<MatchDTO> getPendingMatches(Long totalisatorId) {
-        return matchRepository
-                .findByTotalisatorIdAndStatusName(totalisatorId, "Notstarted")
-                .stream()
-                .map(matchMapper::mapEntityToDTO)
-                .collect(Collectors.toList());
-    }
+    public List<MatchDTO> findByTotalisatorAndStatus(Long totalisatorId, String statusName) {
 
-    public List<MatchDTO> getFinishedMatches(Long totalisatorId) {
-        return matchRepository
-                .findByTotalisatorIdAndStatusName(totalisatorId, "Finished")
+        List<MatchDTO> matches =  updateService
+                .updateMatches(matchRepository.findByTotalisatorId(totalisatorId))
                 .stream()
+                .filter(m->m.getStatusName().equals(statusName))
                 .map(matchMapper::mapEntityToDTO)
                 .collect(Collectors.toList());
+
+        return matches;
     }
 
     public MatchDTO getByTotalisatorIdAndMatchId(Long totalisatorId, Long matchId) {
-        Match match = matchRepository.findByTotalisatorIdAndMatchId(totalisatorId,matchId);
+        Match match = matchRepository.findByTotalisatorIdAndMatchId(totalisatorId, matchId);
         return matchMapper.mapEntityToDTO(match);
     }
 
     public Match getById(Long id) {
         return matchRepository
                 .findById(id)
-                .orElseThrow(()-> new EntityNotFoundException("Match was not found"));
+                .orElseThrow(() -> new EntityNotFoundException("Match was not found"));
+    }
+
+    @Autowired
+    public void setUpdateService(UpdateService updateService) {
+        this.updateService = updateService;
     }
 
 }

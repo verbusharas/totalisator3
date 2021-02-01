@@ -22,13 +22,18 @@ public class FIfaFixtureController {
     }
 
     @GetMapping("/{id}/update")
-    private FixtureUpdateDTO getFixtureUpdate(@PathVariable Long id) {
+    private FixtureUpdateDTO getFixtureUpdate(@PathVariable Integer id) {
         return fifaService.getFixtureUpdateById(id);
     }
 
     @GetMapping
-    private List<FifaFixtureDTO> getFifaFixturesByDateNew(@RequestParam String date) {
+    private List<FifaFixtureDTO> getFifaFixturesByDate(@RequestParam String date) {
         return fifaService.getFifaFixturesByDate(date);
+    }
+
+    @GetMapping("/fake")
+    private List<FifaFixtureDTO> getFakeFifaFixtures() {
+        return fifaService.getFakeFifaFixtures();
     }
 
 

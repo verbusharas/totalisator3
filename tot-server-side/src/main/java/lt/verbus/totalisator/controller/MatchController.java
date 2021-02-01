@@ -1,7 +1,6 @@
 package lt.verbus.totalisator.controller;
 
 import lt.verbus.totalisator.controller.dto.MatchDTO;
-import lt.verbus.totalisator.entity.Match;
 import lt.verbus.totalisator.service.MatchService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +26,7 @@ public class MatchController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     private MatchDTO saveMatch(@RequestBody MatchDTO matchDTO) {
-        return matchService.saveMatch(matchDTO);
+        return matchService.create(matchDTO);
     }
 
     @GetMapping
@@ -37,7 +36,12 @@ public class MatchController {
 
     @GetMapping("/pending")
     private List<MatchDTO> getPendingMatches(@PathVariable Long totalisatorId) {
-        return matchService.getPendingMatches(totalisatorId);
+        List<MatchDTO> pending = matchService.findByTotalisatorAndStatus(totalisatorId, "Notstarted");
+        List<MatchDTO> inPlay = matchService.findByTotalisatorAndStatus(totalisatorId, "Inplay");
+        List<MatchDTO> notAnnounced = matchService.findByTotalisatorAndStatus(totalisatorId, "Notannounced");
+        pending.addAll(inPlay);
+        pending.addAll(notAnnounced);
+        return pending;
     }
 
     @GetMapping("/{matchId}")
@@ -47,6 +51,6 @@ public class MatchController {
 
     @GetMapping("/finished")
     private List<MatchDTO> getFinishedMatches(@PathVariable Long totalisatorId) {
-        return matchService.getFinishedMatches(totalisatorId);
+        return matchService.findByTotalisatorAndStatus(totalisatorId, "Finished");
     }
 }

@@ -34,6 +34,9 @@ public class FifaFixtureDTO {
 
     private String awayScore;
 
+    @JsonAlias("status")
+    private Integer status;
+
     @JsonAlias("status_name")
     private String statusName;
 
@@ -56,4 +59,15 @@ public class FifaFixtureDTO {
         this.homeScore = scores.get("home_score");
         this.awayScore = scores.get("away_score");
     }
+
+    @JsonProperty("status_name")
+    private void getStatus(String statusName) {
+        if (status == 17) {
+            this.statusName = "Notannounced";
+        } else {
+            this.statusName = statusName;
+        }
+
+    }
+
 }
