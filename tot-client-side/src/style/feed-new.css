@@ -11,10 +11,16 @@
     color: var(--light-teal);
     margin-bottom: 50px;
   }
+
+.feed__text {
+  color: var(--white-blue);
+}
   
   /* FEED - NOT YET PREDICTED - TOTE BOARD */
   .feed--not-predicted .tote-board {
     background-color: var(--dark-teal);
+    min-height: 255px;
+    justify-content: space-around;
   }
  
   .feed--not-predicted .tote-board__header p {

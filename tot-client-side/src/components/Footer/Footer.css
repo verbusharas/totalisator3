@@ -2,5 +2,7 @@ footer {
     color: var(--light-teal);
     font-size: 9pt;
     text-align: center;
-    margin-top: 30px;
+    padding: 30px;
+    margin-top: 50px;
+    background-color: var(--black-brown);
 }

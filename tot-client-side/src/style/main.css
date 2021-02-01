@@ -1,20 +1,3 @@
-@import "colors.css";
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap");
-@import "header.css";
-@import "default.css";
-@import "tote-board.css";
-@import "feed-new.css";
-@import "standings.css";
-@import "feed-pending.css";
-@import "feed-history.css";
-@import "feed-fifa.css";
-@import "feed-added.css";
-@import "feed-finished.css";
-@import "parallex.css";
-@import "social.css";
-@import "media-queries.css";
-
-
 body {
   background-color: var(--black-teal);
   font-family: "Montserrat", sans-serif;
@@ -76,4 +59,3 @@ section {
   align-items: center;
   margin: 15px;
 }
-

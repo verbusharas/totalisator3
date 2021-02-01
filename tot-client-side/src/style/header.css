@@ -21,6 +21,10 @@ header {
   }
   
   /* HEADER - NAV */
+
+ .navigations-root {
+   display: flex;
+ }
   .nav {
     font-size: 10pt;
     font-weight: normal;
@@ -51,7 +55,8 @@ header {
     color: var(--light-teal);
     margin: 20px;
     padding-bottom: 3px;
-    transition-duration: 0.8s;
+    border: 1px solid transparent;
+    transition-duration: 0.5s;
   }
   
   .nav__link:hover {
@@ -90,6 +95,7 @@ header {
     margin: 5px;
     background-color: transparent;
     border: none;
+    border-bottom: 1px solid transparent;
   }
 
 .user-menu__link:hover {

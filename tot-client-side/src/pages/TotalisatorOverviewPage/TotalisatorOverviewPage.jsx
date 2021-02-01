@@ -1,6 +1,6 @@
 import Toteboard from "../../components/Toteboards/Toteboard";
 import matches from "../../components/Toteboards/match";
-import Standings from "../../components/Standings/Standings";
+import StandingsTable from "../../components/StandingsTable/StandingsTable";
 import Rules from "../../components/Rules/Rules";
 import useTotalisator from "../../hooks/useTotalisator";
 import useUser from "../../hooks/useUser";
@@ -97,13 +97,13 @@ const TotalisatorOverviewPage = (() => {
             <main>
                 <section className="feed feed--not-predicted">
                     <h2 className="feed__title">MATCHES WAITING FOR YOUR PREDICTION</h2>
-                    {getUnpredictedMatches()?.length === 0 && <p>You currently don't have any unpredicted matches.</p>}
+                    {getUnpredictedMatches()?.length === 0 && <p className="feed__text">You currently don't have any matches to predict. Wait for manager to register new fixtures.</p>}
                     {getUnpredictedMatches()?.map(m => renderNotPredictedMatch(m))}
                 </section>
                 <section className="overview">
                     <h2 className="overview__title">CURRENT TOTALISATOR STANDINGS</h2>
                     <div className="overview__container">
-                        <Standings/><Rules/>
+                        <StandingsTable/><Rules/>
                     </div>
                 </section>
                 <section className="feed feed--pending">

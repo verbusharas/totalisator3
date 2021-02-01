@@ -8,6 +8,7 @@
   .feed--pending .feed__title {
     color: var(--yellow);
     margin-top: 100px;
+
   }
   
   /* PENDING TOTE BOARDS */
@@ -47,3 +48,4 @@
   .feed--pending .tote-board__incentives--link:hover {
     border-bottom: 1px solid var(--yellow);
   }
+

@@ -32,12 +32,18 @@ const Prediction = ({player, isCurrentUser, prediction}) => {
 
     return (
 
-        <p className={cx({"tote-board--current-user": isCurrentUser})}>
-            {sliceName(player.name)}
-            <strong>{prediction? prediction.homeScore : "_"}</strong>
-            :
-            <strong>{prediction? prediction.awayScore : "_"}</strong>
-        </p>
+        <div className="tote-board__prediction">
+            <div className="tote-board__prediction-user">
+                    <span>{sliceName(player.name)}</span>
+            </div>
+            <div className="tote-board__prediction-digit">
+                <span>{prediction? prediction.homeScore : "_"}</span>
+            </div>
+            <div className="tote-board__prediction-digit">
+                <span>{prediction? prediction.awayScore : "_"}</span>
+            </div>
+        </div>
+
     )
 }
 

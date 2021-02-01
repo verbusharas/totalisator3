@@ -3,7 +3,6 @@ import {NavLink} from "react-router-dom";
  const ManagerMenu = () => {
     return (
         <div className="nav nav--manager">
-            <span className="nav__text">MANAGER MENU:</span>
             <NavLink exact to="/totalisator/manage/matches" className="nav__link"
                      activeClassName="nav__link--active">
                 ADD / REMOVE MATCHES

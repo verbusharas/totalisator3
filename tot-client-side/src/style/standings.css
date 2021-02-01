@@ -5,7 +5,7 @@
   /*position: absolute;*/
   /*z-index: 10;*/
     background-color: var(--black-teal);
-    padding-top: 130px;
+    padding-top: 80px;
     background-color: var(--black-teal);
     /* background-image: url("../../bg-img/feet1-mid.png");
     background-size: 800px; */
@@ -59,3 +59,15 @@
   .standings__points--highlighted {
     font-weight: bold;
   }
+
+  .standings__kick-button {
+    background-color: var(--dark-teal);
+    color: var(--white-blue);
+    padding: 5px 10px;
+  }
+
+.standings__kick-button:hover {
+  background-color: var(--yellow);
+  color: var(--black-teal);
+  cursor: pointer;
+}

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import useTotalisator from "../../hooks/useTotalisator";
-import Standings from "../../components/Standings/Standings";
+import StandingsTable from "../../components/StandingsTable/StandingsTable";
 import {findFriendshipsByUserId} from "../../api/userApi";
 import useUser from "../../hooks/useUser";
 import FriendCard from "../UserFriendsPage/PersonCards/FriendCard";
@@ -55,13 +55,6 @@ const ManagePlayersPage = () => {
         })
     }
 
-    const printName = (player) => {
-        return <div key={Math.random()}>
-            <span>{player.name}</span>
-            {player.id !== user.id && <button type="button" onClick={() => kickPlayer(player)}>KICK</button>}
-        </div>
-    }
-
 
     const getPossiblePlayers = () => {
         findFriendshipsByUserId(user.id).then(res => {
@@ -85,11 +78,10 @@ const ManagePlayersPage = () => {
                         You can add/remove players to <strong>"{totalisator.title}"</strong> here.
                         Beware - kicking a player is irrevertable.
                     </p>
-                    {totalisator.players.map(printName)}
                     <p>
-                        Currently there are 6 players in this totalisator:
+                        Currently there are {totalisator.players?.length} players in this totalisator:
                     </p>
-                    <Standings/>
+                    <StandingsTable handleKick={kickPlayer}/>
 
                 </article>
             </section>

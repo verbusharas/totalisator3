@@ -1,4 +1,6 @@
 .tote-board {
+  display: flex;
+  flex-direction: column;
   width: 450px;
   margin: 30px;
   color: aquamarine;
@@ -67,7 +69,7 @@
 }
 
 .tote-board__name p {
-  font-size: 12pt;
+  font-size: 10pt;
   margin: 0;
 }
 
@@ -197,35 +199,66 @@
   margin: 10px 0 10px 0;
 }
 
-.tote-board--flipped .tote-board__predictions-list {
+/*.tote-board--flipped .tote-board__predictions-list {*/
+/*  margin-top: 10px;*/
+/*  padding: 10px;*/
+/*  column-count: 3;*/
+/*  column-gap: 2px;*/
+/*}*/
+
+/*.tote-board--flipped .tote-board__predictions-list p{*/
+/*  color: var(--white-blue);*/
+/*  font-size: 9pt;*/
+/*  margin: 5px;*/
+/*  text-align: right;*/
+/*}*/
+
+
+
+/*.tote-board--flipped .tote-board__predictions-list p strong{*/
+/*  color: var(--black-teal);*/
+/*  background-color: var(--white-blue);*/
+/*  margin: 0;*/
+/*  padding: 2px 5px 2px 5px;*/
+/*  width: 5px;*/
+/*}*/
+
+
+/*.tote-board--flipped .tote-board__incentives--link {*/
+/*  margin: 0;*/
+/*}*/
+
+/*p.tote-board--current-user {*/
+/* font-weight: bold;*/
+/*}*/
+
+.tote-board__predictions-list {
   margin-top: 10px;
-  padding: 10px;
-  column-count: 3;
-  column-gap: 2px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 3px;
 }
 
-.tote-board--flipped .tote-board__predictions-list p{
-  color: var(--white-blue);
-  font-size: 9pt;
-  margin: 5px;
-  text-align: right;
+.tote-board__prediction {
+  width: 32%;
+    color: var(--white-blue);
+    font-size: 9pt;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }
 
 
-
-.tote-board--flipped .tote-board__predictions-list p strong{
-  color: var(--black-teal);
+.tote-board__prediction-digit {
   background-color: var(--white-blue);
-  margin: 0;
-  padding: 2px 5px 2px 5px;
-  width: 5px;
+  width: 10px;
+  margin: 5px;
+  padding: 3px;
 }
 
-
-.tote-board--flipped .tote-board__incentives--link {
-  margin: 0;
-}
-
-p.tote-board--current-user {
- font-weight: bold;
+.tote-board__prediction-digit span {
+  color: var(--black-teal);
+  font-weight: bold;
+  font-size: 10pt;
 }
