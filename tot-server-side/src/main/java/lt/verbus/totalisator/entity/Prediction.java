@@ -30,9 +30,9 @@ public class Prediction {
     @ManyToOne
     private Match match;
 
-    private Byte homeScore;
+    private Integer homeScore;
 
-    private Byte awayScore;
+    private Integer awayScore;
 
     private Float accuracy;
 

@@ -15,8 +15,8 @@ public class PredictionBasicDTO {
 
     private Long userId;
 
-    private Byte homeScore;
+    private Integer homeScore;
 
-    private Byte awayScore;
+    private Integer awayScore;
 
 }

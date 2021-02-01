@@ -58,14 +58,12 @@ public class MatchService {
 
     public List<MatchDTO> findByTotalisatorAndStatus(Long totalisatorId, String statusName) {
 
-        List<MatchDTO> matches =  updateService
-                .updateMatches(matchRepository.findByTotalisatorId(totalisatorId))
+        return updateService
+                .updateIfMonitored(matchRepository.findByTotalisatorId(totalisatorId))
                 .stream()
                 .filter(m->m.getStatusName().equals(statusName))
                 .map(matchMapper::mapEntityToDTO)
                 .collect(Collectors.toList());
-
-        return matches;
     }
 
     public MatchDTO getByTotalisatorIdAndMatchId(Long totalisatorId, Long matchId) {
