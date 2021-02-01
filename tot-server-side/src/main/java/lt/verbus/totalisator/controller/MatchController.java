@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/totalisator/match")
+@RequestMapping("/totalisator/{totalisatorId}/match")
 public class MatchController {
 
     private final MatchService matchService;
