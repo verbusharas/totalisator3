@@ -44,7 +44,7 @@ const TotalisatorOverviewPage = (() => {
         }
 
         const getPendingMatches = () => {
-            const predictedMatches = totalisator?.matches?.filter(m => hasUserPrediction(m))
+            const predictedMatches = totalisator?.matches?.filter(m => hasUserPrediction(m) && m.statusName !== "Finished")
             console.log("predicted", predictedMatches);
             return predictedMatches;
         }

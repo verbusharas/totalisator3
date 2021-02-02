@@ -1,4 +1,4 @@
-const SeePredictionsLink = ({hasStats, handleFlip, totalPlayers, totalPredictions}) => {
+const SeePredictionsLink = ({isFinished, hasStats, handleFlip, totalPlayers, totalPredictions}) => {
 
     const showStatsAndLink = ()=>{
         return (
@@ -24,8 +24,18 @@ const SeePredictionsLink = ({hasStats, handleFlip, totalPlayers, totalPrediction
         )
     }
 
+    const showShortLinkOnly = ()=> {
+        return (
+            <p style={{margin:0}}>
+                <button className="tote-board__incentives--link" type="button" onClick={handleFlip}>
+                    See all >
+                </button>
+            </p>
+        )
+    }
+
     return (
-        hasStats ? showStatsAndLink() : showLinkOnly()
+        hasStats ? showStatsAndLink() : isFinished ? showShortLinkOnly() : showLinkOnly()
     )
 }
 
