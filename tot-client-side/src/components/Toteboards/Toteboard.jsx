@@ -24,7 +24,7 @@ import useUser from "../../hooks/useUser";
 // - "user-pending"
 // - "user-finished"
 
-const Toteboard = ({match, prediction, variant, handleClick, handleRegisterPrediction}) => {
+const Toteboard = ({match, prediction, variant, handleClick, handleRegisterPrediction, payout}) => {
 
     const [isFlipped, setIsFlipped] = useState(false);
 
@@ -135,7 +135,7 @@ const Toteboard = ({match, prediction, variant, handleClick, handleRegisterPredi
                     totalPredictions={match.predictions?.length || 0}
                 />}
                 {variant === "user-finished" &&
-                <ToteboardPayout scores={match.scores} payout={prediction.payout}/>}
+                <ToteboardPayout scores={match.scores} payout={payout}/>}
                 <div className="tote-board__footer">
                     {status === "not_predicted" && <ToteboardButton text="REGISTER PREDICTION" handleClick={registerPrediction}/>}
                     {variant === "fifa-listed" && <ToteboardButton text="ADD TO TOTALISATOR" handleClick={handleClick}/>}

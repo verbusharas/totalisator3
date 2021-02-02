@@ -5,19 +5,18 @@ import Footer from "./components/Footer/Footer";
 import {Provider} from "react-redux";
 import store from "./store"
 import LiveFeedMonitor from "./monitor/LiveFeedMonitor";
+import useTotalisator from "./hooks/useTotalisator";
+import useUser from "./hooks/useUser";
 
 
 function App() {
-
     return (
         <Provider store={store}>
-            <LiveFeedMonitor>
             <Router>
                 <Header/>
                 <Content/>
                 <Footer/>
             </Router>
-            </LiveFeedMonitor>
         </Provider>
     );
 }

@@ -85,10 +85,9 @@ const TotalisatorOverviewPage = (() => {
 
         const renderFinishedMatch = (m) => {
             const prediction = getUserPrediction(m)
-            prediction.payout = 999
             return (
                 hasUserPrediction(m) &&
-                <Toteboard  key={"f" + Math.random()} variant="user-finished" prediction={prediction} match={m}/>
+                <Toteboard  key={"f" + Math.random()} variant="user-finished" prediction={prediction} payout={999} match={m}/>
                 )
         }
 
