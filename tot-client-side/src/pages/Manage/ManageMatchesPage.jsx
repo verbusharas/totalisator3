@@ -8,7 +8,6 @@ import {fetchFakeFixtures, fetchFifaFixtures} from "../../api/fixtureApi";
 import {fetchManagerFinishedMatches, fetchManagerPendingMatches, saveAsMatch} from "../../api/matchApi";
 import useTotalisator from "../../hooks/useTotalisator";
 import {addMatch, setMatches} from "../../store/slices/totalisatorSlice";
-import {includeFakeMatches} from "../../store/slices/preferencesSlice";
 import {useDispatch} from "react-redux";
 import DemoSwitch from "../../components/Header/HeaderFragments/DemoSwitch";
 import usePreferences from "../../hooks/usePreferences";
@@ -51,13 +50,12 @@ const ManageMatchesPage = () => {
         fetchFifaFixtures(dateToString(date))
             .then(res => {
                 setFifaFixtures(res.data)
-                console.log("70.", res.data)
-                console.log("71.", preferences.isFakeMatchesIncluded)
                 return res.data;
             }).then(() => {
-            if (preferences.isFakeMatchesIncluded) {
+            if (preferences?.isFakeMatchesIncluded) {
                 fetchFakeFixtures().then(res => {
                     const fakeFixtures = res.data;
+                    console.log("fakeFixtures", fakeFixtures);
                     if (fifaFixtures?.length > 0) {
                         setFifaFixtures((prevArray) => [...prevArray, ...fakeFixtures])
                     } else {
@@ -71,7 +69,6 @@ const ManageMatchesPage = () => {
     }
 
     const loadTotalisatorMatches = () => {
-        console.log("72.loading")
         fetchManagerPendingMatches(totalisator.id)
             .then(response => setManagerPendingMatches(response.data))
             .catch(err => console.log("Error:", err));

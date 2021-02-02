@@ -4,17 +4,20 @@ import Content from "./components/Content/Content";
 import Footer from "./components/Footer/Footer";
 import {Provider} from "react-redux";
 import store from "./store"
+import LiveFeedMonitor from "./monitor/LiveFeedMonitor";
 
 
 function App() {
 
     return (
         <Provider store={store}>
-                <Router>
-                    <Header/>
-                    <Content/>
-                    <Footer/>
-                </Router>
+            <LiveFeedMonitor>
+            <Router>
+                <Header/>
+                <Content/>
+                <Footer/>
+            </Router>
+            </LiveFeedMonitor>
         </Provider>
     );
 }

@@ -71,7 +71,7 @@ public class TotalisatorService {
     }
 
     public TotalisatorDTO getTotalisatorDTOById(Long id) {
-        return totalisatorMapper.convertTotalisatorEntityToDTO(totalisatorRepository.getOne(id));
+        return totalisatorMapper.convertTotalisatorEntityToDTO(totalisatorRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("Totalisator was not found")));
     }
 
     public Totalisator getTotalisatorById(Long id) {

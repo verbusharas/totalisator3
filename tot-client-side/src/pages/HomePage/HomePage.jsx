@@ -15,7 +15,7 @@ const HomePage = () => {
                 <article className="text-section__article">
                     <h2>WELCOME TO FRESH NEW <strong>TOTALISATOR 3.0</strong>!</h2>
                     <div className="text-section__description">
-                        <p>
+                        <div>
                             Who is better soccer oracle you or <a href="https://en.wikipedia.org/wiki/Paul_the_Octopus">Paul the Octopus</a>  ?
 
                             <p>Create your custom totalisator and find
@@ -29,7 +29,7 @@ const HomePage = () => {
                                 the most
                                 precise.
                             </p>
-                        </p>
+                        </div>
                         <p>Creating your totalisator is super easy and completely <strong>free</strong>.</p>
 
                         <p>Sign up and try it yourself!</p>

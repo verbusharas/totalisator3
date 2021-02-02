@@ -114,6 +114,7 @@ const Toteboard = ({match, prediction, variant, handleClick, handleRegisterPredi
        setIsFlipped(!isFlipped);
     }
 
+
     const showAverse = () => {
         return (
             <article className={cx({"tote-board": true, "tote-board--disabled": isDisabled})}>

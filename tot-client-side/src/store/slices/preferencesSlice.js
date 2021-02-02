@@ -1,18 +1,18 @@
 import {createSlice} from "@reduxjs/toolkit";
 
 const initialState = {
-    isFakeMatchesIncluded: false,
+    data: {isFakeMatchesIncluded: false},
 }
 export const preferencesSlice = createSlice({
     name: 'preferences',
     initialState: initialState,
     reducers: {
         includeFakeMatches(state) {
-            state.isFakeMatchesIncluded = true;
+            state.data.isFakeMatchesIncluded = true;
         },
 
         excludeFakeMatches(state) {
-            state.isFakeMatchesIncluded = false;
+            state.data.isFakeMatchesIncluded = false;
         },
     }
 })

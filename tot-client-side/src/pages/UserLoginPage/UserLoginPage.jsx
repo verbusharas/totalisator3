@@ -20,7 +20,6 @@ const UserLoginPage = () => {
             .then(({data, headers: {authorization}}) => {
             dispatch(setUserData(data))
             dispatch(setJwt(authorization))
-
             return data.totalisators;
         }).then((totalisators) => {
             if (totalisators.length > 0) {
@@ -34,13 +33,10 @@ const UserLoginPage = () => {
                 }
                 fetchTotalisatorById(prevTotalisator.id).then(res => {
                     dispatch(setTotalisator(res.data))
+
                     return res.data;
                 }).then(()=> {
-                    const {from} = location.state || {
-                        from: {
-                            pathname: '/totalisator'
-                        }
-                    }
+                    const {from} = location.state || {from: {pathname: '/totalisator'}}
                     history.push(from)
                 })
             } else {
