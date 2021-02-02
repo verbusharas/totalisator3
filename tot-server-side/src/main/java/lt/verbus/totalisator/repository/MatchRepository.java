@@ -17,6 +17,17 @@ public interface MatchRepository extends JpaRepository<Match, Long> {
 
     List<Match> findByTotalisatorIdAndStatusName(Long id, String statusName);
 
+    @Query("SELECT m FROM Match m JOIN FETCH m.totalisator " +
+            "WHERE m.totalisator.id = :id " +
+            "AND NOT m.statusName = 'Finished' " +
+            "AND NOT m.statusName = 'Inplay'")
+    List<Match> findPendingByTotalisatorId(Long id);
+
+    @Query("SELECT m FROM Match m JOIN FETCH m.totalisator " +
+            "WHERE m.totalisator.id = :id " +
+            "AND m.statusName = 'Finished' ")
+    List<Match> findFinishedByTotalisatorId(Long id);
+
     @Query("SELECT m FROM Match m JOIN FETCH m.totalisator WHERE m.entityId = :matchId AND m.totalisator.id = :totalisatorId")
     Match findByTotalisatorIdAndMatchId(Long totalisatorId, Long matchId);
 }

@@ -20,31 +20,26 @@ public class MatchController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     private MatchDTO saveMatch(@RequestBody MatchDTO matchDTO) {
-        return matchService.create(matchDTO);
+        return matchService.add(matchDTO);
     }
 
     @GetMapping
     private List<MatchDTO> getTotalisatorMatches(@PathVariable Long totalisatorId) {
-        return matchService.getTotalisatorMatches(totalisatorId);
+        return matchService.getAllByTotalisatorId(totalisatorId);
     }
 
     @GetMapping("/pending")
     private List<MatchDTO> getPendingMatches(@PathVariable Long totalisatorId) {
-        List<MatchDTO> pending = matchService.findUpdatedByTotalisatorAndStatus(totalisatorId, "Notstarted");
-        List<MatchDTO> inPlay = matchService.findUpdatedByTotalisatorAndStatus(totalisatorId, "Inplay");
-        List<MatchDTO> notAnnounced = matchService.findUpdatedByTotalisatorAndStatus(totalisatorId, "Notannounced");
-        pending.addAll(inPlay);
-        pending.addAll(notAnnounced);
-        return pending;
+        return matchService.getPendingByTotalisatorId(totalisatorId);
     }
 
-    @PatchMapping("/{id}/update")
-    private MatchDTO updateMatch(@PathVariable Long id) {
-        return matchService.update(id);
-    }
+//    @PatchMapping("/{id}/update")
+//    private MatchDTO updateMatch(@PathVariable Long id) {
+//        return matchService.update(id);
+//    }
 
     @GetMapping("/finished")
     private List<MatchDTO> getFinishedMatches(@PathVariable Long totalisatorId) {
-        return matchService.findUpdatedByTotalisatorAndStatus(totalisatorId, "Finished");
+        return matchService.getFinishedByTotalisatorId(totalisatorId);
     }
 }

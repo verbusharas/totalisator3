@@ -24,7 +24,6 @@ public class MatchMapper {
         BeanUtils.copyProperties(match, matchDTO);
         Long totalisatorId = match.getTotalisator().getId();
         matchDTO.setTotalisatorId(totalisatorId);
-
         if (match.getPredictions() != null) {
             List<PredictionBasicDTO> predictions = match.getPredictions()
                     .stream()
@@ -32,6 +31,7 @@ public class MatchMapper {
                     .collect(Collectors.toList());
             matchDTO.setPredictions(predictions);
         } else matchDTO.setPredictions(new ArrayList<>());
+
         return matchDTO;
     }
 

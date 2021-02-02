@@ -41,13 +41,13 @@ public class Match {
     @ManyToOne
     private Totalisator totalisator;
 
-    private Byte homeScore;
+    private Integer homeScore;
     
-    private Byte awayScore;
+    private Integer awayScore;
 
     private String statusName;
 
-    @OneToMany(mappedBy = "match")
+    @OneToMany(mappedBy = "match", cascade = CascadeType.ALL)
     private List<Prediction> predictions;
 
 }

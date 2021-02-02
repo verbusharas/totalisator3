@@ -49,7 +49,7 @@ public class PredictionService {
         return predictionMapper.mapEntityToDTO(savedPrediction);
     }
 
-    public Match defaultMissingPredictionsIfDue (Match match) {
+    public Match defaultMissingIfDue(Match match) {
         if (hasStarted(match.getDate())) {
             List<Prediction> predictions = match.getPredictions();
             if (predictions == null) {

@@ -10,8 +10,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class UpdateService {
@@ -29,21 +27,21 @@ public class UpdateService {
 
     public Match updateIfMonitored(Match match) {
 
-        predictionService.defaultMissingPredictionsIfDue(match);
-
         if (isMonitored(match)) {
-            FixtureUpdateDTO update =
-                    fifaService.getFixtureUpdateById(match.getFifaId());
+            FixtureUpdateDTO update = fifaService
+                    .getFixtureUpdateById(match.getFifaId());
             if (update.getStatusName() != null) {
                 match.setStatusName(update.getStatusName());
             } else {
                 match.setStatusName("Notannounced");
             }
             if (update.getAwayScore() != null && update.getHomeScore() != null) {
-                match.setHomeScore(Byte.valueOf(update.getHomeScore()));
-                match.setAwayScore(Byte.valueOf(update.getAwayScore()));
+                for(int i = 0; i<5; i++) {
+                    System.out.println("-----CHANGING NUMBERS----");
+                }
+                match.setHomeScore(Integer.parseInt(update.getHomeScore()));
+                match.setAwayScore(Integer.parseInt(update.getAwayScore()));
             }
-//                        matchService.save(match);
         }
         return match;
     }
@@ -63,7 +61,10 @@ public class UpdateService {
         LocalDateTime startsAt = LocalDateTime.parse(match.getDate(), formatter);
         LocalDateTime now = LocalDateTime.now();
         long difference = ChronoUnit.MINUTES.between(now, startsAt);
-        return (difference <= Integer.parseInt(MINUTES_TO_MATCH_WHEN_START_MONITORING) && !match.getStatusName().equals("Finished"));
+        boolean startsSoon = difference <= Integer.parseInt(MINUTES_TO_MATCH_WHEN_START_MONITORING);
+        boolean started = match.getStatusName().equals("Inplay");
+        boolean finished = match.getStatusName().equals("Finished");
+        return ( ( started || startsSoon ) && !finished);
     }
 
 }

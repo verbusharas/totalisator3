@@ -18,7 +18,7 @@ public class TotalisatorMapper {
         this.matchMapper = matchMapper;
     }
 
-    public TotalisatorDTO convertTotalisatorEntityToDTO(Totalisator totalisator) {
+    public TotalisatorDTO convertToDTO(Totalisator totalisator) {
         TotalisatorDTO totalisatorDTO = new TotalisatorDTO();
         totalisatorDTO.setId(totalisator.getId());
         totalisatorDTO.setTitle(totalisator.getTitle());

@@ -18,26 +18,31 @@ public class TotalisatorController {
         this.totalisatorService = totalisatorService;
     }
 
-    @GetMapping
-    public List<TotalisatorDTO> getAllTotalisators() {
-        return totalisatorService.getAllTotalisators();
-    }
+//    @GetMapping
+//    public List<TotalisatorDTO> getAllTotalisators() {
+//        return totalisatorService.getAllTotalisators();
+//    }
 
     @GetMapping("player")
-    public List<TotalisatorDTO> getAllTotalisatorsByUserId(@RequestParam Long id) {
-        return totalisatorService.getAllTotalisatorsByUserId(id);
+    public List<TotalisatorDTO> getAllByUserId(@RequestParam Long id) {
+        return totalisatorService.getAllByUserId(id);
     }
 
     @GetMapping("/{id}")
-    public TotalisatorDTO getTotalisatorDTOById(@PathVariable Long id) {
-        return totalisatorService.getTotalisatorDTOById(id);
+    public TotalisatorDTO getDTOByUserId(@PathVariable Long id) {
+        return totalisatorService.getDTObyUserId(id);
     }
 
-    @GetMapping("/entity/{id}")
-    public Long getTotalisatorById(@PathVariable Long id) {
-        Totalisator totalisator = totalisatorService.getTotalisatorById(id);
-        return totalisator.getId();
+    @PatchMapping("/{id}")
+    public TotalisatorDTO getUpdatedDTOById(@PathVariable Long id) {
+        return totalisatorService.getUpdatedDTO(id);
     }
+
+//    @GetMapping("/entity/{id}")
+//    public Long getTotalisatorById(@PathVariable Long id) {
+//        Totalisator totalisator = totalisatorService.getById(id);
+//        return totalisator.getId();
+//    }
 
     @PutMapping("/{totalisatorId}/invite/{playerId}")
     @ResponseStatus(HttpStatus.ACCEPTED)
@@ -48,12 +53,12 @@ public class TotalisatorController {
     @ResponseStatus(HttpStatus.ACCEPTED)
     @DeleteMapping("/{totalisatorId}/kick/{playerId}")
     public TotalisatorDTO kickPlayer(@PathVariable Long playerId, @PathVariable Long totalisatorId) {
-        return totalisatorService.kickUserByIdFromTotalisatorById(playerId, totalisatorId);
+        return totalisatorService.kickPlayer(playerId, totalisatorId);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public TotalisatorDTO createTotalisator(@RequestBody TotalisatorDTO totalisatorDTO) {
+    public TotalisatorDTO create(@RequestBody TotalisatorDTO totalisatorDTO) {
         return totalisatorService.save(totalisatorDTO);
     }
 
