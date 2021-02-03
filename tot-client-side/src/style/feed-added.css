@@ -18,6 +18,7 @@
 
 .feed--added .tote-board {
   background-color: var(--dark-teal);
+  min-height: 180px;
 }
 
 .feed--added .tote-board__header p {

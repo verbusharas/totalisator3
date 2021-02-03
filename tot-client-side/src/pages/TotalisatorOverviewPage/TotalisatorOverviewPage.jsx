@@ -7,14 +7,13 @@ import {useEffect, useState} from "react";
 import {getMatchPayouts, getTotalisatorPayouts, savePrediction} from "../../api/predictionApi";
 import {useDispatch} from "react-redux";
 import {addPrediction} from "../../store/slices/totalisatorSlice";
+import cx from "classnames";
 
 const TotalisatorOverviewPage = (() => {
 
         const user = useUser();
         const totalisator = useTotalisator();
         const dispatch = useDispatch();
-
-
 
 
         const registerPrediction = (match, home, away) => {
@@ -26,7 +25,7 @@ const TotalisatorOverviewPage = (() => {
                 awayScore: away
             }
             const matchIndex = totalisator.matches.indexOf(match)
-            savePrediction(prediction).then(()=>{
+            savePrediction(prediction).then(() => {
                 prediction.matchIndex = matchIndex;
                 dispatch(addPrediction(prediction))
             })
@@ -50,10 +49,10 @@ const TotalisatorOverviewPage = (() => {
         }
 
         const getUserPrediction = (m) => {
-            if (m.predictions.length === 0 ) {
+            if (m.predictions.length === 0) {
                 return false;
             }
-            return m.predictions.find(p=>p.userId===user.id);
+            return m.predictions.find(p => p.userId === user.id);
         }
 
 
@@ -72,10 +71,10 @@ const TotalisatorOverviewPage = (() => {
             const prediction = getUserPrediction(m)
             return (
                 hasUserPrediction(m) &&
-                <Toteboard  key={"np" + Math.random()}
-                            variant="user-pending"
-                            match={m}
-                            prediction={prediction}
+                <Toteboard key={"np" + Math.random()}
+                           variant="user-pending"
+                           match={m}
+                           prediction={prediction}
                 />
             )
         }
@@ -83,26 +82,35 @@ const TotalisatorOverviewPage = (() => {
 
         const renderFinishedMatch = (m) => {
 
-                const prediction = getUserPrediction(m)
-                return (
-                    hasUserPrediction(m) &&
-                    <Toteboard  key={"f" + Math.random()}
-                                variant="user-finished"
-                                prediction={prediction}
-                                match={m}
-                    />
-                )
+            const prediction = getUserPrediction(m)
+            return (
+                hasUserPrediction(m) &&
+                <Toteboard key={"f" + Math.random()}
+                           variant="user-finished"
+                           prediction={prediction}
+                           match={m}
+                />
+            )
         }
 
 
         return (
             <main>
-                <section className="feed feed--not-predicted">
+
+                <section className="feed feed--not-predicted feed--empty">
                     <h2 className="feed__title">MATCHES WAITING FOR YOUR PREDICTION</h2>
                     {getUnpredictedMatches()?.length === 0 &&
-                    <p className="feed__text">
-                        You currently don't have any matches to predict. Wait for manager to register new fixtures.
-                    </p>}
+                    <div>
+                        <p className="feed__text">
+                            <strong>"{totalisator.title}" </strong>
+                            currently doesn't have any matches for you to predict.
+                            Wait for manager to announce new fixtures.
+                        </p>
+                        <p className="feed__text">
+                            Meanwhile check out the latest standings below.
+                        </p>
+                    </div>
+                    }
                     {getUnpredictedMatches()?.map(m => renderNotPredictedMatch(m))}
                 </section>
                 <section className="overview">
@@ -115,7 +123,7 @@ const TotalisatorOverviewPage = (() => {
                 <section className="feed feed--pending">
                     <h2 className="feed__title">YOUR REGISTERED PREDICTIONS</h2>
                     {getPendingMatches()?.length === 0 &&
-                    <p>
+                    <p className="feed__text">
                         You currently don't have any pending matches.
                     </p>}
                     {getPendingMatches()?.map(m => renderPredictedMatch(m))}
@@ -123,7 +131,7 @@ const TotalisatorOverviewPage = (() => {
                 <section className="feed feed--history">
                     <h2 className="feed__title">YOUR PREDICTION HISTORY</h2>
                     {getFinishedMatches()?.length === 0 &&
-                    <p>
+                    <p className="feed__text">
                         You currently don't have any finished matches.
                     </p>}
                     {getFinishedMatches()?.map(m => renderFinishedMatch(m))}

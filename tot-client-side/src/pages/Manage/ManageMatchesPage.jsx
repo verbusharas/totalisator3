@@ -141,7 +141,10 @@ const ManageMatchesPage = () => {
             return <Toteboard key={match.fifaId} match={match} variant="fifa-added"/>
         }
         switch (match.statusName) {
-            case "Notstarted" || "Notannounced":
+            case "Notstarted":
+                return <Toteboard key={match.fifaId} match={match} variant="fifa-listed"
+                                  handleClick={() => handleFixtureSelect(match)}/>;
+            case "Notannounced":
                 return <Toteboard key={match.fifaId} match={match} variant="fifa-listed"
                                   handleClick={() => handleFixtureSelect(match)}/>;
             case "Finished":

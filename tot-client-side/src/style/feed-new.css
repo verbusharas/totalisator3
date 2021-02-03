@@ -1,11 +1,14 @@
-/* FEED - NOT YET PREDICTED */ 
-  .feed--not-predicted {
+/* FEED - NOT YET PREDICTED */
+
+.feed--not-predicted {
     background: radial-gradient(
       circle,
       rgba(34, 30, 31, 1) 1%,
       rgba(26, 58, 55, 1) 90%
     );
+  min-height: 200px;
   }
+
 
   .feed--not-predicted .feed__title {
     color: var(--light-teal);
@@ -14,6 +17,7 @@
 
 .feed__text {
   color: var(--white-blue);
+  text-align: center;
 }
   
   /* FEED - NOT YET PREDICTED - TOTE BOARD */

@@ -18,6 +18,7 @@
     background-color: rgba(255, 218, 31, 0.05);
     border: 1px solid rgba(255, 218, 31, 0.3);
     backdrop-filter: blur(7px);
+    min-height: 180px;
   }
   
   .feed--pending .tote-board__header p {

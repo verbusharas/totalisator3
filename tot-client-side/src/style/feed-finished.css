@@ -15,6 +15,7 @@
 .feed--finished .tote-board {
     padding-bottom: 5px;
     border: 1px solid var(--light-teal);
+  min-height: 200px;
   }
 
   .feed--finished .tote-board:hover {
@@ -49,3 +50,26 @@
     color: var(--light-teal);
     margin: 0 10px 0 10px;
   }
+
+
+.feed--finished .tote-board--flipped {
+  color: var(--light-teal);
+  }
+
+.feed--finished .tote-board__prediction {
+  color: var(--light-teal);
+}
+
+
+.feed--finished .tote-board__prediction-user strong{
+  border-bottom: 1px solid var(--medium-teal);
+}
+
+
+.feed--finished .tote-board__prediction-digit {
+  background-color: var(--medium-teal);
+}
+
+.feed--finished .tote-board__prediction-digit span {
+  color: var(--white-blue);
+}
