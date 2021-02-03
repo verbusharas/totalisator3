@@ -14,7 +14,7 @@ import javax.persistence.Id;
 public class Team {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long entity_id;
     private Integer id;
     private String name;

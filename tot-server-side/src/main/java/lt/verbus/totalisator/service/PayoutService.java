@@ -56,6 +56,11 @@ public class PayoutService {
 
     public List<PayoutDTO> calculateByTotalisator(Long totalisatorId) {
         List<Prediction> predictions = predictionService.findByTotalisatorId(totalisatorId);
-        return predictions.stream().map(this::calculatePayout).collect(Collectors.toList());
+        return predictions.stream().filter(this::hasFinalScore).map(this::calculatePayout).collect(Collectors.toList());
     }
+
+    private boolean hasFinalScore(Prediction p){
+        return p.getMatch().getHomeScore()!=null && p.getMatch().getAwayScore()!=null;
+    }
+
 }

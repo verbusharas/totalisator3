@@ -22,7 +22,7 @@ import java.util.List;
 public class Match {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long entityId;
 
     private Integer fifaId;
