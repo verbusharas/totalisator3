@@ -1,7 +1,7 @@
 package lt.verbus.totalisator.util;
 
 import lt.verbus.totalisator.controller.dto.TotalisatorBasicDTO;
-import lt.verbus.totalisator.entity.Totalisator;
+import lt.verbus.totalisator.domain.entity.Totalisator;
 import org.springframework.stereotype.Component;
 
 @Component

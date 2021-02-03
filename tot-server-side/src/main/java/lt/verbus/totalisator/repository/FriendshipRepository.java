@@ -1,6 +1,6 @@
 package lt.verbus.totalisator.repository;
 
-import lt.verbus.totalisator.entity.Friendship;
+import lt.verbus.totalisator.domain.entity.Friendship;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

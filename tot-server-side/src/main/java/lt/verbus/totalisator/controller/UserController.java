@@ -1,6 +1,6 @@
 package lt.verbus.totalisator.controller;
 
-import lt.verbus.totalisator.entity.User;
+import lt.verbus.totalisator.domain.entity.User;
 import lt.verbus.totalisator.service.FriendshipService;
 import lt.verbus.totalisator.service.UserService;
 import lt.verbus.totalisator.controller.dto.FriendshipDTO;

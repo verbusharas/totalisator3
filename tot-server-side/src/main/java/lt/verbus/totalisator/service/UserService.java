@@ -1,6 +1,6 @@
 package lt.verbus.totalisator.service;
 
-import lt.verbus.totalisator.entity.User;
+import lt.verbus.totalisator.domain.entity.User;
 import lt.verbus.totalisator.repository.UserRepository;
 import lt.verbus.totalisator.controller.dto.UserDTO;
 import lt.verbus.totalisator.exception.EntityNotFoundException;

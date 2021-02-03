@@ -1,8 +1,8 @@
 package lt.verbus.totalisator.service;
 
-import lt.verbus.totalisator.entity.Match;
-import lt.verbus.totalisator.entity.Totalisator;
-import lt.verbus.totalisator.entity.User;
+import lt.verbus.totalisator.domain.entity.Match;
+import lt.verbus.totalisator.domain.entity.Totalisator;
+import lt.verbus.totalisator.domain.entity.User;
 import lt.verbus.totalisator.exception.OperationNotAllowed;
 import lt.verbus.totalisator.repository.TotalisatorRepository;
 import lt.verbus.totalisator.controller.dto.TotalisatorDTO;
@@ -83,20 +83,14 @@ public class TotalisatorService {
     public TotalisatorDTO getUpdatedDTO(Long id) {
         Totalisator totalisator = getById(id);
         List<Match> matches = totalisator.getMatches();
-        List<Match> updatedMatches = matchService.updateMonitored(matches);
+        List<Match> updatedMatches = matchService.getUpdates(matches);
         totalisator.setMatches(updatedMatches);
-        for (int i = 0; i < 10; i++) {
-            System.out.println(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::");
-        }
-        System.out.println("::::::::::::::::::::::::: The SCORE NOW IS ::::::::::::::");
-        totalisator.getMatches().stream().forEach(m-> System.out.println("HOME: " + m.getHomeScore() + " AWAY: " + m.getAwayScore()));
         return totalisatorMapper.convertToDTO(totalisator);
     }
 
     public Totalisator getById(Long id) {
         return totalisatorRepository.findById(id).orElseThrow(()->new EntityNotFoundException("Totalisator Not Found"));
     }
-
 
     public TotalisatorDTO kickPlayer(Long playerId, Long totalisatorId) {
         Totalisator totalisator = totalisatorRepository.getOne(totalisatorId);

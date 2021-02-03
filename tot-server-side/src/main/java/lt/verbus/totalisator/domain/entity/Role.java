@@ -1,4 +1,4 @@
-package lt.verbus.totalisator.entity;
+package lt.verbus.totalisator.domain.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

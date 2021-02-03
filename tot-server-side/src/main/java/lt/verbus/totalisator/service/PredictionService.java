@@ -2,9 +2,10 @@ package lt.verbus.totalisator.service;
 
 import lt.verbus.totalisator.controller.dto.PredictionRegistrationDTO;
 import lt.verbus.totalisator.controller.dto.PredictionDTO;
-import lt.verbus.totalisator.entity.Match;
-import lt.verbus.totalisator.entity.Prediction;
-import lt.verbus.totalisator.entity.User;
+import lt.verbus.totalisator.domain.entity.Match;
+import lt.verbus.totalisator.domain.entity.Prediction;
+import lt.verbus.totalisator.domain.entity.User;
+import lt.verbus.totalisator.exception.EntityNotFoundException;
 import lt.verbus.totalisator.repository.PredictionRepository;
 import lt.verbus.totalisator.util.PredictionMapper;
 import org.springframework.stereotype.Service;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static lt.verbus.totalisator.util.DateEvaluator.hasStarted;
+import static lt.verbus.totalisator.util.UpdateQualifier.hasStarted;
 
 @Service
 public class PredictionService {
@@ -37,6 +38,15 @@ public class PredictionService {
         this.predictionMapper = predictionMapper;
     }
 
+    public Prediction findById(Long id) {
+        return predictionRepository.findById(id).orElseThrow(()->new EntityNotFoundException("Prediction was not found"));
+    }
+
+    public Prediction findByMatchIdPlayerId(Long matchId, Long playerId) {
+        return predictionRepository.findByMatchIdAndPlayerId(matchId, playerId).orElseThrow(()->new EntityNotFoundException("Prediction was not found"));
+    }
+
+
     public PredictionDTO savePrediction(PredictionRegistrationDTO predictionRegistrationDTO) {
         Prediction prediction =
                 Prediction.builder()
@@ -50,15 +60,17 @@ public class PredictionService {
     }
 
     public Match defaultMissingIfDue(Match match) {
-        if (hasStarted(match.getDate())) {
+        if (hasStarted(match)) {
             List<Prediction> predictions = match.getPredictions();
             if (predictions == null) {
                 predictions = new ArrayList<>();
             }
             List<User> allPlayers = match.getTotalisator().getPlayers();
+
             List<User> predictedPlayers = predictions.stream()
                     .map(Prediction::getUser)
                     .collect(Collectors.toList());
+
             List<User> latePlayers = allPlayers.stream()
                     .filter(p->!predictedPlayers.contains(p))
                     .collect(Collectors.toList());
@@ -77,4 +89,7 @@ public class PredictionService {
     }
 
 
+    public List<Prediction> findByMatchId(Long matchId) {
+        return predictionRepository.findAllByMatchId(matchId);
+    }
 }

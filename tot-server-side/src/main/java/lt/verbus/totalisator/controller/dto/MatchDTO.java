@@ -2,8 +2,8 @@ package lt.verbus.totalisator.controller.dto;
 
 import lombok.Getter;
 import lombok.Setter;
-import lt.verbus.totalisator.entity.League;
-import lt.verbus.totalisator.entity.Team;
+import lt.verbus.totalisator.domain.entity.League;
+import lt.verbus.totalisator.domain.entity.Team;
 
 import java.util.List;
 

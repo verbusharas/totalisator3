@@ -1,8 +1,8 @@
 package lt.verbus.totalisator.service;
 
 import lt.verbus.totalisator.controller.dto.MatchDTO;
-import lt.verbus.totalisator.entity.Match;
-import lt.verbus.totalisator.entity.Totalisator;
+import lt.verbus.totalisator.domain.entity.Match;
+import lt.verbus.totalisator.domain.entity.Totalisator;
 import lt.verbus.totalisator.exception.DuplicateEntryException;
 import lt.verbus.totalisator.repository.MatchRepository;
 import lt.verbus.totalisator.util.MatchMapper;
@@ -20,6 +20,7 @@ public class MatchService {
     private TotalisatorService totalisatorService;
     private UpdateService updateService;
     private PredictionService predictionService;
+    private PayoutService payoutService;
 
 
     public MatchService(MatchRepository matchRepository, MatchMapper matchMapper) {
@@ -89,23 +90,13 @@ public class MatchService {
         return matchRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Match was not found"));
     }
 
-
-//    private List<Match> findAndUpdateByTotalisatorId(Long totalisatorId) {
-//        List<Match> updatedMatches =
-//                matchRepository.findByTotalisatorId(totalisatorId)
-//                        .stream()
-//                        .map(m->updateService.updateIfMonitored(m))
-//                        .collect(Collectors.toList());
-//        return matchRepository.saveAll(updatedMatches);
-//    }
-
-    public List<Match> updateMonitored(List<Match> matches) {
+    public List<Match> getUpdates(List<Match> matches) {
         List<Match> updatedMatches = matches.stream()
-                        .map(m->updateService.updateIfMonitored(m))
+                        .map(updateService::updateIfMonitored)
                         .map(predictionService::defaultMissingIfDue)
+//                        .map(match -> payoutService.calculatePayouts())
                         .collect(Collectors.toList());
         return matchRepository.saveAll(updatedMatches);
-
     }
 
     @Autowired
@@ -121,6 +112,11 @@ public class MatchService {
     @Autowired
     public void setPredictionService(PredictionService predictionService) {
         this.predictionService = predictionService;
+    }
+
+    @Autowired
+    public void setPayoutService(PayoutService payoutService) {
+        this.payoutService = payoutService;
     }
 
 

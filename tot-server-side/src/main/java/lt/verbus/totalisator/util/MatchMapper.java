@@ -2,7 +2,7 @@ package lt.verbus.totalisator.util;
 
 import lt.verbus.totalisator.controller.dto.MatchDTO;
 import lt.verbus.totalisator.controller.dto.PredictionBasicDTO;
-import lt.verbus.totalisator.entity.Match;
+import lt.verbus.totalisator.domain.entity.Match;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 

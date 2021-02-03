@@ -1,8 +1,7 @@
 package lt.verbus.totalisator.util;
 
 import lt.verbus.totalisator.controller.dto.TotalisatorBasicDTO;
-import lt.verbus.totalisator.entity.Totalisator;
-import lt.verbus.totalisator.entity.User;
+import lt.verbus.totalisator.domain.entity.User;
 import lt.verbus.totalisator.controller.dto.PlayerDTO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
@@ -19,7 +18,7 @@ public class PlayerMapper {
         this.totalisatorBasicMapper = totalisatorBasicMapper;
     }
 
-    public PlayerDTO convertUserEntityToPlayerDTO(User user) {
+    public PlayerDTO convertEntityToDTO(User user) {
         PlayerDTO playerDTO = new PlayerDTO();
         BeanUtils.copyProperties(user, playerDTO);
         List<TotalisatorBasicDTO> totalisators = user

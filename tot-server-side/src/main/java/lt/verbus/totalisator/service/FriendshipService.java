@@ -1,7 +1,7 @@
 package lt.verbus.totalisator.service;
 
-import lt.verbus.totalisator.entity.Friendship;
-import lt.verbus.totalisator.entity.User;
+import lt.verbus.totalisator.domain.entity.Friendship;
+import lt.verbus.totalisator.domain.entity.User;
 import lt.verbus.totalisator.repository.FriendshipRepository;
 import lt.verbus.totalisator.controller.dto.FriendshipDTO;
 import lt.verbus.totalisator.exception.EntityNotFoundException;

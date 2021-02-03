@@ -3,9 +3,8 @@ package lt.verbus.totalisator.controller.dto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lt.verbus.totalisator.entity.Role;
-import lt.verbus.totalisator.entity.Totalisator;
-import lt.verbus.totalisator.entity.User;
+import lt.verbus.totalisator.domain.entity.Role;
+import lt.verbus.totalisator.domain.entity.User;
 
 import java.util.List;
 import java.util.Set;

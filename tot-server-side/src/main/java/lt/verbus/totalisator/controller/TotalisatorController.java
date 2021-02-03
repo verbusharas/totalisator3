@@ -1,6 +1,5 @@
 package lt.verbus.totalisator.controller;
 
-import lt.verbus.totalisator.entity.Totalisator;
 import lt.verbus.totalisator.service.TotalisatorService;
 import lt.verbus.totalisator.controller.dto.TotalisatorDTO;
 import org.springframework.http.HttpStatus;

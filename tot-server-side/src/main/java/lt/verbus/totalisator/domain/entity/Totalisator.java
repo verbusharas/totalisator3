@@ -1,8 +1,7 @@
-package lt.verbus.totalisator.entity;
+package lt.verbus.totalisator.domain.entity;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.util.List;

@@ -1,6 +1,6 @@
 package lt.verbus.totalisator.controller;
 
-import lt.verbus.totalisator.entity.User;
+import lt.verbus.totalisator.domain.entity.User;
 import lt.verbus.totalisator.controller.dto.UserDTO;
 import lt.verbus.totalisator.service.UserService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;

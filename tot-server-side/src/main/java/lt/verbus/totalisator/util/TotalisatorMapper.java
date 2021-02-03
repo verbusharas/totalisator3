@@ -1,6 +1,6 @@
 package lt.verbus.totalisator.util;
 
-import lt.verbus.totalisator.entity.Totalisator;
+import lt.verbus.totalisator.domain.entity.Totalisator;
 import lt.verbus.totalisator.controller.dto.TotalisatorDTO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
@@ -26,7 +26,7 @@ public class TotalisatorMapper {
             totalisatorDTO.setPlayers(totalisator
                     .getPlayers()
                     .stream()
-                    .map(playerMapper::convertUserEntityToPlayerDTO)
+                    .map(playerMapper::convertEntityToDTO)
                     .collect(Collectors.toList()));
         }
         totalisatorDTO.setManagerId(totalisator.getManager().getId());
