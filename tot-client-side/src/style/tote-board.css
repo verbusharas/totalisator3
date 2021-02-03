@@ -199,39 +199,6 @@
   margin: 10px 0 10px 0;
 }
 
-/*.tote-board--flipped .tote-board__predictions-list {*/
-/*  margin-top: 10px;*/
-/*  padding: 10px;*/
-/*  column-count: 3;*/
-/*  column-gap: 2px;*/
-/*}*/
-
-/*.tote-board--flipped .tote-board__predictions-list p{*/
-/*  color: var(--white-blue);*/
-/*  font-size: 9pt;*/
-/*  margin: 5px;*/
-/*  text-align: right;*/
-/*}*/
-
-
-
-/*.tote-board--flipped .tote-board__predictions-list p strong{*/
-/*  color: var(--black-teal);*/
-/*  background-color: var(--white-blue);*/
-/*  margin: 0;*/
-/*  padding: 2px 5px 2px 5px;*/
-/*  width: 5px;*/
-/*}*/
-
-
-/*.tote-board--flipped .tote-board__incentives--link {*/
-/*  margin: 0;*/
-/*}*/
-
-/*p.tote-board--current-user {*/
-/* font-weight: bold;*/
-/*}*/
-
 .tote-board__predictions-list {
   margin-top: 10px;
   display: flex;
@@ -247,6 +214,18 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
+}
+
+.tote-board__prediction-user {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.tote-board__prediction-user strong{
+  font-size: 8pt;
+  border-bottom: 1px solid var(--white-blue);
+  width: 100%;
 }
 
 

@@ -5,7 +5,7 @@ import Rules from "../../components/Rules/Rules";
 import useTotalisator from "../../hooks/useTotalisator";
 import useUser from "../../hooks/useUser";
 import {useEffect} from "react";
-import {savePrediction} from "../../api/predictionApi";
+import {getPayouts, savePrediction} from "../../api/predictionApi";
 import {useDispatch} from "react-redux";
 import {addPrediction} from "../../store/slices/totalisatorSlice";
 
@@ -67,6 +67,12 @@ const TotalisatorOverviewPage = (() => {
             return m.predictions.find(p=>p.userId===user.id);
         }
 
+        const getMatchPayouts = (id) => {
+            getPayouts(id).then(res=>{
+                return res.data;
+            })
+        }
+
         const renderNotPredictedMatch = (m) => {
             return (
                 !hasUserPrediction(m) &&
@@ -84,10 +90,11 @@ const TotalisatorOverviewPage = (() => {
 
 
         const renderFinishedMatch = (m) => {
-            const prediction = getUserPrediction(m)
-            return (
-                hasUserPrediction(m) &&
-                <Toteboard  key={"f" + Math.random()} variant="user-finished" prediction={prediction} payout={999} match={m}/>
+
+                const prediction = getUserPrediction(m)
+                return (
+                    hasUserPrediction(m) &&
+                    <Toteboard  key={"f" + Math.random()} variant="user-finished" prediction={prediction} match={m}/>
                 )
         }
 
@@ -114,12 +121,6 @@ const TotalisatorOverviewPage = (() => {
                     <h2 className="feed__title">YOUR PREDICTION HISTORY</h2>
                     {getFinishedMatches()?.length === 0 && <p>You currently don't have any finished matches.</p>}
                     {getFinishedMatches()?.map(m => renderFinishedMatch(m))}
-                    <Toteboard variant="user-finished" prediction={{homeScore: 33, awayScore: 27, payout: 10}}
-                               match={matches[0]}/>
-                    <Toteboard variant="user-finished" prediction={{homeScore: 0, awayScore: 1, payout: 250}}
-                               match={matches[1]}/>
-                    <Toteboard variant="user-finished" prediction={{homeScore: 2, awayScore: 3, payout: 455}}
-                               match={matches[2]}/>
                 </section>
             </main>
         )

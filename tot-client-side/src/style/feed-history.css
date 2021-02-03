@@ -17,6 +17,7 @@
 .feed--history .tote-board {
   padding-bottom: 20px;
   border: 1px solid var(--light-teal);
+  min-height: 200px;
 }
 
 .feed--history .tote-board__header p {
@@ -93,4 +94,8 @@
 
 .tote-board__points--hidden {
   visibility: hidden;
+}
+
+.feed--history .tote-board--flipped .tote-board__incentives--link {
+  margin-top: 10px;
 }

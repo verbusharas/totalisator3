@@ -1,7 +1,7 @@
 import ToteboardHeader from "./ToteboardFragments/ToteboardHeader";
 import ToteboardScoreLabel from "./ToteboardFragments/ToteboardScoreLabel";
 import Scoreboard from "./ToteboardFragments/ToteboardScoreboard";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import ToteboardTeam from "./ToteboardFragments/ToteboardTeam";
 import ToteboardIncentives from "./ToteboardFragments/ToteboardIncentives";
 import ToteboardButton from "./ToteboardFragments/ToteboardButton";
@@ -10,6 +10,7 @@ import cx from "classnames";
 import Prediction from "./ToteboardFragments/Prediction";
 import useTotalisator from "../../hooks/useTotalisator";
 import useUser from "../../hooks/useUser";
+import {getPayouts} from "../../api/predictionApi";
 
 // Variant structure: "{environment}-{status}"
 // Supported variants:
@@ -24,7 +25,7 @@ import useUser from "../../hooks/useUser";
 // - "user-pending"
 // - "user-finished"
 
-const Toteboard = ({match, prediction, variant, handleClick, handleRegisterPrediction, payout}) => {
+const Toteboard = ({match, prediction, variant, handleClick, handleRegisterPrediction}) => {
 
     const [isFlipped, setIsFlipped] = useState(false);
 
@@ -43,11 +44,23 @@ const Toteboard = ({match, prediction, variant, handleClick, handleRegisterPredi
     const [homeScore, setHomeScore] = useState("");
     const [awayScore, setAwayScore] = useState("");
 
+    const [payouts, setPayouts] = useState([])
+
     const validateValue = (value) => {
         if (isNaN(value) || value < 0 || value === "" || value === null) {
             return 0;
         } else return value;
     }
+
+    useEffect(()=>{
+        if (status==="finished"){
+            getPayouts(match.entityId).then(res=>{
+              console.log("RECEIVED PAYOUTS",res.data)
+                setPayouts(res.data);
+            })
+        }
+
+    },[])
 
     const handleHomeInput = (e) => {
         setHomeScore(e.target.value);
@@ -91,7 +104,7 @@ const Toteboard = ({match, prediction, variant, handleClick, handleRegisterPredi
             return <Scoreboard isEmpty/>;
         }
 
-        if (variant === "fifa-finished" || variant === "manager-finished") {
+        if (status === "fifa-finished" || variant === "manager-finished") {
             return <Scoreboard
                 homeScore={match.homeScore}
                 awayScore={match.awayScore}
@@ -136,7 +149,7 @@ const Toteboard = ({match, prediction, variant, handleClick, handleRegisterPredi
                 />}
                 {variant === "user-finished" &&
 
-                <ToteboardPayout match={match} payout={payout} handleFlip={flipToteboard}/>}
+                <ToteboardPayout match={match} payout={payouts.find(p=>p.userId===user.id)} handleFlip={flipToteboard}/>}
 
                 <div className="tote-board__footer">
                     {status === "not_predicted" && <ToteboardButton text="REGISTER PREDICTION" handleClick={registerPrediction}/>}
@@ -153,7 +166,7 @@ const Toteboard = ({match, prediction, variant, handleClick, handleRegisterPredi
 
 
     const renderPrediction = (player)=> {
-        return <Prediction player={player} prediction={getPredictionByPlayerId(player.id)} isCurrentUser={player.id === user.id}/>
+        return <Prediction player={player} prediction={getPredictionByPlayerId(player.id)} isCurrentUser={player.id === user.id} payout={payouts?.find(p=>p.userId===player.id)}/>
     }
 
     const showReverse = () => {
@@ -161,7 +174,13 @@ const Toteboard = ({match, prediction, variant, handleClick, handleRegisterPredi
         <article className={"tote-board tote-board--flipped"}>
             <div className="tote-board__heraldics">
                 <span>{match.homeTeam.shortCode}</span>
-                {getScoreboard()}
+                {status === "finished" ?
+                    <div className="tote-board__label tote-board__label--highlighted">
+                        <p style={{margin:"0px 10px 10px 0px"}}>FINAL SCORE:</p>
+                        <Scoreboard homeScore = {match.homeScore} awayScore={match.awayScore}/>
+                    </div>
+                    :getScoreboard()
+                }
                 <span>{match.awayTeam.shortCode}</span>
             </div>
             <div className="tote-board__predictions-list">

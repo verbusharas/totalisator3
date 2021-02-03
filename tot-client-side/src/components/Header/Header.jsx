@@ -41,7 +41,6 @@ const Header = () => {
 
     return (
         <header>
-
             {user && totalisator?.id && <LiveFeedMonitor/>}
             <Logo/>
             <nav>

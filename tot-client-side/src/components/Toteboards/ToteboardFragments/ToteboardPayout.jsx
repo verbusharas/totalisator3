@@ -4,7 +4,7 @@ const ToteboardPayout = ({match, payout, handleFlip}) => {
     return (
         <div className="tote-board__results">
             <div className="tote-board__points">
-                <span>{`+${payout} Points`}</span>
+                <span>{`+${payout?.award || '...'} Points`}</span>
                 <SeePredictionsLink isFinished handleFlip={handleFlip}/>
             </div>
             <div>
@@ -17,7 +17,7 @@ const ToteboardPayout = ({match, payout, handleFlip}) => {
                 </div>
             </div>
             <div className="tote-board__points tote-board__points--hidden">
-                <span>+500 Points</span>
+                <span>{`+${payout?.award} Points`}</span>
                 <SeePredictionsLink isFinished handleFlip={handleFlip}/>
             </div>
         </div>
