@@ -16,4 +16,10 @@ public interface PredictionRepository extends JpaRepository<Prediction, Long> {
 
     @Query("SELECT p FROM Prediction p JOIN FETCH p.match m WHERE m.entityId = :matchId")
     List<Prediction> findAllByMatchId(Long matchId);
+
+    @Query("SELECT p FROM Prediction p " +
+            "JOIN FETCH p.match m " +
+            "JOIN FETCH m.totalisator " +
+            "WHERE m.totalisator.id = :totalisatorId")
+    List<Prediction> findAllByTotalisatorId(Long totalisatorId);
 }

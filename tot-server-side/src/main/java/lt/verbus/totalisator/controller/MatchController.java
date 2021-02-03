@@ -24,7 +24,7 @@ public class MatchController {
     }
 
     @GetMapping
-    private List<MatchDTO> getTotalisatorMatches(@PathVariable Long totalisatorId) {
+    private List<MatchDTO> getAllMatches(@PathVariable Long totalisatorId) {
         return matchService.getAllByTotalisatorId(totalisatorId);
     }
 
@@ -32,11 +32,6 @@ public class MatchController {
     private List<MatchDTO> getPendingMatches(@PathVariable Long totalisatorId) {
         return matchService.getPendingByTotalisatorId(totalisatorId);
     }
-
-//    @PatchMapping("/{id}/update")
-//    private MatchDTO updateMatch(@PathVariable Long id) {
-//        return matchService.update(id);
-//    }
 
     @GetMapping("/finished")
     private List<MatchDTO> getFinishedMatches(@PathVariable Long totalisatorId) {

@@ -92,4 +92,8 @@ public class PredictionService {
     public List<Prediction> findByMatchId(Long matchId) {
         return predictionRepository.findAllByMatchId(matchId);
     }
+
+    public List<Prediction> findByTotalisatorId(Long totalisatorId) {
+        return predictionRepository.findAllByTotalisatorId(totalisatorId);
+    }
 }

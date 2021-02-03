@@ -14,7 +14,6 @@ import java.util.List;
 @RequestMapping("/totalisator/prediction")
 public class PredictionController {
 
-
     private final PredictionService predictionService;
     private final PayoutService payoutService;
 
@@ -26,19 +25,18 @@ public class PredictionController {
     @PostMapping
     @ResponseStatus(HttpStatus.ACCEPTED)
     public PredictionDTO predict(@RequestBody PredictionRegistrationDTO predictionRegistrationDTO) {
-
         return predictionService
                 .savePrediction(predictionRegistrationDTO);
     }
 
-//    @GetMapping("/payout")
-//    public PayoutDTO calculatePayout(@RequestParam Long matchId, @RequestParam Long userId) {
-//        return payoutService.calculateByMatchIdAndUserId(matchId, userId);
-//    }
-
     @GetMapping("/payout/{matchId}")
-    public List<PayoutDTO> calculatePayouts(@PathVariable Long matchId) {
-        return payoutService.calculateAllByMatchId(matchId);
+    public List<PayoutDTO> calculateMatchPayouts(@PathVariable Long matchId) {
+        return payoutService.calculateByMatch(matchId);
+    }
+
+    @GetMapping("/payout/all/{totalisatorId}")
+    public List<PayoutDTO> calculateTotalisatorPayouts(@PathVariable Long totalisatorId) {
+        return payoutService.calculateByTotalisator(totalisatorId);
     }
 
 }

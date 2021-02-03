@@ -49,9 +49,13 @@ public class PayoutService {
     return payoutMapper.mapModelToDTO(payout);
 }
 
-    public List<PayoutDTO> calculateAllByMatchId(Long matchId) {
+    public List<PayoutDTO> calculateByMatch(Long matchId) {
         List<Prediction> predictions = predictionService.findByMatchId(matchId);
         return predictions.stream().map(this::calculatePayout).collect(Collectors.toList());
     }
 
+    public List<PayoutDTO> calculateByTotalisator(Long totalisatorId) {
+        List<Prediction> predictions = predictionService.findByTotalisatorId(totalisatorId);
+        return predictions.stream().map(this::calculatePayout).collect(Collectors.toList());
+    }
 }

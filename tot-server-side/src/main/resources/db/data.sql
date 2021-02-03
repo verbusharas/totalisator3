@@ -84,10 +84,14 @@ VALUES (25, 1),
        (25, 3),
        (13, 1),
        (14, 2),
-       (18, 5),
        (18, 3),
        (18, 4),
-       (17, 5);
+       (18, 5),
+       (17, 5),
+       (26, 5),
+       (27, 5),
+       (9,  5),
+       (15, 5);
 
 INSERT INTO friendship (id, requester_id, receiver_id, is_accepted)
 VALUES (1, 18, 17, true),
@@ -100,12 +104,76 @@ VALUES (1, 18, 17, true),
         (9, 18, 3, false),
        (10, 18, 15, true),
        (11, 14, 18, false),
-       (12, 13, 18, false);
+       (12, 13, 18, false),
+       (13, 18, 27, true);
 
--- INSERT INTO user_totalisators (user_id, totalisator_id)
--- VALUES (25, 1),
---        (25, 3),
---        (13, 1),
---        (14, 2);
+INSERT INTO league (entity_id, country_name, id, name)
+VALUES(1, 'Lithuania', 9001, 'Oldman Brainlessman League');
 
+INSERT INTO team (img, entity_id, id, name, short_code)
+VALUES ('https://cdn.iconscout.comicon/free/png-256/lithuania-map-country-location-nation-navigation-1-9833.png',
+        1, 9001, 'Neringos Lapės', 'NLP'),
+       ('https://cdn.iconscout.comicon/free/png-256/lithuania-map-country-location-nation-navigation-1-9833.png',
+        2, 9002, 'Labanoro Vilkai', 'LBV'),
+       ('https://cdn.iconscout.comicon/free/png-256/lithuania-map-country-location-nation-navigation-1-9833.png',
+        3, 9003, 'Zarasų Briedžiai', 'ZBR'),
+       ('https://cdn.iconscout.comicon/free/png-256/lithuania-map-country-location-nation-navigation-1-9833.png',
+        4, 9004, 'Sostinės Lašišos', 'SLŠ'),
+       ('https://cdn.iconscout.comicon/free/png-256/lithuania-map-country-location-nation-navigation-1-9833.png',
+        5, 9005, 'Žemaitėjės Žvirgždas', 'ŽŽŽ'),
+       ('https://cdn.iconscout.comicon/free/png-256/lithuania-map-country-location-nation-navigation-1-9833.png',
+        6, 9006, 'Palangos Plekšnės', 'PPL'),
+       ('https://cdn.iconscout.comicon/free/png-256/lithuania-map-country-location-nation-navigation-1-9833.png',
+        7, 9007, 'Kauno Bachūrai', 'KBX'),
+       ('https://cdn.iconscout.comicon/free/png-256/lithuania-map-country-location-nation-navigation-1-9833.png',
+        8, 9008, 'Molėtų Musės', 'MMS');
+
+INSERT INTO soccer_match (entity_id,
+                          status_name,
+                          home_score,
+                          away_score,
+                          date,
+                          fifa_id,
+
+                          away_team_entity_id,
+                          home_team_entity_id,
+
+                          league_entity_id,
+                          totalisator_id)
+VALUES
+       (1, 'Finished', 5, 4, '2021-01-10 18:00:00', 9000001, 1, 2, 1, 5),
+       (2, 'Finished', 2, 1, '2021-01-11 18:00:00', 9000002, 3, 4, 1, 5),
+       (3, 'Finished', 2, 2, '2021-01-12 19:00:00', 9000003, 5, 6, 1, 5),
+       (4, 'Finished', 0, 0, '2021-01-13 17:00:00', 9000004, 7, 8, 1, 5);
+
+INSERT INTO prediction (match_entity_id, away_score, home_score,user_id)
+VALUES (1, 3, 1, 18),
+       (2, 2, 2, 18),
+       (3, 2, 2, 18),
+       (4, 1, 0, 18),
+
+       (1, 1, 4, 17),
+       (2, 2, 3, 17),
+       (3, 4, 3, 17),
+       (4, 2, 1, 17),
+
+       (1, 1, 3, 26),
+       (2, 2, 1, 26),
+       (3, 0, 1, 26),
+       (4, 1, 0, 26),
+
+       (1, 5, 2, 27),
+       (2, 1, 1, 27),
+       (3, 0, 0, 27),
+       (4, 4, 0, 27),
+
+       (1, 6, 9, 9),
+       (2, 0, 0, 9),
+       (3, 0, 0, 9),
+       (4, 0, 0, 9),
+
+       (1, 1, 3, 15),
+       (2, 3, 1, 15),
+       (3, 1, 2, 15),
+       (4, 1, 0, 15);
 

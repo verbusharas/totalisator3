@@ -34,6 +34,13 @@ public class UpdateService {
 
     private boolean isMonitored(Match match) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        System.out.println(match.getDate());
+        System.out.println(match.getDate());
+        System.out.println(match.getDate());
+        System.out.println(match.getDate());
+        System.out.println(match.getDate());
+        System.out.println(match.getDate());
+
         LocalDateTime startsAt = LocalDateTime.parse(match.getDate(), formatter);
         LocalDateTime now = LocalDateTime.now();
         long difference = ChronoUnit.MINUTES.between(now, startsAt);
