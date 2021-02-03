@@ -6,7 +6,6 @@ import useTotalisator from "../../../hooks/useTotalisator";
 import {useDispatch} from "react-redux";
 import {fetchTotalisatorById} from "../../../api/totalisatorApi";
 import {setTotalisator} from "../../../store/slices/totalisatorSlice";
-import {useEffect, useState} from "react";
 
 const Logo = () => {
 
@@ -50,7 +49,6 @@ const Logo = () => {
             display: 'none'
         }),
     }
-
 
     const user = useUser();
     const totalisator = useTotalisator();

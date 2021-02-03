@@ -13,6 +13,7 @@ const ToteboardScoreboard = ({isEmpty, homeScore, awayScore, isEditable, homeInp
         return (
             <div className="tote-board__score-predict">
                 <input type="text" disabled value={homeScore}/>
+
                 <input type="text" disabled value={awayScore}/>
             </div>
         )

@@ -10,7 +10,7 @@ import cx from "classnames";
 import Prediction from "./ToteboardFragments/Prediction";
 import useTotalisator from "../../hooks/useTotalisator";
 import useUser from "../../hooks/useUser";
-import {getPayouts} from "../../api/predictionApi";
+import {getMatchPayouts} from "../../api/predictionApi";
 
 // Variant structure: "{environment}-{status}"
 // Supported variants:
@@ -25,21 +25,25 @@ import {getPayouts} from "../../api/predictionApi";
 // - "user-pending"
 // - "user-finished"
 
-const Toteboard = ({match, prediction, variant, handleClick, handleRegisterPrediction}) => {
-
-    const [isFlipped, setIsFlipped] = useState(false);
+const Toteboard = ({match,
+                       prediction,
+                       variant,
+                       handleClick,
+                       handleRegisterPrediction}) => {
 
     const totalisator = useTotalisator();
+
     const user = useUser();
-
     const environment = variant.split("-")[0];
-    const status = variant.split("-")[1];
 
+    const status = variant.split("-")[1];
     const isDisabled = (variant === "fifa-added"
         || variant === "fifa-finished"
         || variant === "fifa-invalid");
 
     const isFlippable = (environment !== "fifa");
+
+    const [isFlipped, setIsFlipped] = useState(false);
 
     const [homeScore, setHomeScore] = useState("");
     const [awayScore, setAwayScore] = useState("");
@@ -53,9 +57,8 @@ const Toteboard = ({match, prediction, variant, handleClick, handleRegisterPredi
     }
 
     useEffect(()=>{
-        if (status==="finished"){
-            getPayouts(match.entityId).then(res=>{
-              console.log("RECEIVED PAYOUTS",res.data)
+        if (variant==="user-finished" || variant==="manager-finished"){
+            getMatchPayouts(match.entityId).then(res=>{
                 setPayouts(res.data);
             })
         }
@@ -64,12 +67,10 @@ const Toteboard = ({match, prediction, variant, handleClick, handleRegisterPredi
 
     const handleHomeInput = (e) => {
         setHomeScore(e.target.value);
-        console.log("HomeInputTargetValue", e.target.value);
     }
 
     const handleAwayInput = (e) => {
         setAwayScore(e.target.value);
-        console.log("AwayInputTargetValue", e.target.value);
     }
 
     const registerPrediction = () => {
@@ -99,17 +100,25 @@ const Toteboard = ({match, prediction, variant, handleClick, handleRegisterPredi
             />;
         }
 
-        if ((environment === "fifa" && status !== "finished")
-            || variant === "manager-pending") {
-            return <Scoreboard isEmpty/>;
-        }
-
-        if (status === "fifa-finished" || variant === "manager-finished") {
+        if (variant === "fifa-finished") {
             return <Scoreboard
                 homeScore={match.homeScore}
                 awayScore={match.awayScore}
             />;
         }
+        if ((environment === "fifa" && status !== "finished")
+            || variant === "manager-pending") {
+            return <Scoreboard isEmpty/>;
+        }
+
+        if (variant === "manager-finished") {
+            return <Scoreboard
+                homeScore={match.homeScore}
+                awayScore={match.awayScore}
+            />;
+        }
+
+        return "BBB";
 
     }
 
@@ -127,7 +136,6 @@ const Toteboard = ({match, prediction, variant, handleClick, handleRegisterPredi
        setIsFlipped(!isFlipped);
     }
 
-
     const showAverse = () => {
         return (
             <article className={cx({"tote-board": true, "tote-board--disabled": isDisabled})}>
@@ -136,7 +144,9 @@ const Toteboard = ({match, prediction, variant, handleClick, handleRegisterPredi
                 <div className="tote-board__main">
                     <ToteboardTeam team={match.homeTeam} status="home"
                                    hasCrest={environment !== "fifa" && status !== "finished"}/>
+
                     {getScoreboard()}
+
                     <ToteboardTeam team={match.awayTeam} status="away"
                                    hasCrest={environment !== "fifa" && status !== "finished"}/>
                 </div>
@@ -164,9 +174,11 @@ const Toteboard = ({match, prediction, variant, handleClick, handleRegisterPredi
         )
     }
 
-
     const renderPrediction = (player)=> {
-        return <Prediction player={player} prediction={getPredictionByPlayerId(player.id)} isCurrentUser={player.id === user.id} payout={payouts?.find(p=>p.userId===player.id)}/>
+        return <Prediction player={player}
+                           prediction={getPredictionByPlayerId(player.id)}
+                           isCurrentUser={player.id === user.id}
+                           payout={payouts?.find(p=>p.userId===player.id)}/>
     }
 
     const showReverse = () => {

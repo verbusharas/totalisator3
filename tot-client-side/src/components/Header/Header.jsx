@@ -35,10 +35,6 @@ const Header = () => {
         )
     }
 
-    const test = () => {
-        console.log("live matches", liveMatches)
-    }
-
     return (
         <header>
             {user && totalisator?.id && <LiveFeedMonitor/>}

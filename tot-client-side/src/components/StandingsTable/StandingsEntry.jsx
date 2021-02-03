@@ -1,18 +1,9 @@
 import useUser from "../../hooks/useUser";
 import cx from "classnames";
 
-const StandingsEntry = ({player, handleKick}) => {
+const StandingsEntry = ({player, handleKick, totals}) => {
 
     const user = useUser();
-
-    const buttonStyle = {
-        backgroundColor: "var(--dark-teal)",
-        color: "var(--white-blue)",
-        "&:hover": {
-            cursor:"pointer",
-            backgroundColor: "white"
-        }
-    }
 
     const random = (min, max) => {
         const rand = Math.random() * (max - min) + min
@@ -29,7 +20,7 @@ const StandingsEntry = ({player, handleKick}) => {
             <td className={cx({
                 "standings__points": true,
                 "standings__points--highlighted": user.id===player.id})}>
-                {random(500,1500)}
+                {totals}
             </td>
             {handleKick &&
             <td className="standings__kick-button" onClick={() => handleKick(player)}>kick</td>
