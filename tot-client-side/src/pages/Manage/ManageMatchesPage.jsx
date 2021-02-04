@@ -5,7 +5,7 @@ import DateFnsUtils from "@date-io/date-fns";
 import {Grid, makeStyles} from "@material-ui/core";
 import React, {useEffect, useState} from "react";
 import {fetchFakeFixtures, fetchFifaFixtures} from "../../api/fixtureApi";
-import {fetchManagerFinishedMatches, fetchManagerPendingMatches, saveAsMatch} from "../../api/matchApi";
+import {fetchFinishedMatches, fetchRegisteredMatches, saveAsMatch} from "../../api/matchApi";
 import useTotalisator from "../../hooks/useTotalisator";
 import {addMatch, setMatches} from "../../store/slices/totalisatorSlice";
 import {useDispatch} from "react-redux";
@@ -25,19 +25,19 @@ const ManageMatchesPage = () => {
 
     const totalisator = useTotalisator();
     const preferences = usePreferences();
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
 
     useEffect(() => {
-        fetchManagerPendingMatches(totalisator.id)
+        fetchRegisteredMatches(totalisator.id)
             .then(res => {
-                const pending = res.data;
-                setManagerPendingMatches(pending)
-                fetchManagerFinishedMatches(totalisator.id)
+                // const pending = res.data;
+                setManagerPendingMatches(res.data)
+                fetchFinishedMatches(totalisator.id)
                     .then(response => {
-                        const finished = response.data;
-                        setManagerFinishedMatches(finished)
-                        const registered = pending.concat(finished)
-                        dispatch(setMatches(registered))
+                        // const finished = response.data;
+                        setManagerFinishedMatches(response.data)
+                        // const registered = pending.concat(finished)
+                        // dispatch(setMatches(registered))
                         loadFixtures(selectedDate);
                     }).catch(err => console.log("Error:", err.response.data));
             }).catch(err => console.log("Error:", err.response.data));
@@ -55,7 +55,6 @@ const ManageMatchesPage = () => {
             if (preferences?.isFakeMatchesIncluded) {
                 fetchFakeFixtures().then(res => {
                     const fakeFixtures = res.data;
-                    console.log("fakeFixtures", fakeFixtures);
                     if (fifaFixtures?.length > 0) {
                         setFifaFixtures((prevArray) => [...prevArray, ...fakeFixtures])
                     } else {
@@ -69,11 +68,11 @@ const ManageMatchesPage = () => {
     }
 
     const loadTotalisatorMatches = () => {
-        fetchManagerPendingMatches(totalisator.id)
+        fetchRegisteredMatches(totalisator.id)
             .then(response => setManagerPendingMatches(response.data))
             .catch(err => console.log("Error:", err));
 
-        fetchManagerFinishedMatches(totalisator.id)
+        fetchFinishedMatches(totalisator.id)
             .then(response => setManagerFinishedMatches(response.data))
             .catch(err => console.log("Error:", err));
     }
@@ -89,7 +88,7 @@ const ManageMatchesPage = () => {
 
         saveAsMatch(totalisator.id, fixture).then((res) => {
             loadTotalisatorMatches();
-            dispatch(addMatch(res.data));
+            // dispatch(addMatch(res.data));
         });
     }
 
@@ -136,8 +135,8 @@ const ManageMatchesPage = () => {
     }
 
     const createFifaToteboard = (match) => {
-        const registeredMatches = totalisator.matches.map(m => m.fifaId);
-        if (registeredMatches.includes(match.fifaId) || addingIds.includes(match.fifaId)) {
+        const registeredFifaIds = managerPendingMatches.map(m => m.fifaId);
+        if (registeredFifaIds.includes(match.fifaId) || addingIds.includes(match.fifaId)) {
             return <Toteboard key={match.fifaId} match={match} variant="fifa-added"/>
         }
         switch (match.statusName) {

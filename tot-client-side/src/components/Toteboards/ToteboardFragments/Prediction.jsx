@@ -1,6 +1,6 @@
 import cx from "classnames";
 
-const Prediction = ({player, isCurrentUser, prediction, payout}) => {
+const Prediction = ({player, prediction, payout}) => {
 
     const sliceName = (name) => {
 

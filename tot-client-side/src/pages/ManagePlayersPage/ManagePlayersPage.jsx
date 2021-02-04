@@ -13,7 +13,7 @@ const ManagePlayersPage = () => {
 
     const totalisator = useTotalisator();
     const user = useUser();
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
     const [playerIds, setPlayerIds] = useState([]);
     const [possiblePlayers, setPossiblePlayers] = useState([]);
 
@@ -23,18 +23,18 @@ const ManagePlayersPage = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    const refreshTotalisator = () => {
-        fetchTotalisatorById(totalisator.id)
-            .then((res) => {
-                dispatch(setTotalisator(res.data))
-            })
-    }
+    // const refreshTotalisator = () => {
+    //     fetchTotalisatorById(totalisator.id)
+    //         .then((res) => {
+    //             dispatch(setTotalisator(res.data))
+    //         })
+    // }
 
     const includeFriend = (friend) => {
         addPlayerToTotalisator(totalisator.id, friend.id).then((res) => {
             setPlayerIds([...playerIds, friend.id])
             setPossiblePlayers(possiblePlayers.filter(pp => pp.id !== friend.id))
-            refreshTotalisator();
+            // refreshTotalisator();
         })
     }
 
@@ -48,10 +48,9 @@ const ManagePlayersPage = () => {
 
     const kickPlayer = (player) => {
         kickPlayerFromTotalisator(totalisator.id, player.id).then((res) => {
-            console.log("after kick", res.data)
             setPlayerIds(playerIds.filter(pi => pi !== player.id));
             setPossiblePlayers([...possiblePlayers, player]);
-            refreshTotalisator();
+            // refreshTotalisator();
         })
     }
 
@@ -59,11 +58,8 @@ const ManagePlayersPage = () => {
     const getPossiblePlayers = () => {
         findFriendshipsByUserId(user.id).then(res => {
             const friends = convertFriendshipsToFriends(user.id, res.data);
-            console.log("plauerIds", playerIds)
-            console.log("possiblePlayers", possiblePlayers)
             const includedIds = totalisator.players.map(p => p.id)
             const unincludedFriends = friends.filter(f => !includedIds.includes(f.id));
-            console.log("uncincluded friends", unincludedFriends)
             setPossiblePlayers(unincludedFriends)
         })
     }

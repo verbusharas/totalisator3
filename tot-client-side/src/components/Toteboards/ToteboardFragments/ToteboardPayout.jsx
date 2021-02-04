@@ -1,10 +1,27 @@
 import SeePredictionsLink from "./SeePredictionsLink";
+import {useEffect, useState} from "react";
+import {getMatchPlayerPayout} from "../../../api/predictionApi";
+import useUser from "../../../hooks/useUser";
 
-const ToteboardPayout = ({match, payout, handleFlip}) => {
+const ToteboardPayout = ({match, handleFlip}) => {
+
+    const [payout, setPayout] = useState({});
+    const user = useUser();
+
+    useEffect(() => {
+        let isSubscribed = true
+        getMatchPlayerPayout(match.entityId).then((res)=>{
+            if(isSubscribed) {
+                setPayout(res.data);
+            }
+        })
+        return () => isSubscribed = false;
+    }, [user.id])
+
     return (
         <div className="tote-board__results">
             <div className="tote-board__points">
-                <span>{`+${payout?.award || '0'} Points`}</span>
+                <span>{`+${payout.award || '0'} Points`}</span>
                 <SeePredictionsLink isFinished handleFlip={handleFlip}/>
             </div>
             <div>

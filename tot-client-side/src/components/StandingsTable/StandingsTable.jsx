@@ -2,14 +2,19 @@ import useTotalisator from "../../hooks/useTotalisator";
 import StandingsEntry from "./StandingsEntry";
 import {useEffect, useState} from "react";
 import {getTotalisatorPayouts} from "../../api/predictionApi";
+import {fetchPlayers} from "../../api/totalisatorApi";
 
 
 const StandingsTable = ({handleKick}) => {
 
     const totalisator = useTotalisator();
     const [payouts, setPayouts] = useState([]);
+    const [players, setPlayers] = useState([])
 
     useEffect(()=> {
+        fetchPlayers(totalisator.id).then((res)=>{
+            setPlayers(res.data)
+        })
         getTotalisatorPayouts(totalisator.id).then(res=>{
             setPayouts(res.data);
         })
@@ -41,7 +46,7 @@ const StandingsTable = ({handleKick}) => {
         <article className="standings">
             <table>
                 <tbody>
-                {totalisator.players?.map(p=>appendTotals(p)).sort(byTotals).map(p=>renderPlayerRow(p))}
+                {players.map(p=>appendTotals(p)).sort(byTotals).map(p=>renderPlayerRow(p))}
                 </tbody>
             </table>
         </article>
