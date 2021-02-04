@@ -34,7 +34,6 @@ const Toteboard = ({match,
 
     const totalisator = useTotalisator();
 
-    const user = useUser();
     const environment = variant.split("-")[0];
 
     const status = variant.split("-")[1];
@@ -49,23 +48,11 @@ const Toteboard = ({match,
     const [homeScore, setHomeScore] = useState("");
     const [awayScore, setAwayScore] = useState("");
 
-    // const [payouts, setPayouts] = useState([])
-
     const validateValue = (value) => {
         if (isNaN(value) || value < 0 || value === "" || value === null) {
             return 0;
         } else return value;
     }
-
-    //TODO: FIX MEMORY LEAK
-    useEffect(()=>{
-        // if (variant==="user-finished" || variant==="manager-finished"){
-        //     getMatchPayouts(match.entityId).then(res=>{
-        //         setPayouts(res.data);
-        //     }).finally("from finallu");
-        // }
-        // return setPayouts([]);
-    },[])
 
     const handleHomeInput = (e) => {
         setHomeScore(e.target.value);
@@ -120,8 +107,6 @@ const Toteboard = ({match,
             />;
         }
 
-        return "BBB";
-
     }
 
     const validateMatchStatus = () => {
@@ -129,10 +114,6 @@ const Toteboard = ({match,
             match.statusName = "unknown"
         }
     }
-
-    // const getPredictionByPlayerId = (id) => {
-    //     return match.predictions.find(pr=>pr.userId===id)
-    // }
 
     const flipToteboard = () => {
        setIsFlipped(!isFlipped);
@@ -175,14 +156,6 @@ const Toteboard = ({match,
             </article>
         )
     }
-    //
-    // const renderPrediction = (player)=> {
-    //     return <Prediction key={player.id + "pred" + match.entityId}
-    //                        player={player}
-    //                        prediction={getPredictionByPlayerId(player.id)}
-    //                        isCurrentUser={player.id === user.id}
-    //                        payout={payouts?.find(p=>p.userId===player.id)}/>
-    // }
 
     const showReverse = () => {
         return (
@@ -190,28 +163,6 @@ const Toteboard = ({match,
                                  variant={variant}
                                  getScoreboard={getScoreboard}
                                  flipToteboard={flipToteboard}/>
-        // <article className={"tote-board tote-board--flipped"}>
-        //     <div className="tote-board__heraldics">
-        //         <span>{match.homeTeam.shortCode}</span>
-        //         {status === "finished" ?
-        //             <div className="tote-board__label tote-board__label--highlighted">
-        //                 <p style={{margin:"0px 10px 10px 0px"}}>FINAL SCORE:</p>
-        //                 <Scoreboard homeScore = {match.homeScore} awayScore={match.awayScore}/>
-        //             </div>
-        //             :getScoreboard()
-        //         }
-        //         <span>{match.awayTeam.shortCode}</span>
-        //     </div>
-        //     <div className="tote-board__predictions-list">
-        //         {totalisator.players.map(p=>renderPrediction(p))}
-        //     </div>
-        //
-        //     <p>
-        //         <button className="tote-board__incentives--link" type="button" onClick={()=>flipToteboard()}>
-        //             {"< Flip back"}
-        //         </button>
-        //     </p>
-        // </article>
         )
     }
 

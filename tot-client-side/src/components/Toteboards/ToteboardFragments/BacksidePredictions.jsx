@@ -38,7 +38,6 @@ const BacksidePredictions = ({match, variant, getScoreboard, flipToteboard}) => 
                            payout={payouts?.find(p=>p.userId===player.id)}/>
     }
 
-
     return (
         <article className={"tote-board tote-board--flipped"}>
             <div className="tote-board__heraldics">

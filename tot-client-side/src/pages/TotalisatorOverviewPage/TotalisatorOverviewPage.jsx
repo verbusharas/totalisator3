@@ -4,21 +4,17 @@ import Rules from "../../components/Rules/Rules";
 import useTotalisator from "../../hooks/useTotalisator";
 import useUser from "../../hooks/useUser";
 import {useEffect, useState} from "react";
-import {getMatchPayouts, getTotalisatorPayouts, savePrediction} from "../../api/predictionApi";
-import {useDispatch} from "react-redux";
-import {addPrediction} from "../../store/slices/totalisatorSlice";
+import {savePrediction} from "../../api/predictionApi";
 import {fetchFinishedMatches, fetchPlayerNotPredictedMatches, fetchPlayerPendingMatches} from "../../api/matchApi";
 
 const TotalisatorOverviewPage = (() => {
-
-        // decoupling
+    
         const [notPredictedMatches, setNotPredictedMatches] = useState({feed:[],isLoading:false});
         const [pendingMatches, setPendingMatches] = useState({feed:[],isLoading:false});
         const [finishedMatches, setFinishedMatches] = useState({feed:[],isLoading:false});
 
         const user = useUser();
         const totalisator = useTotalisator();
-        // const dispatch = useDispatch();
 
         useEffect(()=>{
             getNotPredictedMatches();
@@ -38,63 +34,38 @@ const TotalisatorOverviewPage = (() => {
             setNotPredictedMatches(prev=>({...prev, feed:updatedNotPredictedFeed}))
             setNotPredictedMatches(prev=>({...prev, isLoading: true}));
             savePrediction(prediction).then((res) => {
-                console.log("PREDICTION SAVED:", res.data)
                 setPendingMatches(prev=>({...prev, feed:res.data}))
             }).finally(() => setNotPredictedMatches(prev=>({...prev, isLoading: false})));
         }
 
-        // const getUnpredictedMatches = () => {
-        //     return totalisator?.matches?.filter(m => !hasUserPrediction(m));
-        // }
-
-        // decoupling
         const getNotPredictedMatches = () => {
             setNotPredictedMatches(prev=>({...prev, isLoading: true}));
             fetchPlayerNotPredictedMatches(totalisator.id).then((res)=>{
-                console.log("GOT BACK NOT PREDICTED:", res.data)
                 setNotPredictedMatches(prev=>({...prev, feed:res.data}));
             }).finally(() => setNotPredictedMatches(prev=>({...prev, isLoading: false})));
         }
 
-        // const getPendingMatches = () => {
-        //     return totalisator?.matches?.filter(m => hasUserPrediction(m)
-        //         && m.statusName !== "Finished");
-        // }
 
         const getPendingMatches = () => {
             setPendingMatches(prev=>({...prev, isLoading: true}));
             fetchPlayerPendingMatches(totalisator.id).then((res)=>{
-                console.log("GOT BACK PENDING:", res.data)
                 setPendingMatches(prev=>({...prev, feed:res.data}));
             }).finally(() => setPendingMatches(prev=>({...prev, isLoading: false})));
         }
 
-        // const getFinishedMatches = () => {
-        //     return totalisator?.matches?.filter(m => m.statusName === "Finished");
-        // }
-
         const getFinishedMatches = () => {
             setFinishedMatches(prev=>({...prev, isLoading: true}));
             fetchFinishedMatches(totalisator.id).then((res)=>{
-                console.log("GOT BACK FINISHED:", res.data)
                 setFinishedMatches(prev=>({...prev, feed:res.data}));
             }).finally(() => setFinishedMatches(prev=>({...prev, isLoading: false})));
         }
 
-        // const hasUserPrediction = (m) => {
-        //     return m.predictions.map(p => p.userId).includes(user.id);
-        // }
-
         const getUserPrediction = (m) => {
-            // if (m.predictions.length === 0) {
-            //     return false;
-            // }
             return m.predictions.find(p => p.userId === user.id);
         }
 
         const renderNotPredictedMatch = (m) => {
             return (
-                // !hasUserPrediction(m) &&
                 <Toteboard key={"np" + Math.random()}
                            variant="user-not_predicted"
                            match={m}
@@ -106,7 +77,6 @@ const TotalisatorOverviewPage = (() => {
         const renderPredictedMatch = (m) => {
             const prediction = getUserPrediction(m)
             return (
-                // hasUserPrediction(m) &&
                 <Toteboard key={"np" + Math.random()}
                            variant="user-pending"
                            match={m}
@@ -118,7 +88,6 @@ const TotalisatorOverviewPage = (() => {
         const renderFinishedMatch = (m) => {
             const prediction = getUserPrediction(m)
             return (
-                // hasUserPrediction(m) &&
                 <Toteboard key={"f" + Math.random()}
                            variant="user-finished"
                            prediction={prediction}
@@ -127,13 +96,11 @@ const TotalisatorOverviewPage = (() => {
             )
         }
 
-
         return (
             <main>
 
                 <section className="feed feed--not-predicted feed--empty">
                     <h2 className="feed__title">MATCHES WAITING FOR YOUR PREDICTION</h2>
-                    {/*{getUnpredictedMatches()?.length === 0 &&*/}
                     {notPredictedMatches.feed.length === 0 &&
                     <div>
                         <p className="feed__text">
@@ -146,7 +113,6 @@ const TotalisatorOverviewPage = (() => {
                         </p>
                     </div>
                     }
-                    {/*{getUnpredictedMatches()?.map(m => renderNotPredictedMatch(m))}*/}
                     {notPredictedMatches.feed.map(m => renderNotPredictedMatch(m))}
                 </section>
                 <section className="overview">
@@ -176,6 +142,5 @@ const TotalisatorOverviewPage = (() => {
         )
     }
 )
-
 
 export default TotalisatorOverviewPage;

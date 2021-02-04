@@ -18,7 +18,7 @@ const StandingsTable = ({handleKick}) => {
         getTotalisatorPayouts(totalisator.id).then(res=>{
             setPayouts(res.data);
         })
-    }, [totalisator.id])
+    }, [totalisator.id, handleKick])
 
     const appendTotals = (player) => {
         const calculator = (sum, currentValue) => sum + currentValue;

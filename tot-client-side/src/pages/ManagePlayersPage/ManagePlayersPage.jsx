@@ -4,7 +4,12 @@ import StandingsTable from "../../components/StandingsTable/StandingsTable";
 import {findFriendshipsByUserId} from "../../api/userApi";
 import useUser from "../../hooks/useUser";
 import FriendCard from "../UserFriendsPage/PersonCards/FriendCard";
-import {addPlayerToTotalisator, fetchTotalisatorById, kickPlayerFromTotalisator} from "../../api/totalisatorApi";
+import {
+    addPlayerToTotalisator,
+    fetchPlayers,
+    fetchTotalisatorById,
+    kickPlayerFromTotalisator
+} from "../../api/totalisatorApi";
 import {useDispatch} from "react-redux";
 import {setTotalisator} from "../../store/slices/totalisatorSlice";
 import convertFriendshipsToFriends from "../../utils/mapper";
@@ -16,10 +21,16 @@ const ManagePlayersPage = () => {
     // const dispatch = useDispatch();
     const [playerIds, setPlayerIds] = useState([]);
     const [possiblePlayers, setPossiblePlayers] = useState([]);
+    const [friends, setFriends] = useState([])
 
     useEffect(() => {
-        setPlayerIds(totalisator.players.map(p => p.id));
-        getPossiblePlayers();
+        fetchPlayers(totalisator.id).then(res=>{
+            setPlayerIds(res.data.map(p=>p.id));
+            return res.data;
+        }).then(()=> {
+            getFriends();
+        })
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
@@ -55,12 +66,13 @@ const ManagePlayersPage = () => {
     }
 
 
-    const getPossiblePlayers = () => {
+    const getFriends = () => {
         findFriendshipsByUserId(user.id).then(res => {
             const friends = convertFriendshipsToFriends(user.id, res.data);
-            const includedIds = totalisator.players.map(p => p.id)
-            const unincludedFriends = friends.filter(f => !includedIds.includes(f.id));
-            setPossiblePlayers(unincludedFriends)
+            console.log("all friends", friends)
+            const unincludedFriends = friends.filter(f => !playerIds.includes(f.id));
+            console.log("unincluded", unincludedFriends)
+            setPossiblePlayers(unincludedFriends);
         })
     }
 
@@ -85,7 +97,7 @@ const ManagePlayersPage = () => {
                 <h2 className="feed__title">INCLUDE FRIENDS AS PLAYERS</h2>
                 <article className="feed__description">
                     <div className="found-users">
-                        {possiblePlayers.map(pp => renderFriend(pp))}
+                        {possiblePlayers?.map(pp => renderFriend(pp))}
                         {/*{!getPossiblePlayers()?.length &&*/}
                         {/*<p>You don't have any friends yet.*/}
                         {/*    Find people in the search below and add them as your friends.</p>}*/}
