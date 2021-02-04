@@ -1,11 +1,14 @@
 package lt.verbus.totalisator.controller;
 
+import lt.verbus.totalisator.controller.dto.MatchDTO;
 import lt.verbus.totalisator.controller.dto.PayoutDTO;
 import lt.verbus.totalisator.controller.dto.PredictionRegistrationDTO;
 import lt.verbus.totalisator.controller.dto.PredictionDTO;
+import lt.verbus.totalisator.domain.entity.User;
 import lt.verbus.totalisator.service.PayoutService;
 import lt.verbus.totalisator.service.PredictionService;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,11 +25,23 @@ public class PredictionController {
         this.payoutService = payoutService;
     }
 
+//    @PostMapping
+//    @ResponseStatus(HttpStatus.ACCEPTED)
+//    public PredictionDTO predict(@RequestBody PredictionRegistrationDTO predictionRegistrationDTO) {
+//        return predictionService
+//                .savePrediction(predictionRegistrationDTO);
+//    }
+
     @PostMapping
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public PredictionDTO predict(@RequestBody PredictionRegistrationDTO predictionRegistrationDTO) {
+    public List<MatchDTO> predictAndGetUpdatedPendingList(@RequestBody PredictionRegistrationDTO predictionRegistrationDTO) {
         return predictionService
-                .savePrediction(predictionRegistrationDTO);
+                .savePredictionAndGetUpdatedPendingList(predictionRegistrationDTO);
+    }
+
+    @GetMapping("/payout/{matchId}/player")
+    public PayoutDTO calculateUserPayout(@AuthenticationPrincipal User user, @PathVariable Long matchId) {
+        return payoutService.calculateByMatchAndUser(matchId, user.getId());
     }
 
     @GetMapping("/payout/{matchId}")

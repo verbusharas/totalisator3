@@ -63,4 +63,8 @@ public class PayoutService {
         return p.getMatch().getHomeScore()!=null && p.getMatch().getAwayScore()!=null;
     }
 
+    public PayoutDTO calculateByMatchAndUser(Long matchId, Long userId) {
+        Prediction prediction = predictionService.findByMatchIdPlayerId(matchId, userId);
+        return calculatePayout(prediction);
+    }
 }

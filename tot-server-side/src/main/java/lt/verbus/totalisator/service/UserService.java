@@ -1,5 +1,6 @@
 package lt.verbus.totalisator.service;
 
+import lt.verbus.totalisator.domain.entity.Totalisator;
 import lt.verbus.totalisator.domain.entity.User;
 import lt.verbus.totalisator.repository.UserRepository;
 import lt.verbus.totalisator.controller.dto.UserDTO;
@@ -56,6 +57,11 @@ public class UserService implements UserDetailsService {
 
     public UserDTO getUserDTOByUser(User user) {
         return userMapper.mapEntityToDTO(user);
+    }
+
+    public List<UserDTO> getByTotalisatorId(Totalisator totalisator) {
+       List<User> users = userRepository.findAllByTotalisatorsContaining(totalisator);
+        return users.stream().map(userMapper::mapEntityToDTO).collect(Collectors.toList());
     }
 
 //    public User getUserWithTotalisators(String username) {

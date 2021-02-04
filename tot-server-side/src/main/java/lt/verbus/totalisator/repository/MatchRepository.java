@@ -1,6 +1,7 @@
 package lt.verbus.totalisator.repository;
 
 import lt.verbus.totalisator.domain.entity.Match;
+import lt.verbus.totalisator.domain.entity.Prediction;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -13,7 +14,7 @@ public interface MatchRepository extends JpaRepository<Match, Long> {
     List<Match> findMatchesByStatusName(String statusName);
 
     @Query("SELECT m FROM Match m JOIN FETCH m.totalisator WHERE m.totalisator.id = :id")
-    List<Match> findByTotalisatorId(Long id);
+    List<Match> findAllByTotalisatorId(Long id);
 
     List<Match> findByTotalisatorIdAndStatusName(Long id, String statusName);
 
@@ -30,4 +31,6 @@ public interface MatchRepository extends JpaRepository<Match, Long> {
 
     @Query("SELECT m FROM Match m JOIN FETCH m.totalisator WHERE m.entityId = :matchId AND m.totalisator.id = :totalisatorId")
     Match findByTotalisatorIdAndMatchId(Long totalisatorId, Long matchId);
+
+
 }

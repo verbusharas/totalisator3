@@ -1,5 +1,6 @@
 package lt.verbus.totalisator.service;
 
+import lt.verbus.totalisator.controller.dto.MatchDTO;
 import lt.verbus.totalisator.controller.dto.PredictionRegistrationDTO;
 import lt.verbus.totalisator.controller.dto.PredictionDTO;
 import lt.verbus.totalisator.domain.entity.Match;
@@ -95,5 +96,20 @@ public class PredictionService {
 
     public List<Prediction> findByTotalisatorId(Long totalisatorId) {
         return predictionRepository.findAllByTotalisatorId(totalisatorId);
+    }
+
+    public List<MatchDTO> savePredictionAndGetUpdatedPendingList(PredictionRegistrationDTO predictionRegistrationDTO) {
+        Match match = matchService.getById(predictionRegistrationDTO.getMatchId());
+        Prediction prediction =
+                Prediction.builder()
+//                        .match(matchService.getById(predictionRegistrationDTO.getMatchId()))
+                        .match(match)
+                        .user(userService.getById(predictionRegistrationDTO.getUserId()))
+                        .homeScore(predictionRegistrationDTO.getHomeScore())
+                        .awayScore(predictionRegistrationDTO.getAwayScore())
+                        .build();
+        match.getPredictions().add(prediction);
+        matchService.save(match);
+        return  matchService.getPendingByUserAndTotalisatorId(match.getTotalisator().getId(), prediction.getUser().getId());
     }
 }

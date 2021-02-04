@@ -41,6 +41,7 @@ public class JwtProvider {
                 .claim("roles", user.getAuthorities().stream()
                         .map(GrantedAuthority::getAuthority)
                         .collect(Collectors.toList()))
+                .claim("userId", user.getId())
                 .compact();
     }
 
@@ -58,9 +59,11 @@ public class JwtProvider {
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
 
+        Long userId = parsedJwt.getBody().get("userId", Long.class);
+
         // create Authentication
         if (StringUtils.isNotEmpty(username)) {
-            return new UsernamePasswordAuthenticationToken(username, null, roles);
+            return new UsernamePasswordAuthenticationToken(User.builder().id(userId).username(username).build(), null, roles);
         }
 
         return null;

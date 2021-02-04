@@ -1,5 +1,6 @@
 package lt.verbus.totalisator.controller;
 
+import lt.verbus.totalisator.controller.dto.UserDTO;
 import lt.verbus.totalisator.service.TotalisatorService;
 import lt.verbus.totalisator.controller.dto.TotalisatorDTO;
 import org.springframework.http.HttpStatus;
@@ -29,9 +30,14 @@ public class TotalisatorController {
         return totalisatorService.getUpdatedDTO(id);
     }
 
-    @GetMapping("player")
-    public List<TotalisatorDTO> getAllByUserId(@RequestParam Long id) {
-        return totalisatorService.getAllByUserId(id);
+//    @GetMapping("player")
+//    public List<TotalisatorDTO> getAllByUserId(@RequestParam Long id) {
+//        return totalisatorService.getAllByUserId(id);
+//    }
+
+    @GetMapping("/{id}/players")
+    public List<UserDTO> getPlayers(@PathVariable Long id) {
+        return totalisatorService.getPlayers(id);
     }
 
     @GetMapping("/{id}")

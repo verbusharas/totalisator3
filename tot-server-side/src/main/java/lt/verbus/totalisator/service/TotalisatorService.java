@@ -1,5 +1,6 @@
 package lt.verbus.totalisator.service;
 
+import lt.verbus.totalisator.controller.dto.UserDTO;
 import lt.verbus.totalisator.domain.entity.Match;
 import lt.verbus.totalisator.domain.entity.Totalisator;
 import lt.verbus.totalisator.domain.entity.User;
@@ -105,5 +106,9 @@ public class TotalisatorService {
                 .collect(Collectors.toList()));
         Totalisator savedTotalisator = totalisatorRepository.save(totalisator);
         return totalisatorMapper.convertToDTO(savedTotalisator);
+    }
+
+    public List<UserDTO> getPlayers(Long id) {
+        return userService.getByTotalisatorId(getById(id));
     }
 }

@@ -1,8 +1,11 @@
 package lt.verbus.totalisator.controller;
 
 import lt.verbus.totalisator.controller.dto.MatchDTO;
+import lt.verbus.totalisator.domain.entity.User;
 import lt.verbus.totalisator.service.MatchService;
+import lt.verbus.totalisator.service.UserService;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,19 +15,21 @@ import java.util.List;
 public class MatchController {
 
     private final MatchService matchService;
+    private final UserService userService;
 
-    public MatchController(MatchService matchService) {
+    public MatchController(MatchService matchService, UserService userService) {
         this.matchService = matchService;
+        this.userService = userService;
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    private MatchDTO saveMatch(@RequestBody MatchDTO matchDTO) {
+    public MatchDTO saveMatch(@RequestBody MatchDTO matchDTO) {
         return matchService.add(matchDTO);
     }
 
     @GetMapping
-    private List<MatchDTO> getAllMatches(@PathVariable Long totalisatorId) {
+    public List<MatchDTO> getAllMatches(@PathVariable Long totalisatorId) {
         return matchService.getAllByTotalisatorId(totalisatorId);
     }
 
@@ -34,7 +39,26 @@ public class MatchController {
     }
 
     @GetMapping("/finished")
-    private List<MatchDTO> getFinishedMatches(@PathVariable Long totalisatorId) {
+    public List<MatchDTO> getFinishedMatches(@PathVariable Long totalisatorId) {
         return matchService.getFinishedByTotalisatorId(totalisatorId);
     }
+
+    // DECOUPLING
+
+//    @GetMapping("/not-predicted")
+//    public User getUserNotPredictedMatches(@AuthenticationPrincipal User user){
+//        return user;
+//    }
+
+    @GetMapping("/player/not-predicted/")
+    private List<MatchDTO> getPlayerNotPredictedMatches(@PathVariable Long totalisatorId, @AuthenticationPrincipal User user) {
+        return matchService.getNotPredictedByUserAndTotalisatorId(totalisatorId, user.getId());
+    }
+
+    @GetMapping("/player/pending")
+    private List<MatchDTO> getPlayerPendingMatches(@PathVariable Long totalisatorId, @AuthenticationPrincipal User user) {
+        return matchService.getPendingByUserAndTotalisatorId(totalisatorId, user.getId());
+    }
+
+
 }

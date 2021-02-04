@@ -3,6 +3,7 @@ package lt.verbus.totalisator.service;
 import lt.verbus.totalisator.controller.dto.MatchDTO;
 import lt.verbus.totalisator.domain.entity.Match;
 import lt.verbus.totalisator.domain.entity.Totalisator;
+import lt.verbus.totalisator.domain.entity.User;
 import lt.verbus.totalisator.exception.DuplicateEntryException;
 import lt.verbus.totalisator.repository.MatchRepository;
 import lt.verbus.totalisator.util.MatchMapper;
@@ -51,7 +52,7 @@ public class MatchService {
 
     public List<MatchDTO> getAllByTotalisatorId(Long totalisatorId) {
         return matchRepository
-                .findByTotalisatorId(totalisatorId)
+                .findAllByTotalisatorId(totalisatorId)
                 .stream()
                 .map(matchMapper::mapEntityToDTO)
                 .collect(Collectors.toList());
@@ -120,5 +121,30 @@ public class MatchService {
     }
 
 
+    // DECOUPLING
+
+    public List<MatchDTO> getNotPredictedByUserAndTotalisatorId(Long totalisatorId, Long userId) {
+        List<Match> totalisatorMatches = matchRepository.findAllByTotalisatorId(totalisatorId);
+        return totalisatorMatches.stream()
+                .filter(match -> !hasUserPrediction(match, userId))
+                        .map(matchMapper::mapEntityToDTO).collect(Collectors.toList());
+    }
+
+    public List<MatchDTO> getPendingByUserAndTotalisatorId(Long totalisatorId, Long userId) {
+        List<Match> totalisatorMatches = matchRepository.findAllByTotalisatorId(totalisatorId);
+        return totalisatorMatches.stream()
+                .filter(match -> !match.getStatusName().equals("Finished"))
+                .filter(match -> hasUserPrediction(match, userId))
+                .map(matchMapper::mapEntityToDTO).collect(Collectors.toList());
+    }
+
+    private boolean hasUserPrediction(Match match, Long userId) {
+        return match.getPredictions().stream()
+                .anyMatch(prediction -> prediction.getUser().getId().equals(userId));
+    }
+
+    public MatchDTO save(Match match) {
+        return matchMapper.mapEntityToDTO(matchRepository.save(match));
+    }
 }
 
