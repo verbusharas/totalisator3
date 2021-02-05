@@ -9,6 +9,8 @@ import lombok.Setter;
 
 import java.util.Map;
 
+import static lt.verbus.totalisator.util.DateConverter.shiftDateStringToUTC2;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Getter
 @Setter
@@ -50,7 +52,7 @@ public class FifaFixtureDTO {
     @SuppressWarnings("unchecked")
     @JsonProperty("time")
     private void getDate(Map<String,String> timeInfo) {
-        this.date = timeInfo.get("datetime");
+        this.date = shiftDateStringToUTC2(timeInfo.get("datetime"));
     }
 
 

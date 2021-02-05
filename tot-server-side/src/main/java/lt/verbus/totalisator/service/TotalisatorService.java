@@ -11,6 +11,7 @@ import lt.verbus.totalisator.util.TotalisatorMapper;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,11 +21,13 @@ public class TotalisatorService {
     private final TotalisatorRepository totalisatorRepository;
     private final UserService userService;
     private final TotalisatorMapper totalisatorMapper;
+    private final PredictionService predictionService;
 
-    public TotalisatorService(TotalisatorRepository totalisatorRepository, UserService userService, TotalisatorMapper totalisatorMapper) {
+    public TotalisatorService(TotalisatorRepository totalisatorRepository, UserService userService, TotalisatorMapper totalisatorMapper, PredictionService predictionService) {
         this.totalisatorRepository = totalisatorRepository;
         this.userService = userService;
         this.totalisatorMapper = totalisatorMapper;
+        this.predictionService = predictionService;
     }
 
     public TotalisatorBasicDTO getBasicDTObyId(Long id) {
@@ -68,6 +71,7 @@ public class TotalisatorService {
         return totalisatorMapper.convertToDTO(savedTotalisator);
     }
 
+    @Transactional
     public TotalisatorDTO kickPlayer(Long playerId, Long totalisatorId) {
         Totalisator totalisator = totalisatorRepository.getOne(totalisatorId);
         User manager = totalisator.getManager();
@@ -80,6 +84,7 @@ public class TotalisatorService {
                 .filter(p-> !p.getId().equals(playerId))
                 .collect(Collectors.toList()));
         Totalisator savedTotalisator = totalisatorRepository.save(totalisator);
+        predictionService.deleteAllByUserAndTotalisatorId(playerId, totalisatorId);
         return totalisatorMapper.convertToDTO(savedTotalisator);
     }
 

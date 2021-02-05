@@ -11,6 +11,7 @@ import lt.verbus.totalisator.util.UpdateQualifier;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -100,6 +101,11 @@ public class PredictionService {
             });
         }
         return match;
+    }
+
+    @Transactional
+    public void deleteAllByUserAndTotalisatorId(Long userId, Long totalisatorId) {
+        predictionRepository.deleteAllByUserAndTotalisatorId(userId, totalisatorId);
     }
 
     @Autowired

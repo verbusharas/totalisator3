@@ -59,7 +59,7 @@ public class User implements UserDetails {
     )
     private List<Totalisator> totalisators;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Prediction> predictions;
 
     @Override

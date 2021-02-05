@@ -3,7 +3,6 @@ package lt.verbus.totalisator.controller;
 import lt.verbus.totalisator.controller.dto.MatchDTO;
 import lt.verbus.totalisator.domain.entity.User;
 import lt.verbus.totalisator.service.MatchService;
-import lt.verbus.totalisator.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -15,11 +14,9 @@ import java.util.List;
 public class MatchController {
 
     private final MatchService matchService;
-    private final UserService userService;
 
-    public MatchController(MatchService matchService, UserService userService) {
+    public MatchController(MatchService matchService) {
         this.matchService = matchService;
-        this.userService = userService;
     }
 
     @PostMapping
@@ -52,5 +49,12 @@ public class MatchController {
     public List<MatchDTO> getMonitoredMatches(@PathVariable Long totalisatorId) {
         return matchService.getMonitored(totalisatorId);
     }
+
+    @DeleteMapping("/{matchId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteMatch(@PathVariable Long totalisatorId, @PathVariable Long matchId, @AuthenticationPrincipal User user) {
+        matchService.deleteMatch(totalisatorId, matchId, user);
+    }
+
 
 }

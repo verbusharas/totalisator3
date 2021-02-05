@@ -3,14 +3,18 @@ package lt.verbus.totalisator.service;
 import lt.verbus.totalisator.controller.dto.MatchDTO;
 import lt.verbus.totalisator.domain.entity.Match;
 import lt.verbus.totalisator.domain.entity.Totalisator;
+import lt.verbus.totalisator.domain.entity.User;
 import lt.verbus.totalisator.exception.DuplicateEntryException;
 import lt.verbus.totalisator.repository.MatchRepository;
 import lt.verbus.totalisator.util.MatchMapper;
 import lt.verbus.totalisator.util.UpdateQualifier;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -139,6 +143,14 @@ public class MatchService {
     @Autowired
     public void setPayoutService(PayoutService payoutService) {
         this.payoutService = payoutService;
+    }
+
+    public void deleteMatch(Long totalisatorId, Long matchId, User user) {
+        Totalisator totalisator = totalisatorService.getById(totalisatorId);
+        if (totalisator.getManager().getId().equals(user.getId())) {
+            Match match = matchRepository.findById(matchId).orElseThrow(()-> new EntityNotFoundException("Match was not found"));
+            matchRepository.delete(match);
+        } else throw new AccessDeniedException("Only manager can delete matches");
     }
 }
 
