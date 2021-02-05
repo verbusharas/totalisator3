@@ -34,9 +34,10 @@ public class PredictionController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public List<MatchDTO> predictAndGetUpdatedPendingList(@RequestBody PredictionRegistrationDTO predictionRegistrationDTO) {
+    public List<MatchDTO> predictAndGetUpdatedPendingList(@RequestBody PredictionRegistrationDTO predictionRegistrationDTO,
+                                                          @AuthenticationPrincipal User user) {
         return predictionService
-                .savePredictionAndGetUpdatedPendingList(predictionRegistrationDTO);
+                .savePredictionAndGetUpdatedPendingList(predictionRegistrationDTO, user);
     }
 
     @GetMapping("/payout/{matchId}/player")

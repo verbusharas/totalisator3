@@ -48,5 +48,9 @@ public class MatchController {
         return matchService.getPendingByUserAndTotalisatorId(totalisatorId, user.getId());
     }
 
+    @GetMapping("/monitored")
+    public List<MatchDTO> getMonitoredMatches(@PathVariable Long totalisatorId) {
+        return matchService.getMonitored(totalisatorId);
+    }
 
 }

@@ -7,6 +7,8 @@ import lt.verbus.totalisator.domain.entity.Prediction;
 import lt.verbus.totalisator.domain.entity.User;
 import lt.verbus.totalisator.exception.EntityNotFoundException;
 import lt.verbus.totalisator.repository.PredictionRepository;
+import lt.verbus.totalisator.util.UpdateQualifier;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -14,29 +16,32 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static lt.verbus.totalisator.util.UpdateQualifier.hasStarted;
-
 @Service
 public class PredictionService {
 
+    @Value("${minutes.to.match.when.start.monitoring}")
+    private String MINUTES_TO_MATCH_WHEN_START_MONITORING;
 
-    @Value("${default.away.prediction}")
-    public int DEFAULT_AWAY_PREDICTION;
+    @Value("${prediction.default.away}")
+    public Integer DEFAULT_AWAY_PREDICTION;
 
-    @Value("${default.home.prediction}")
-    public int DEFAULT_HOME_PREDICTION;
+    @Value("${prediction.default.home}")
+    public Integer DEFAULT_HOME_PREDICTION;
 
     private final PredictionRepository predictionRepository;
     private final MatchService matchService;
     private final UserService userService;
+    private UpdateService updateService;
+    private final UpdateQualifier updateQualifier;
 
 
     public PredictionService(PredictionRepository predictionRepository,
                              MatchService matchService,
-                             UserService userService) {
+                             UserService userService, UpdateQualifier updateQualifier) {
         this.predictionRepository = predictionRepository;
         this.matchService = matchService;
         this.userService = userService;
+        this.updateQualifier = updateQualifier;
     }
 
 
@@ -52,22 +57,25 @@ public class PredictionService {
         return predictionRepository.findAllByTotalisatorId(totalisatorId);
     }
 
-    public List<MatchDTO> savePredictionAndGetUpdatedPendingList(PredictionRegistrationDTO predictionRegistrationDTO) {
+    public List<MatchDTO> savePredictionAndGetUpdatedPendingList(PredictionRegistrationDTO predictionRegistrationDTO, User user) {
         Match match = matchService.getById(predictionRegistrationDTO.getMatchId());
-        Prediction prediction =
-                Prediction.builder()
-                        .match(match)
-                        .user(userService.getById(predictionRegistrationDTO.getUserId()))
-                        .homeScore(predictionRegistrationDTO.getHomeScore())
-                        .awayScore(predictionRegistrationDTO.getAwayScore())
-                        .build();
-        match.getPredictions().add(prediction);
-        matchService.save(match);
-        return  matchService.getPendingByUserAndTotalisatorId(match.getTotalisator().getId(), prediction.getUser().getId());
+        match = updateService.updateIfMonitored(match);
+        if(!updateQualifier.hasStarted(match)) {
+            Prediction prediction =
+                    Prediction.builder()
+                            .match(match)
+                            .user(userService.getById(user.getId()))
+                            .homeScore(predictionRegistrationDTO.getHomeScore())
+                            .awayScore(predictionRegistrationDTO.getAwayScore())
+                            .build();
+            match.getPredictions().add(prediction);
+            matchService.save(match);
+        }
+        return  matchService.getPendingByUserAndTotalisatorId(match.getTotalisator().getId(), user.getId());
     }
 
     public Match defaultMissingIfDue(Match match) {
-        if (hasStarted(match)) {
+        if (updateQualifier.hasStarted(match)) {
             List<Prediction> predictions = match.getPredictions();
             if (predictions == null) {
                 predictions = new ArrayList<>();
@@ -91,7 +99,12 @@ public class PredictionService {
                         .build());
             });
         }
-
         return match;
     }
+
+    @Autowired
+    public void setUpdateService(UpdateService updateService) {
+        this.updateService = updateService;
+    }
+
 }

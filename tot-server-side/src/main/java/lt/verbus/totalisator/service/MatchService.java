@@ -3,10 +3,10 @@ package lt.verbus.totalisator.service;
 import lt.verbus.totalisator.controller.dto.MatchDTO;
 import lt.verbus.totalisator.domain.entity.Match;
 import lt.verbus.totalisator.domain.entity.Totalisator;
-import lt.verbus.totalisator.domain.entity.User;
 import lt.verbus.totalisator.exception.DuplicateEntryException;
 import lt.verbus.totalisator.repository.MatchRepository;
 import lt.verbus.totalisator.util.MatchMapper;
+import lt.verbus.totalisator.util.UpdateQualifier;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,11 +22,13 @@ public class MatchService {
     private UpdateService updateService;
     private PredictionService predictionService;
     private PayoutService payoutService;
+    private final UpdateQualifier updateQualifier;
 
 
-    public MatchService(MatchRepository matchRepository, MatchMapper matchMapper) {
+    public MatchService(MatchRepository matchRepository, MatchMapper matchMapper, UpdateQualifier updateQualifier) {
         this.matchRepository = matchRepository;
         this.matchMapper = matchMapper;
+        this.updateQualifier = updateQualifier;
     }
 
     public MatchDTO add(MatchDTO matchDTO) {
@@ -62,6 +64,8 @@ public class MatchService {
     }
 
     public List<MatchDTO> getFinishedByTotalisatorId(Long totalisatorId) {
+        List<Match> totalisatorMatches = matchRepository.findAllByTotalisatorId(totalisatorId);
+        getUpdates(totalisatorMatches);
         return matchRepository
                 .findFinishedByTotalisatorId(totalisatorId)
                 .stream()
@@ -69,7 +73,7 @@ public class MatchService {
                 .collect(Collectors.toList());
     }
 
-    public List<Match> getUpdates(List<Match> matches) {
+    private List<Match> getUpdates(List<Match> matches) {
         List<Match> updatedMatches = matches.stream()
                         .map(updateService::updateIfMonitored)
                         .map(predictionService::defaultMissingIfDue)
@@ -82,11 +86,9 @@ public class MatchService {
         return matchRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Match was not found"));
     }
 
-
-    // DECOUPLING
-
     public List<MatchDTO> getNotPredictedByUserAndTotalisatorId(Long totalisatorId, Long userId) {
         List<Match> totalisatorMatches = matchRepository.findAllByTotalisatorId(totalisatorId);
+        totalisatorMatches = getUpdates(totalisatorMatches);
         return totalisatorMatches.stream()
                 .filter(match -> !hasUserPrediction(match, userId))
                         .map(matchMapper::mapEntityToDTO).collect(Collectors.toList());
@@ -94,10 +96,19 @@ public class MatchService {
 
     public List<MatchDTO> getPendingByUserAndTotalisatorId(Long totalisatorId, Long userId) {
         List<Match> totalisatorMatches = matchRepository.findAllByTotalisatorId(totalisatorId);
+        totalisatorMatches = getUpdates(totalisatorMatches);
         return totalisatorMatches.stream()
                 .filter(match -> !match.getStatusName().equals("Finished"))
                 .filter(match -> hasUserPrediction(match, userId))
                 .map(matchMapper::mapEntityToDTO).collect(Collectors.toList());
+    }
+
+    public List<MatchDTO> getMonitored(Long totalisatorId) {
+        List<Match> totalisatorMatches = matchRepository.findAllByTotalisatorId(totalisatorId);
+        List<Match> monitored = totalisatorMatches.stream()
+                .filter(updateQualifier::hasStartedOrIsAboutToStart)
+                .map(updateService::update).collect(Collectors.toList());
+        return monitored.stream().map(matchMapper::mapEntityToDTO).collect(Collectors.toList());
     }
 
     //TODO: check decoupling possibilities
