@@ -45,18 +45,13 @@ public class MatchService {
         } else throw new DuplicateEntryException("Totalisator already contains this match");
     }
 
-//    public Match save(Match match) {
-//        return matchRepository.save(match);
+//    public List<MatchDTO> getAllByTotalisatorId(Long totalisatorId) {
+//        return matchRepository
+//                .findAllByTotalisatorId(totalisatorId)
+//                .stream()
+//                .map(matchMapper::mapEntityToDTO)
+//                .collect(Collectors.toList());
 //    }
-
-
-    public List<MatchDTO> getAllByTotalisatorId(Long totalisatorId) {
-        return matchRepository
-                .findAllByTotalisatorId(totalisatorId)
-                .stream()
-                .map(matchMapper::mapEntityToDTO)
-                .collect(Collectors.toList());
-    }
 
     public List<MatchDTO> getPendingByTotalisatorId(Long totalisatorId) {
         return matchRepository
@@ -74,23 +69,6 @@ public class MatchService {
                 .collect(Collectors.toList());
     }
 
-//    public List<MatchDTO> findUpdatedByTotalisatorAndStatus(Long totalisatorId, String statusName) {
-//        return findAndUpdateByTotalisatorId(totalisatorId).stream()
-//                .filter(m->m.getStatusName().equals(statusName))
-//                .map(matchMapper::mapEntityToDTO)
-//                .collect(Collectors.toList());
-//    }
-
-//    public MatchDTO update(Long id) {
-//      Match match = matchRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Match was not found"));
-//      match = updateService.updateIfMonitored(match);
-//      return matchMapper.mapEntityToDTO(matchRepository.save(match));
-//    }
-
-    public Match getById(Long id) {
-        return matchRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Match was not found"));
-    }
-
     public List<Match> getUpdates(List<Match> matches) {
         List<Match> updatedMatches = matches.stream()
                         .map(updateService::updateIfMonitored)
@@ -100,24 +78,8 @@ public class MatchService {
         return matchRepository.saveAll(updatedMatches);
     }
 
-    @Autowired
-    public void setUpdateService(UpdateService updateService) {
-        this.updateService = updateService;
-    }
-
-    @Autowired
-    public void setTotalisatorService(TotalisatorService totalisatorService) {
-        this.totalisatorService = totalisatorService;
-    }
-
-    @Autowired
-    public void setPredictionService(PredictionService predictionService) {
-        this.predictionService = predictionService;
-    }
-
-    @Autowired
-    public void setPayoutService(PayoutService payoutService) {
-        this.payoutService = payoutService;
+    protected Match getById(Long id) {
+        return matchRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Match was not found"));
     }
 
 
@@ -138,13 +100,34 @@ public class MatchService {
                 .map(matchMapper::mapEntityToDTO).collect(Collectors.toList());
     }
 
+    //TODO: check decoupling possibilities
+    protected MatchDTO save(Match match) {
+        return matchMapper.mapEntityToDTO(matchRepository.save(match));
+    }
+
     private boolean hasUserPrediction(Match match, Long userId) {
         return match.getPredictions().stream()
                 .anyMatch(prediction -> prediction.getUser().getId().equals(userId));
     }
 
-    public MatchDTO save(Match match) {
-        return matchMapper.mapEntityToDTO(matchRepository.save(match));
+    @Autowired
+    public void setUpdateService(UpdateService updateService) {
+        this.updateService = updateService;
+    }
+
+    @Autowired
+    public void setTotalisatorService(TotalisatorService totalisatorService) {
+        this.totalisatorService = totalisatorService;
+    }
+
+    @Autowired
+    public void setPredictionService(PredictionService predictionService) {
+        this.predictionService = predictionService;
+    }
+
+    @Autowired
+    public void setPayoutService(PayoutService payoutService) {
+        this.payoutService = payoutService;
     }
 }
 

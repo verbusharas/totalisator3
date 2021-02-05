@@ -2,7 +2,6 @@ package lt.verbus.totalisator.service;
 
 import lt.verbus.totalisator.controller.dto.TotalisatorBasicDTO;
 import lt.verbus.totalisator.controller.dto.UserDTO;
-import lt.verbus.totalisator.domain.entity.Match;
 import lt.verbus.totalisator.domain.entity.Totalisator;
 import lt.verbus.totalisator.domain.entity.User;
 import lt.verbus.totalisator.exception.OperationNotAllowed;
@@ -21,45 +20,37 @@ public class TotalisatorService {
     private final TotalisatorRepository totalisatorRepository;
     private final UserService userService;
     private final TotalisatorMapper totalisatorMapper;
-    private final MatchService matchService;
-    private final UpdateService updateService;
 
-    public TotalisatorService(TotalisatorRepository totalisatorRepository, UserService userService, TotalisatorMapper totalisatorMapper, MatchService matchService, UpdateService updateService) {
+    public TotalisatorService(TotalisatorRepository totalisatorRepository, UserService userService, TotalisatorMapper totalisatorMapper) {
         this.totalisatorRepository = totalisatorRepository;
         this.userService = userService;
         this.totalisatorMapper = totalisatorMapper;
-        this.matchService = matchService;
-        this.updateService = updateService;
     }
 
-//    public List<TotalisatorDTO> getAllTotalisators() {
-//        return totalisatorRepository
-//                .findAll()
-//                .stream()
-//                .map(totalisatorMapper::convertToDTO)
-//                .collect(Collectors.toList());
-//    }
-
-    public List<TotalisatorDTO> getAllByUserId(Long userId) {
-        return totalisatorRepository
-                .findAllByUserId(userId)
-                .stream()
-                .map(totalisatorMapper::convertToDTO)
-                .collect(Collectors.toList());
+    public TotalisatorBasicDTO getBasicDTObyId(Long id) {
+        return totalisatorMapper.convertToBasicDTO(totalisatorRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("Totalisator was not found")));
     }
 
-    public TotalisatorDTO save(TotalisatorDTO totalisatorDTO) {
+    protected Totalisator getById(Long id) {
+        return totalisatorRepository.findById(id).orElseThrow(()->new EntityNotFoundException("Totalisator Not Found"));
+    }
+
+
+    public TotalisatorBasicDTO save(TotalisatorDTO totalisatorDTO) {
         User manager = userService.getById(totalisatorDTO.getManagerId());
         Totalisator totalisator =  totalisatorMapper.convertTotalisatorDTOtoEntity(totalisatorDTO);
         totalisator.setManager(manager);
         totalisator.setPlayers(List.of(manager));
         Totalisator savedTotalisator = totalisatorRepository.save(totalisator);
         manager.getTotalisators().add(totalisator);
-
-        return totalisatorMapper.convertToDTO(savedTotalisator);
+        return totalisatorMapper.convertToBasicDTO(savedTotalisator);
     }
 
-    public TotalisatorDTO addUserByIdToTotalisatorById(Long userId, Long totalisatorId) {
+    public List<UserDTO> getPlayers(Long id) {
+        return userService.getByTotalisatorId(getById(id));
+    }
+
+    public TotalisatorDTO addPlayer (Long userId, Long totalisatorId) {
         User user = userService.getById(userId);
         Totalisator totalisator = totalisatorRepository.getOne(totalisatorId);
         boolean isUserInTotalisator = user
@@ -77,22 +68,6 @@ public class TotalisatorService {
         return totalisatorMapper.convertToDTO(savedTotalisator);
     }
 
-    public TotalisatorBasicDTO getBasicDTObyId(Long id) {
-        return totalisatorMapper.convertToBasicDTO(totalisatorRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("Totalisator was not found")));
-    }
-
-    public TotalisatorDTO getUpdatedDTO(Long id) {
-        Totalisator totalisator = getById(id);
-        List<Match> matches = totalisator.getMatches();
-        List<Match> updatedMatches = matchService.getUpdates(matches);
-        totalisator.setMatches(updatedMatches);
-        return totalisatorMapper.convertToDTO(totalisator);
-    }
-
-    public Totalisator getById(Long id) {
-        return totalisatorRepository.findById(id).orElseThrow(()->new EntityNotFoundException("Totalisator Not Found"));
-    }
-
     public TotalisatorDTO kickPlayer(Long playerId, Long totalisatorId) {
         Totalisator totalisator = totalisatorRepository.getOne(totalisatorId);
         User manager = totalisator.getManager();
@@ -108,7 +83,5 @@ public class TotalisatorService {
         return totalisatorMapper.convertToDTO(savedTotalisator);
     }
 
-    public List<UserDTO> getPlayers(Long id) {
-        return userService.getByTotalisatorId(getById(id));
-    }
+
 }

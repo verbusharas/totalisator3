@@ -21,21 +21,9 @@ public class TotalisatorController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public TotalisatorDTO create(@RequestBody TotalisatorDTO totalisatorDTO) {
+    public TotalisatorBasicDTO create(@RequestBody TotalisatorDTO totalisatorDTO) {
         return totalisatorService.save(totalisatorDTO);
     }
-
-    // COMMENTED OUT ON 2021-02-05 CHECK IF NEEDED
-//    @PatchMapping("/{id}")
-//    @ResponseStatus(HttpStatus.OK)
-//    public TotalisatorDTO update(@PathVariable Long id) {
-//        return totalisatorService.getUpdatedDTO(id);
-//    }
-
-//    @GetMapping("player")
-//    public List<TotalisatorDTO> getAllByUserId(@RequestParam Long id) {
-//        return totalisatorService.getAllByUserId(id);
-//    }
 
     @GetMapping("/{id}")
     public TotalisatorBasicDTO getDTOById(@PathVariable Long id) {
@@ -50,7 +38,7 @@ public class TotalisatorController {
     @PutMapping("/{totalisatorId}/invite/{playerId}")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public TotalisatorDTO addPlayer(@PathVariable Long playerId, @PathVariable Long totalisatorId) {
-        return totalisatorService.addUserByIdToTotalisatorById(playerId, totalisatorId);
+        return totalisatorService.addPlayer(playerId, totalisatorId);
     }
 
     @ResponseStatus(HttpStatus.ACCEPTED)

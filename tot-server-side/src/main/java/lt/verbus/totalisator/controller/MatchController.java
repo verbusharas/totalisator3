@@ -28,11 +28,6 @@ public class MatchController {
         return matchService.add(matchDTO);
     }
 
-    @GetMapping
-    public List<MatchDTO> getAllMatches(@PathVariable Long totalisatorId) {
-        return matchService.getAllByTotalisatorId(totalisatorId);
-    }
-
     @GetMapping("/pending")
     private List<MatchDTO> getPendingMatches(@PathVariable Long totalisatorId) {
         return matchService.getPendingByTotalisatorId(totalisatorId);
@@ -42,13 +37,6 @@ public class MatchController {
     public List<MatchDTO> getFinishedMatches(@PathVariable Long totalisatorId) {
         return matchService.getFinishedByTotalisatorId(totalisatorId);
     }
-
-    // DECOUPLING
-
-//    @GetMapping("/not-predicted")
-//    public User getUserNotPredictedMatches(@AuthenticationPrincipal User user){
-//        return user;
-//    }
 
     @GetMapping("/player/not-predicted/")
     private List<MatchDTO> getPlayerNotPredictedMatches(@PathVariable Long totalisatorId, @AuthenticationPrincipal User user) {

@@ -2,13 +2,12 @@ package lt.verbus.totalisator.service;
 
 import lt.verbus.totalisator.controller.dto.MatchDTO;
 import lt.verbus.totalisator.controller.dto.PredictionRegistrationDTO;
-import lt.verbus.totalisator.controller.dto.PredictionDTO;
 import lt.verbus.totalisator.domain.entity.Match;
 import lt.verbus.totalisator.domain.entity.Prediction;
 import lt.verbus.totalisator.domain.entity.User;
 import lt.verbus.totalisator.exception.EntityNotFoundException;
 import lt.verbus.totalisator.repository.PredictionRepository;
-import lt.verbus.totalisator.util.PredictionMapper;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -21,43 +20,50 @@ import static lt.verbus.totalisator.util.UpdateQualifier.hasStarted;
 public class PredictionService {
 
 
-    public static final int DEFAULT_AWAY_PREDICTION = 0;
-    public static final int DEFAULT_HOME_PREDICTION = 0;
+    @Value("${default.away.prediction}")
+    public int DEFAULT_AWAY_PREDICTION;
+
+    @Value("${default.home.prediction}")
+    public int DEFAULT_HOME_PREDICTION;
+
     private final PredictionRepository predictionRepository;
     private final MatchService matchService;
     private final UserService userService;
-    private final PredictionMapper predictionMapper;
 
 
     public PredictionService(PredictionRepository predictionRepository,
                              MatchService matchService,
-                             UserService userService,
-                             PredictionMapper predictionMapper) {
+                             UserService userService) {
         this.predictionRepository = predictionRepository;
         this.matchService = matchService;
         this.userService = userService;
-        this.predictionMapper = predictionMapper;
     }
 
-    public Prediction findById(Long id) {
-        return predictionRepository.findById(id).orElseThrow(()->new EntityNotFoundException("Prediction was not found"));
-    }
 
     public Prediction findByMatchIdPlayerId(Long matchId, Long playerId) {
         return predictionRepository.findByMatchIdAndPlayerId(matchId, playerId).orElseThrow(()->new EntityNotFoundException("Prediction was not found"));
     }
 
+    public List<Prediction> findByMatchId(Long matchId) {
+        return predictionRepository.findAllByMatchId(matchId);
+    }
 
-    public PredictionDTO savePrediction(PredictionRegistrationDTO predictionRegistrationDTO) {
+    public List<Prediction> findByTotalisatorId(Long totalisatorId) {
+        return predictionRepository.findAllByTotalisatorId(totalisatorId);
+    }
+
+    public List<MatchDTO> savePredictionAndGetUpdatedPendingList(PredictionRegistrationDTO predictionRegistrationDTO) {
+        Match match = matchService.getById(predictionRegistrationDTO.getMatchId());
         Prediction prediction =
                 Prediction.builder()
-                .match(matchService.getById(predictionRegistrationDTO.getMatchId()))
-                .user(userService.getById(predictionRegistrationDTO.getUserId()))
-                .homeScore(predictionRegistrationDTO.getHomeScore())
-                .awayScore(predictionRegistrationDTO.getAwayScore())
-                .build();
-        Prediction savedPrediction = predictionRepository.save(prediction);
-        return predictionMapper.mapEntityToDTO(savedPrediction);
+                        .match(match)
+                        .user(userService.getById(predictionRegistrationDTO.getUserId()))
+                        .homeScore(predictionRegistrationDTO.getHomeScore())
+                        .awayScore(predictionRegistrationDTO.getAwayScore())
+                        .build();
+        match.getPredictions().add(prediction);
+        matchService.save(match);
+        return  matchService.getPendingByUserAndTotalisatorId(match.getTotalisator().getId(), prediction.getUser().getId());
     }
 
     public Match defaultMissingIfDue(Match match) {
@@ -87,29 +93,5 @@ public class PredictionService {
         }
 
         return match;
-    }
-
-
-    public List<Prediction> findByMatchId(Long matchId) {
-        return predictionRepository.findAllByMatchId(matchId);
-    }
-
-    public List<Prediction> findByTotalisatorId(Long totalisatorId) {
-        return predictionRepository.findAllByTotalisatorId(totalisatorId);
-    }
-
-    public List<MatchDTO> savePredictionAndGetUpdatedPendingList(PredictionRegistrationDTO predictionRegistrationDTO) {
-        Match match = matchService.getById(predictionRegistrationDTO.getMatchId());
-        Prediction prediction =
-                Prediction.builder()
-//                        .match(matchService.getById(predictionRegistrationDTO.getMatchId()))
-                        .match(match)
-                        .user(userService.getById(predictionRegistrationDTO.getUserId()))
-                        .homeScore(predictionRegistrationDTO.getHomeScore())
-                        .awayScore(predictionRegistrationDTO.getAwayScore())
-                        .build();
-        match.getPredictions().add(prediction);
-        matchService.save(match);
-        return  matchService.getPendingByUserAndTotalisatorId(match.getTotalisator().getId(), prediction.getUser().getId());
     }
 }

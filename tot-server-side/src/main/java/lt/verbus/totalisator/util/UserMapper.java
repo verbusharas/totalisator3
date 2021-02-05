@@ -23,22 +23,25 @@ public class UserMapper {
         userDTO.setId(user.getId());
         userDTO.setUsername(user.getUsername());
         userDTO.setName(user.getName());
+
         userDTO.setRoles(user.getRoles().stream()
                 .map(Role::getRoleName)
                 .collect(Collectors.toSet()));
 
-        userDTO.setTotalisators(user
-                .getTotalisators()
-                .stream()
-                .map(totalisatorBasicMapper::convertTotalisatorEntityToBasicDTO)
-                .collect(Collectors.toList()));
+        if (user.getTotalisators() != null) {
+            userDTO.setTotalisators(user
+                    .getTotalisators()
+                    .stream()
+                    .map(totalisatorBasicMapper::convertTotalisatorEntityToBasicDTO)
+                    .collect(Collectors.toList()));
 
-        userDTO.setManagedTotalisators(user
-                .getTotalisators()
-                .stream()
-                .filter(t-> t.getManager().getId().equals(user.getId()))
-                .map(Totalisator::getId)
-                .collect(Collectors.toList()));
+            userDTO.setManagedTotalisators(user
+                    .getTotalisators()
+                    .stream()
+                    .filter(t-> t.getManager().getId().equals(user.getId()))
+                    .map(Totalisator::getId)
+                    .collect(Collectors.toList()));
+        }
 
         BeanUtils.copyProperties(user, userDTO);
         return userDTO;
