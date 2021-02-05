@@ -49,7 +49,7 @@ const TotalisatorOverviewPage = (() => {
         }
 
         const loadPlayers = () => {
-            fetchPlayers(totalisator.id).then(res=>{
+            fetchPlayers(totalisator?.id).then(res=>{
                 setPlayers(res.data)
             })
         }

@@ -13,10 +13,10 @@ const Header = () => {
 
     const user = useUser();
     const totalisator = useTotalisator()
-    const liveMatches = totalisator.matches?.filter(m => m.statusName === "Inplay")
+    // const liveMatches = totalisator.matches?.filter(m => m.statusName === "Inplay")
 
     const renderLiveMatch = (m) => {
-        console.log("rendering live match", m)
+        // console.log("rendering live match", m)
         return (
             <div>
                 {m.statusName==="Inplay" &&
@@ -47,9 +47,9 @@ const Header = () => {
             </nav>
 
             <UserMenu/>
-            {
-                liveMatches?.length > 0 && liveMatches.map(renderLiveMatch)
-            }
+            {/*{*/}
+            {/*    liveMatches?.length > 0 && liveMatches.map(renderLiveMatch)*/}
+            {/*}*/}
         </header>
     )
 }

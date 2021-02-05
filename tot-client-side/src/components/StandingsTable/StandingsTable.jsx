@@ -2,7 +2,6 @@ import useTotalisator from "../../hooks/useTotalisator";
 import StandingsEntry from "./StandingsEntry";
 import {useEffect, useState} from "react";
 import {getTotalisatorPayouts} from "../../api/predictionApi";
-import {fetchPlayers} from "../../api/totalisatorApi";
 
 
 const StandingsTable = ({handleKick, players}) => {

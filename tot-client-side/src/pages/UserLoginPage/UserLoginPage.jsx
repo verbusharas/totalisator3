@@ -14,6 +14,7 @@ const UserLoginPage = () => {
     const history = useHistory();
     const location = useLocation();
     const dispatch = useDispatch();
+
     const handleLogin = (loginData, {setSubmitting}) => {
         setSubmitting(true);
         loginUser(loginData)
@@ -23,18 +24,17 @@ const UserLoginPage = () => {
             return data.totalisators;
         }).then((totalisators) => {
             if (totalisators.length > 0) {
-                console.log("USER TOTALISATORS:",totalisators)
-                // If no totalisator info in local storage - pick the first one from the list
-                let prevTotalisator = loadTotalisatorFromStorage()?.totalisatorData || totalisators[0];
-                // If current user is not included in localStorage preloaded totalisator
-                // then pick first one from the list
-                if (!totalisators.map(t=>t.id).includes(prevTotalisator.id)) {
-                  prevTotalisator = totalisators[0];
-                }
-                fetchTotalisatorById(prevTotalisator.id).then(res => {
-                    dispatch(setTotalisator(res.data))
+                const defaultTotalisatorId = totalisators[0].id;
 
-                    return res.data;
+                let selectedTotalisatorId = loadTotalisatorFromStorage()?.totalisatorData.prevId || defaultTotalisatorId;
+                let hasSelectedTotalisator = totalisators.map(t=>t.id).includes(selectedTotalisatorId);
+
+                if (!hasSelectedTotalisator) {
+                    selectedTotalisatorId = defaultTotalisatorId;
+                }
+
+                fetchTotalisatorById(selectedTotalisatorId).then(res => {
+                    dispatch(setTotalisator(res.data))
                 }).then(()=> {
                     const {from} = location.state || {from: {pathname: '/totalisator'}}
                     history.push(from)
@@ -55,7 +55,6 @@ const UserLoginPage = () => {
             .min(8, "Password must be at least 8 characters long")
             .required("Enter password"),
     });
-
 
     return (
         <main className="default">
