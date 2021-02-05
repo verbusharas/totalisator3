@@ -11,10 +11,11 @@ const UserRegisterPage = () => {
     const [serverValidationErrors, setServerValidationErrors] = useState({});
     const history = useHistory();
 
-
     const handleOnSubmit = (formValues) => {
+        console.log("FORM VALUES", formValues)
         saveUser(formValues)
             .then(res => {
+                console.log("res", res)
                 history.push("/user/login");
             }).catch(err => {
                 setServerValidationErrors(err.response.data)
