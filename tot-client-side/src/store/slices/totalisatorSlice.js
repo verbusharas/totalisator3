@@ -12,28 +12,8 @@ export const totalisatorSlice = createSlice({
         setTotalisator(state, {payload:totalisator}) {
             state.totalisatorData = totalisator
         },
-
-        // addMatch(state, {payload:match}) {
-        //     state.totalisatorData.matches.push(match);
-        // },
-        //
-        // setMatches(state, {payload:matches}) {
-        //     state.totalisatorData.matches = matches;
-        // },
-        //
-        // addPrediction(state, {payload:prediction}) {
-        //     const {userId, homeScore, awayScore, matchIndex} = prediction;
-        //     const predictionDTO = {
-        //         userId,
-        //         homeScore,
-        //         awayScore
-        //     }
-        //     state.totalisatorData.matches[matchIndex].predictions.push(predictionDTO);
-        // },
-
         clearTotalisator(state){
             const prevTotalisatorId = state.totalisatorData.id;
-            // state.totalisatorData = null
             state.totalisatorData = {prevId:prevTotalisatorId}
         },
     }
@@ -44,8 +24,6 @@ let prevTotalisator = initialState;
 export const subscribeToTotalisatorChanges = (store) => {
     store.subscribe(_.throttle(() => {
         const currentTotalisator = store.getState().totalisator
-        console.log("currentTotalisator", currentTotalisator)
-        console.log("prevTotalisator", prevTotalisator)
         if (prevTotalisator !== currentTotalisator) {
             prevTotalisator = currentTotalisator;
             saveToStorage("totalisator", currentTotalisator)

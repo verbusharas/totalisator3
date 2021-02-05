@@ -5,11 +5,6 @@ const StandingsEntry = ({player, handleKick, totals}) => {
 
     const user = useUser();
 
-    const random = (min, max) => {
-        const rand = Math.random() * (max - min) + min
-        return 50 * Math.ceil(rand / 50);
-    }
-
     return (
         <tr>
             <td className={cx({

@@ -1,22 +1,20 @@
 import {createSlice} from "@reduxjs/toolkit";
 
 const initialState = {
-    monitoredMatches: [],
-    liveMatches: [],
-    test: null
+
+    liveFeed: [],
 }
 export const monitorSlice = createSlice({
     name: 'monitor',
     initialState: initialState,
     reducers: {
-        addToInplay(state, {payload:match}) {
-            state.liveMatches.push(match)
+        setMonitoredMatches(state, {payload:matches}) {
+            // state.liveFeed.push(match)
+            state.liveFeed = matches;
         },
-        addToMonitored(state, {payload:match}) {
-            state.monitoredMatches.push(match)
-        },
-        updateMatch(state, {payload:updated}) {
-            state.monitoredMatches.map(current=>{
+
+        updateLiveMatch(state, {payload:updated}) {
+            state.liveFeed.map(current=>{
                 if (current.fifaId === updated.fifaId){
                 return updated
                 } else {
@@ -25,19 +23,9 @@ export const monitorSlice = createSlice({
             })
         },
 
-        setTest(state, {payload:variable}) {
-            state.test = variable
-        },
-        updateScore(state, {payload:score}) {
-            state.liveMatches.map(m=>{
-            if(m.fifaId===score.fifaId){
-                m.homeScore = score.homeScore;
-                m.awayScore = score.awayScore;
-            }
-            });
-        }
+
     }
 })
 
 export default monitorSlice.reducer
-export const {addToInplay, addToMonitored, setTest, updateScore} = monitorSlice.actions
+export const {setMonitoredMatches, updateLiveMatch} = monitorSlice.actions

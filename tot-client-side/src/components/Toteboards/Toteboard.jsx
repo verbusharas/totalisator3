@@ -10,6 +10,8 @@ import cx from "classnames";
 import useTotalisator from "../../hooks/useTotalisator";
 import BacksidePredictions from "./ToteboardFragments/BacksidePredictions";
 import {fetchPlayers} from "../../api/totalisatorApi";
+import {getMatchPlayerPayout} from "../../api/predictionApi";
+import useMonitor from "../../hooks/useMonitor";
 
 // Variant structure: "{environment}-{status}"
 // Supported variants:
@@ -48,10 +50,18 @@ const Toteboard = ({match,
 
     const [players, setPlayers] = useState([]);
 
+    const monitor = useMonitor();
+
+
+
     useEffect(()=>{
+        let isSubscribed = true
         fetchPlayers(totalisator.id).then(res=>{
-            setPlayers(res.data)
+            if(isSubscribed) {
+                setPlayers(res.data)
+            }
         })
+        return () => isSubscribed = false;
     },[])
 
 
@@ -73,6 +83,19 @@ const Toteboard = ({match,
         handleRegisterPrediction(match, validateValue(homeScore), validateValue(awayScore));
     }
 
+    const hasStarted = () => {
+        const monitoredIds = monitor.liveFeed.map(m=>m.entityId);
+        const monitoredEntity = monitor.liveFeed.find(m=> m.entityId === match.entityId);
+        console.log("monitoredEntity", monitoredEntity)
+        console.log("monitored Ids", monitoredIds)
+        const isThisMatchMonitored = monitoredIds.includes(match.entityId);
+        console.log("isThisMatchMonitored", isThisMatchMonitored)
+        if (isThisMatchMonitored) {
+
+        }
+
+    }
+
     const getScoreboard = () => {
         if (variant === "user-not_predicted") {
             return <Scoreboard
@@ -80,7 +103,8 @@ const Toteboard = ({match,
                 awayScore={awayScore}
                 homeInput={handleHomeInput}
                 awayInput={handleAwayInput}
-                isEditable
+                //TODO: connect to redux monitored matches
+                isEditable = {hasStarted}
             />;
         }
         if (variant === "user-pending") {

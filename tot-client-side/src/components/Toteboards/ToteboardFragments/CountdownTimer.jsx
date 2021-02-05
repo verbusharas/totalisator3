@@ -29,7 +29,8 @@ import {useEffect, useState} from "react";
     const timerComponents = [];
     Object.keys(timeLeft).forEach(
         (timeMeasurementUnit) => {
-        if (!timeLeft[timeMeasurementUnit]) {return;}
+        if (!timeLeft[timeMeasurementUnit]) {
+            return;}
         timerComponents.push(<span key={Math.random() + countdownTo}>{timeLeft[timeMeasurementUnit]} {timeMeasurementUnit}{" "}</span>);
     });
 
