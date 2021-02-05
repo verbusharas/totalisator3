@@ -5,16 +5,12 @@ import {getTotalisatorPayouts} from "../../api/predictionApi";
 import {fetchPlayers} from "../../api/totalisatorApi";
 
 
-const StandingsTable = ({handleKick}) => {
+const StandingsTable = ({handleKick, players}) => {
 
     const totalisator = useTotalisator();
     const [payouts, setPayouts] = useState([]);
-    const [players, setPlayers] = useState([])
 
     useEffect(()=> {
-        fetchPlayers(totalisator.id).then((res)=>{
-            setPlayers(res.data)
-        })
         getTotalisatorPayouts(totalisator.id).then(res=>{
             setPayouts(res.data);
         })

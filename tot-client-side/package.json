@@ -25,6 +25,7 @@
     "react-scripts": "4.0.1",
     "react-select": "^4.0.2",
     "redux": "^4.0.5",
+    "use-state-with-callback": "^2.0.3",
     "web-vitals": "^0.2.4",
     "yup": "^0.32.8"
   },

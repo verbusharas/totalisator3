@@ -6,10 +6,12 @@ import useUser from "../../hooks/useUser";
 import {useEffect, useState} from "react";
 import {savePrediction} from "../../api/predictionApi";
 import {fetchFinishedMatches, fetchPlayerNotPredictedMatches, fetchPlayerPendingMatches} from "../../api/matchApi";
+import {fetchPlayers} from "../../api/totalisatorApi";
 
 const TotalisatorOverviewPage = (() => {
     
         const [notPredictedMatches, setNotPredictedMatches] = useState({feed:[],isLoading:false});
+        const [players, setPlayers] = useState([]);
         const [pendingMatches, setPendingMatches] = useState({feed:[],isLoading:false});
         const [finishedMatches, setFinishedMatches] = useState({feed:[],isLoading:false});
 
@@ -17,9 +19,10 @@ const TotalisatorOverviewPage = (() => {
         const totalisator = useTotalisator();
 
         useEffect(()=>{
-            getNotPredictedMatches();
-            getPendingMatches();
-            getFinishedMatches();
+            loadNotPredictedMatches();
+            loadPlayers();
+            loadPendingMatches();
+            loadFinishedMatches();
         },[totalisator.id])
 
         const registerPrediction = (match, home, away) => {
@@ -38,22 +41,28 @@ const TotalisatorOverviewPage = (() => {
             }).finally(() => setNotPredictedMatches(prev=>({...prev, isLoading: false})));
         }
 
-        const getNotPredictedMatches = () => {
+        const loadNotPredictedMatches = () => {
             setNotPredictedMatches(prev=>({...prev, isLoading: true}));
             fetchPlayerNotPredictedMatches(totalisator.id).then((res)=>{
                 setNotPredictedMatches(prev=>({...prev, feed:res.data}));
             }).finally(() => setNotPredictedMatches(prev=>({...prev, isLoading: false})));
         }
 
+        const loadPlayers = () => {
+            fetchPlayers(totalisator.id).then(res=>{
+                setPlayers(res.data)
+            })
+        }
 
-        const getPendingMatches = () => {
+
+        const loadPendingMatches = () => {
             setPendingMatches(prev=>({...prev, isLoading: true}));
             fetchPlayerPendingMatches(totalisator.id).then((res)=>{
                 setPendingMatches(prev=>({...prev, feed:res.data}));
             }).finally(() => setPendingMatches(prev=>({...prev, isLoading: false})));
         }
 
-        const getFinishedMatches = () => {
+        const loadFinishedMatches = () => {
             setFinishedMatches(prev=>({...prev, isLoading: true}));
             fetchFinishedMatches(totalisator.id).then((res)=>{
                 setFinishedMatches(prev=>({...prev, feed:res.data}));
@@ -118,7 +127,7 @@ const TotalisatorOverviewPage = (() => {
                 <section className="overview">
                     <h2 className="overview__title">CURRENT TOTALISATOR STANDINGS</h2>
                     <div className="overview__container">
-                        <StandingsTable/>
+                        <StandingsTable players={players}/>
                         <Rules/>
                     </div>
                 </section>

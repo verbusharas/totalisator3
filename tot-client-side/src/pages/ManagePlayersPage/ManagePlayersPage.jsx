@@ -7,45 +7,36 @@ import FriendCard from "../UserFriendsPage/PersonCards/FriendCard";
 import {
     addPlayerToTotalisator,
     fetchPlayers,
-    fetchTotalisatorById,
     kickPlayerFromTotalisator
 } from "../../api/totalisatorApi";
-import {useDispatch} from "react-redux";
-import {setTotalisator} from "../../store/slices/totalisatorSlice";
 import convertFriendshipsToFriends from "../../utils/mapper";
 
 const ManagePlayersPage = () => {
 
     const totalisator = useTotalisator();
     const user = useUser();
-    // const dispatch = useDispatch();
-    const [playerIds, setPlayerIds] = useState([]);
+    const [players, setPlayers] = useState([]);
     const [possiblePlayers, setPossiblePlayers] = useState([]);
-    const [friends, setFriends] = useState([])
 
     useEffect(() => {
         fetchPlayers(totalisator.id).then(res=>{
-            setPlayerIds(res.data.map(p=>p.id));
-            return res.data;
-        }).then(()=> {
-            getFriends();
-        })
-
+            setPlayers(res.data);
+            return res;
+        }).then(({data:resPlayers})=>{
+            findFriendshipsByUserId(user.id)
+                .then(res => {
+                const playerIds = resPlayers.map(player=>player.id);
+                const unincludedFriends = convertFriendshipsToFriends(user.id, res.data).filter(friend=>!playerIds.includes(friend.id));
+                setPossiblePlayers(unincludedFriends);
+            });
+        });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    // const refreshTotalisator = () => {
-    //     fetchTotalisatorById(totalisator.id)
-    //         .then((res) => {
-    //             dispatch(setTotalisator(res.data))
-    //         })
-    // }
-
     const includeFriend = (friend) => {
         addPlayerToTotalisator(totalisator.id, friend.id).then((res) => {
-            setPlayerIds([...playerIds, friend.id])
+            setPlayers([...players, friend])
             setPossiblePlayers(possiblePlayers.filter(pp => pp.id !== friend.id))
-            // refreshTotalisator();
         })
     }
 
@@ -59,25 +50,12 @@ const ManagePlayersPage = () => {
 
     const kickPlayer = (player) => {
         kickPlayerFromTotalisator(totalisator.id, player.id).then((res) => {
-            setPlayerIds(playerIds.filter(pi => pi !== player.id));
+            setPlayers(players.filter(p => p.id !== player.id));
             setPossiblePlayers([...possiblePlayers, player]);
-            // refreshTotalisator();
-        })
-    }
-
-
-    const getFriends = () => {
-        findFriendshipsByUserId(user.id).then(res => {
-            const friends = convertFriendshipsToFriends(user.id, res.data);
-            console.log("all friends", friends)
-            const unincludedFriends = friends.filter(f => !playerIds.includes(f.id));
-            console.log("unincluded", unincludedFriends)
-            setPossiblePlayers(unincludedFriends);
         })
     }
 
     return (
-
         <main>
             <section className="feed feed--fifa">
                 <h2 className="feed__title">MANAGE PLAYERS</h2>
@@ -89,8 +67,7 @@ const ManagePlayersPage = () => {
                     <p>
                         Currently there are {totalisator.players?.length} players in this totalisator:
                     </p>
-                    <StandingsTable handleKick={kickPlayer}/>
-
+                    <StandingsTable players={players} handleKick={kickPlayer}/>
                 </article>
             </section>
             <section className="feed feed--added">
@@ -98,9 +75,6 @@ const ManagePlayersPage = () => {
                 <article className="feed__description">
                     <div className="found-users">
                         {possiblePlayers?.map(pp => renderFriend(pp))}
-                        {/*{!getPossiblePlayers()?.length &&*/}
-                        {/*<p>You don't have any friends yet.*/}
-                        {/*    Find people in the search below and add them as your friends.</p>}*/}
                     </div>
                 </article>
             </section>
