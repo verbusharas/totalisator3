@@ -1,5 +1,6 @@
 package lt.verbus.totalisator.service;
 
+import lt.verbus.totalisator.controller.dto.TotalisatorBasicDTO;
 import lt.verbus.totalisator.controller.dto.UserDTO;
 import lt.verbus.totalisator.domain.entity.Match;
 import lt.verbus.totalisator.domain.entity.Totalisator;
@@ -76,9 +77,8 @@ public class TotalisatorService {
         return totalisatorMapper.convertToDTO(savedTotalisator);
     }
 
-    public TotalisatorDTO getDTObyUserId(Long id) {
-
-        return totalisatorMapper.convertToDTO(totalisatorRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("Totalisator was not found")));
+    public TotalisatorBasicDTO getBasicDTObyId(Long id) {
+        return totalisatorMapper.convertToBasicDTO(totalisatorRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("Totalisator was not found")));
     }
 
     public TotalisatorDTO getUpdatedDTO(Long id) {

@@ -1,5 +1,6 @@
 package lt.verbus.totalisator.controller;
 
+import lt.verbus.totalisator.controller.dto.TotalisatorBasicDTO;
 import lt.verbus.totalisator.controller.dto.UserDTO;
 import lt.verbus.totalisator.service.TotalisatorService;
 import lt.verbus.totalisator.controller.dto.TotalisatorDTO;
@@ -24,27 +25,27 @@ public class TotalisatorController {
         return totalisatorService.save(totalisatorDTO);
     }
 
-    @PatchMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public TotalisatorDTO update(@PathVariable Long id) {
-        return totalisatorService.getUpdatedDTO(id);
-    }
+    // COMMENTED OUT ON 2021-02-05 CHECK IF NEEDED
+//    @PatchMapping("/{id}")
+//    @ResponseStatus(HttpStatus.OK)
+//    public TotalisatorDTO update(@PathVariable Long id) {
+//        return totalisatorService.getUpdatedDTO(id);
+//    }
 
 //    @GetMapping("player")
 //    public List<TotalisatorDTO> getAllByUserId(@RequestParam Long id) {
 //        return totalisatorService.getAllByUserId(id);
 //    }
 
+    @GetMapping("/{id}")
+    public TotalisatorBasicDTO getDTOById(@PathVariable Long id) {
+        return totalisatorService.getBasicDTObyId(id);
+    }
+
     @GetMapping("/{id}/players")
     public List<UserDTO> getPlayers(@PathVariable Long id) {
         return totalisatorService.getPlayers(id);
     }
-
-    @GetMapping("/{id}")
-    public TotalisatorDTO getDTOByUserId(@PathVariable Long id) {
-        return totalisatorService.getDTObyUserId(id);
-    }
-
 
     @PutMapping("/{totalisatorId}/invite/{playerId}")
     @ResponseStatus(HttpStatus.ACCEPTED)

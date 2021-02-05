@@ -9,4 +9,6 @@ public class TotalisatorBasicDTO {
     private Long id;
 
     private String title;
+
+    private Long managerId;
 }

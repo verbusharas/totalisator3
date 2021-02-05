@@ -34,10 +34,11 @@ public class UserController {
         return userService.getAllUsers();
     }
 
-    @GetMapping("/{id}")
-    public UserDTO getUserById(@PathVariable long id) {
-        return userService.getUserDTOById(id);
-    }
+    // COMMENTED OUT ON 2021-02-05 CHECK IF NEEDED
+//    @GetMapping("/{id}")
+//    public UserDTO getUserById(@PathVariable long id) {
+//        return userService.getUserDTOById(id);
+//    }
 
     @GetMapping("/{id}/friends")
     public List<FriendshipDTO> getFriendshipsByUserId(@PathVariable long id) {
