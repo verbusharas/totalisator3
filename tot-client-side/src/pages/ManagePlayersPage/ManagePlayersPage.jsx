@@ -42,6 +42,7 @@ const ManagePlayersPage = () => {
 
     const renderFriend = (friend) => {
         return <FriendCard key={"f" + Math.random()}
+                           isFriend
                            person={friend}
                            isForTotalisator
                            handleInclude={() => includeFriend(friend)}
@@ -70,9 +71,9 @@ const ManagePlayersPage = () => {
                     <StandingsTable players={players} handleKick={kickPlayer}/>
                 </article>
             </section>
-            <section className="feed feed--added">
-                <h2 className="feed__title">INCLUDE FRIENDS AS PLAYERS</h2>
-                <article className="feed__description">
+            <section className="friendlist-section  friendlist-section--players">
+                <h2>INCLUDE FRIENDS AS PLAYERS</h2>
+                <article className="form-section__article">
                     <div className="found-users">
                         {possiblePlayers?.map(pp => renderFriend(pp))}
                     </div>

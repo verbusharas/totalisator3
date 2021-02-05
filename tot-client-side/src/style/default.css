@@ -3,7 +3,12 @@
     flex-direction: row;
     justify-content: center;
     background-color: var(--black-teal);
-    width: 100%;
+    width: 90%;
+}
+
+.text-section--welcome {
+    background-color: rgba(22, 30, 33, 0.5);
+    backdrop-filter: blur(7px);
 }
 
 .default .text-section {
@@ -25,7 +30,8 @@
 }
 
 .text-section__description {
-    padding-left: 100px;
+    padding-left: 50px;
+    width: 80%;
 }
 
 .default a {
@@ -51,15 +57,16 @@
 }
 
 .graph-section {
-    width: 50%;
+    width: 30%;
     justify-content: flex-start;
     /*background-image: url('../assets/bg-images/ball2.png');*/
     /*background-repeat: no-repeat;*/
     /*background-size: cover;*/
+    max-height: 600px;
 }
 
 .graph-section img {
-    max-width: 755px;
+    max-height: 650px;
     object-fit: cover;
 
 }
@@ -68,9 +75,10 @@
     padding-left: 30px;
     color: var(--light-teal);
     width: 70%;
-    background-color: rgba(22, 30, 33, 0.7);
+    background-color: rgba(22, 30, 33, 0.5);
     backdrop-filter: blur(7px);
 }
+
 
 
 .form-section h2 {
@@ -79,8 +87,9 @@
     color: var(--white-blue);
 }
 
+
 .form-section__article {
-    width: 80%;
+    width: 100%;
 }
 
 .form-section__article form {
@@ -102,7 +111,7 @@
 }
 
 .form-section__article label {
-    margin-top: 20px;
+    margin-top: 5px;
     margin-bottom: 10px;
 }
 
@@ -140,7 +149,7 @@
     margin-bottom: 0;
     font-size: 9pt;
     color: var(--yellow);
-    text-align: right;
+    text-align: left;
 }
 
 input:-webkit-autofill,
@@ -149,4 +158,44 @@ input:-webkit-autofill:focus,
 input:-webkit-autofill:active  {
     -webkit-box-shadow: 0 0 0 30px var(--black-brown) inset;
     -webkit-text-fill-color: var(--white-blue);
+}
+
+
+.friendlist-section h2 {
+    margin-top: 40px;
+    font-weight: normal;
+    color: var(--white-blue);
+}
+
+.friendlist-section {
+    padding-left: 30px;
+    color: var(--light-teal);
+    width: 70%;
+    background-color: rgba(22, 30, 33, 0.7);
+    backdrop-filter: blur(7px);
+}
+
+.friendlist-section .found-users {
+    flex-direction: column;
+}
+
+.friendlist-section.friendlist-section--players {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: unset;
+    padding: unset;
+    margin: unset;
+
+}
+
+.friendlist-section--players .form-section__article {
+    width: 50%;
+}
+
+
+.friendlist-section--players .found-users {
+    flex-direction: unset;
+    justify-content: center;
+
 }

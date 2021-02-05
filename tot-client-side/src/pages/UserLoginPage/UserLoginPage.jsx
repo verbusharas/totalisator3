@@ -8,6 +8,7 @@ import {useDispatch} from "react-redux";
 import {setJwt, setUserData} from "../../store/slices/userSlice";
 import {fetchTotalisatorById} from "../../api/totalisatorApi";
 import {loadTotalisatorFromStorage, setTotalisator} from "../../store/slices/totalisatorSlice";
+import image from "../../assets/bg-images/ball-in-net-01-small.png";
 
 const UserLoginPage = () => {
 
@@ -59,10 +60,11 @@ const UserLoginPage = () => {
     return (
         <main className="default">
             <section className="graph-section">
+                <img src={image} alt="ball in net"/>
             </section>
             <section className="form-section">
                 <article className="form-section__article">
-                    <h2>USER LOGIN</h2>
+                    <h2>PLEASE LOGIN</h2>
 
                     <Formik initialValues={{username: "", password: "", passwordConfirm: "", name: ""}}
                             onSubmit={handleLogin}

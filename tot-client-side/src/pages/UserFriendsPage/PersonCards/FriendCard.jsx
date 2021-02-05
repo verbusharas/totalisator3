@@ -1,15 +1,18 @@
 import profilePic from "../../../assets/images/profile-small.png"
+import friendPic from "../../../assets/images/friends.png"
 
 const FriendCard = ({person,
                         handleAccept,
                         handleDismiss,
                         isRequest,
+                        isFriend,
                         isForTotalisator,
                         handleInclude})=>{
     return (
         <div className="found-user">
             <div className="found-user__image-container">
-                <img src={profilePic} alt="add friend"/>
+                {isFriend && <img src={friendPic} alt="add friend"/>}
+                {!isFriend && <img src={profilePic} alt="add friend"/>}
             </div>
             <div className="found-user__info-container">
                 {person.name && <p>{person.name.toUpperCase()}</p> }

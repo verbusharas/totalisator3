@@ -1,9 +1,11 @@
 import useUser from "../../hooks/useUser";
 import cx from "classnames";
+import useTotalisator from "../../hooks/useTotalisator";
 
 const StandingsEntry = ({player, handleKick, totals}) => {
 
     const user = useUser();
+    const totalisator = useTotalisator();
 
     return (
         <tr>
@@ -17,7 +19,7 @@ const StandingsEntry = ({player, handleKick, totals}) => {
                 "standings__points--highlighted": user.id===player.id})}>
                 {totals}
             </td>
-            {handleKick &&
+            {handleKick && (player.id !== totalisator.managerId) &&
             <td className="standings__kick-button" onClick={() => handleKick(player)}>kick</td>
             }
         </tr>

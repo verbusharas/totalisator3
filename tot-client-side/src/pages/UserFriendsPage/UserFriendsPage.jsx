@@ -104,6 +104,7 @@ const UserFriendsPage = () => {
         // Regardless of who is requester/receiver render the one who is not the current user
         const friend = (requester.id === user.id) ? receiver : requester;
         return <FriendCard key={"f" + friend.id}
+                           isFriend
                            person={friend}
                            handleDismiss={() => handleFriendDismiss(friendship)}
         />
@@ -126,14 +127,6 @@ const UserFriendsPage = () => {
                         </div>
                     </>
                     }
-                    <h2>FRIENDS</h2>
-
-                    <div className="found-users">
-                        {getFriends().map((f) => renderFriend(f))}
-                        {!getFriends().length &&
-                        <p>You don't have any friends yet.
-                            Find people in the search below and add them as your friends.</p>}
-                    </div>
 
                 </article>
                 <article className="form-section__article">
@@ -160,6 +153,19 @@ const UserFriendsPage = () => {
                 </article>
             </section>
             }
+            <section className="friendlist-section">
+                <article className="form-section__article">
+                    <h2>FRIENDS ({getFriends().length})</h2>
+
+                    <div className="found-users">
+                        {getFriends().map((f) => renderFriend(f))}
+                        {!getFriends().length &&
+                        <p>You don't have any friends yet.
+                            Find people in the search below and add them as your friends.</p>}
+                    </div>
+
+                </article>
+            </section>
         </main>
     )
 }

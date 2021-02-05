@@ -5,7 +5,7 @@ import DateFnsUtils from "@date-io/date-fns";
 import {Grid, makeStyles} from "@material-ui/core";
 import React, {useEffect, useState} from "react";
 import {fetchFakeFixtures, fetchFifaFixtures} from "../../api/fixtureApi";
-import {fetchFinishedMatches, fetchRegisteredMatches, saveAsMatch} from "../../api/matchApi";
+import {deleteMatch, fetchFinishedMatches, fetchRegisteredMatches, saveAsMatch} from "../../api/matchApi";
 import useTotalisator from "../../hooks/useTotalisator";
 import {addMatch, setMatches} from "../../store/slices/totalisatorSlice";
 import {useDispatch} from "react-redux";
@@ -92,6 +92,17 @@ const ManageMatchesPage = () => {
         });
     }
 
+    const handleDelete = (match) => {
+        deleteMatch(totalisator.id, match.entityId).then(res => {
+            if (res.status === 204) {
+                const pendingWithoutDeleted = managerPendingMatches.filter(m=>m.entityId !== match.entityId);
+                const finishedWithoutDeleted = managerFinishedMatches.filter(m=>m.entityId !== match.entityId);
+                setManagerPendingMatches(pendingWithoutDeleted);
+                setManagerFinishedMatches(finishedWithoutDeleted);
+            }
+        })
+    }
+
     const useStyles = makeStyles({
         root: {
             "& .MuiInputBase-root": {
@@ -154,11 +165,17 @@ const ManageMatchesPage = () => {
     }
 
     const createManagerPendingToteboard = (match) => {
-        return <Toteboard key={"mp" + match.entityId} match={match} variant="manager-pending"/>
+        return <Toteboard key={"mp" + match.entityId}
+                          match={match}
+                          handleDelete={()=>handleDelete(match)}
+                          variant="manager-pending"/>
     }
 
     const createManagerFinishedToteboard = (match) => {
-        return <Toteboard key={"mf" + match.entityId} match={match} variant="manager-finished"/>
+        return <Toteboard key={"mf" + match.entityId}
+                          match={match}
+                          handleDelete={()=>handleDelete(match)}
+                          variant="manager-finished"/>
     }
 
     return (

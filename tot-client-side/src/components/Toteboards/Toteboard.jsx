@@ -12,6 +12,7 @@ import BacksidePredictions from "./ToteboardFragments/BacksidePredictions";
 import {fetchPlayers} from "../../api/totalisatorApi";
 import {getMatchPlayerPayout} from "../../api/predictionApi";
 import useMonitor from "../../hooks/useMonitor";
+import {deleteMatch} from "../../api/matchApi";
 
 // Variant structure: "{environment}-{status}"
 // Supported variants:
@@ -30,6 +31,7 @@ const Toteboard = ({match,
                        prediction,
                        variant,
                        handleClick,
+                       handleDelete,
                        handleRegisterPrediction}) => {
 
     const totalisator = useTotalisator();
@@ -43,16 +45,14 @@ const Toteboard = ({match,
 
     const isFlippable = (environment !== "fifa");
 
+    const hasDelete = (environment === "manager")
+
     const [isFlipped, setIsFlipped] = useState(false);
 
     const [homeScore, setHomeScore] = useState("");
     const [awayScore, setAwayScore] = useState("");
 
     const [players, setPlayers] = useState([]);
-
-    const monitor = useMonitor();
-
-
 
     useEffect(()=>{
         let isSubscribed = true
@@ -83,19 +83,6 @@ const Toteboard = ({match,
         handleRegisterPrediction(match, validateValue(homeScore), validateValue(awayScore));
     }
 
-    const hasStarted = () => {
-        const monitoredIds = monitor.liveFeed.map(m=>m.entityId);
-        const monitoredEntity = monitor.liveFeed.find(m=> m.entityId === match.entityId);
-        console.log("monitoredEntity", monitoredEntity)
-        console.log("monitored Ids", monitoredIds)
-        const isThisMatchMonitored = monitoredIds.includes(match.entityId);
-        console.log("isThisMatchMonitored", isThisMatchMonitored)
-        if (isThisMatchMonitored) {
-
-        }
-
-    }
-
     const getScoreboard = () => {
         if (variant === "user-not_predicted") {
             return <Scoreboard
@@ -103,8 +90,7 @@ const Toteboard = ({match,
                 awayScore={awayScore}
                 homeInput={handleHomeInput}
                 awayInput={handleAwayInput}
-                //TODO: connect to redux monitored matches
-                isEditable = {hasStarted}
+                isEditable
             />;
         }
         if (variant === "user-pending") {
@@ -150,9 +136,15 @@ const Toteboard = ({match,
        setIsFlipped(!isFlipped);
     }
 
+
+
+
     const showAverse = () => {
         return (
             <article className={cx({"tote-board": true, "tote-board--disabled": isDisabled})}>
+                { hasDelete && <div className="tote-board__del-button">
+                    <button type="button" onClick={handleDelete}>x</button>
+                </div>}
                 <ToteboardHeader date={match.date} league={match.league}/>
                 {environment === "user" && <ToteboardScoreLabel text="Your prediction:"/>}
                 <div className="tote-board__main">

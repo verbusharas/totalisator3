@@ -31,8 +31,16 @@
 @media only screen and (max-width: 1040px) {
     header {
         height: unset;
+
+    }
+
+    .header__menu {
         display: flex;
         flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .header__live-feed{
         justify-content: center;
     }
 
@@ -57,14 +65,25 @@
         width: 100%;
     }
 
+    nav {
+        margin: 20px 2px 30px 2px;
+
+    }
     .nav {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
     }
     .nav__link {
-        margin: 10px;
+        margin: 5px 10px;
+        /*font-size: 12pt;*/
     }
+
+   /*.nav--manager  .nav__link {*/
+   /*     font-size: 11pt;*/
+   /* }*/
+
+
 
 
     .user-menu{
@@ -97,6 +116,11 @@
         margin: 10px 0;
         padding: 20px 0;
 
+    }
+
+    .header__live-feed{
+        flex-direction: column;
+        align-items: center;
     }
 
     .nav__link {

@@ -1,4 +1,6 @@
-const vfxParallax = () => {
+import {userSlice} from "../../store/slices/userSlice";
+
+const vfxParallax = (stop) => {
 // html setup
     const itemsHTMLCollection = document.getElementsByClassName("parallax-item");
     const items = Array.from(itemsHTMLCollection);
@@ -93,38 +95,38 @@ const vfxParallax = () => {
 
     const applyParallaxDepth = () => {
         // calculate outputs
-            items.forEach((item, i) => {
-                const depth = parseFloat(item.dataset.depth, 10);
+        items.forEach((item, i) => {
+            const depth = parseFloat(item.dataset.depth, 10);
 
-                const itemUniqueInput = {
-                    scrollY: {
-                        start: item.offsetParent.offsetTop,
-                        end: item.offsetParent.offsetTop + window.innerHeight,
-                    },
-                };
-                itemUniqueInput.scrollY.range =
-                    itemUniqueInput.scrollY.end - itemUniqueInput.scrollY.start;
-                itemUniqueInput.scrollY.fraction =
-                    (input.scrollY.current - itemUniqueInput.scrollY.start) /
-                    itemUniqueInput.scrollY.range;
+            const itemUniqueInput = {
+                scrollY: {
+                    start: item.offsetParent.offsetTop,
+                    end: item.offsetParent.offsetTop + window.innerHeight,
+                },
+            };
+            itemUniqueInput.scrollY.range =
+                itemUniqueInput.scrollY.end - itemUniqueInput.scrollY.start;
+            itemUniqueInput.scrollY.fraction =
+                (input.scrollY.current - itemUniqueInput.scrollY.start) /
+                itemUniqueInput.scrollY.range;
 
-                const itemUniqueOutputYCurrent =
-                    output.scrollY.start +
-                    itemUniqueInput.scrollY.fraction * output.scrollY.range;
+            const itemUniqueOutputYCurrent =
+                output.scrollY.start +
+                itemUniqueInput.scrollY.fraction * output.scrollY.range;
 
-                const itemParallaxOutput = {
-                    x: output.x.current - output.x.current * depth,
-                    y: (itemUniqueOutputYCurrent * depth) + (output.y.current - (output.y.current * depth)),
-                    zIndex: output.zIndex.range - output.zIndex.range * depth,
-                    scale: output.scale.start + output.scale.range * depth,
-                    blur: (depth - output.blur.startingDepth) * output.blur.range,
-                };
+            const itemParallaxOutput = {
+                x: output.x.current - output.x.current * depth,
+                y: (itemUniqueOutputYCurrent * depth) + (output.y.current - (output.y.current * depth)),
+                zIndex: output.zIndex.range - output.zIndex.range * depth,
+                scale: output.scale.start + output.scale.range * depth,
+                blur: (depth - output.blur.startingDepth) * output.blur.range,
+            };
 
-                // set HTML item styles
-                item.style.filter = `blur(${itemParallaxOutput.blur}px)`;
-                item.style.zIndex = itemParallaxOutput.zIndex;
-                item.style.transform = `scale(${itemParallaxOutput.scale}) translate(${itemParallaxOutput.x}px, ${itemParallaxOutput.y}px)`;
-            });
+            // set HTML item styles
+            item.style.filter = `blur(${itemParallaxOutput.blur}px)`;
+            item.style.zIndex = itemParallaxOutput.zIndex;
+            item.style.transform = `scale(${itemParallaxOutput.scale}) translate(${itemParallaxOutput.x}px, ${itemParallaxOutput.y}px)`;
+        });
     };
 
     const handleMouseMove = (e) => {
@@ -156,14 +158,28 @@ const vfxParallax = () => {
         window.addEventListener("resize", handleResize);
     }
 
+    const removeListeners = () => {
+        window.removeEventListener("mousemove", handleMouseMove);
+        document.removeEventListener("scroll", handleScroll);
+        window.removeEventListener("resize", handleResize);
+    }
 
-    registerInputs();
-    offsetOutputs();
-    applyParallaxDepth();
-    addListeners();
+
+
+        removeListeners();
+
+        registerInputs();
+        offsetOutputs();
+        applyParallaxDepth();
+        addListeners();
+
+
+
 }
 
-export default vfxParallax();
+export default vfxParallax;
+
+
 
 
 

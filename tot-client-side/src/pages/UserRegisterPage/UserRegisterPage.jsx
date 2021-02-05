@@ -6,6 +6,7 @@ import {saveUser} from "../../api/userApi";
 import {useHistory} from "react-router-dom";
 import {useState} from "react";
 import ServerErrorMessage from "../../components/Forms/ServerErrorMessage";
+import image from "../../assets/bg-images/ball-gatekeeper-hand-01-small.png";
 
 const UserRegisterPage = () => {
     const [serverValidationErrors, setServerValidationErrors] = useState({});
@@ -45,6 +46,7 @@ const UserRegisterPage = () => {
     return (
         <main className="default">
             <section className="graph-section">
+                <img src={image} alt="ball in net"/>
             </section>
             <section className="form-section">
                 <article className="form-section__article">

@@ -143,7 +143,7 @@
   background-color: var(--light-teal);
 }
 
-.tote-board__button {
+.tote-board__button{
   height: 35px;
   width: 250px;
   padding: 0 30px 0 30px;
@@ -166,15 +166,19 @@
   justify-content: flex-end;
 }
 
-.tote-board__del-button a {
+.tote-board__del-button button {
   text-decoration: none;
+  background-color: transparent;
+  border: none;
+
   color: var(--white-blue);
   font-weight: bold;
-  margin: 5px 10px -15px;
+  margin: 5px 10px -5px;
 }
 
-.tote-board__del-button a:hover {
+.tote-board__del-button button:hover {
   color: var(--yellow);
+  cursor: pointer;
 }
 
 .tote-board--flipped {

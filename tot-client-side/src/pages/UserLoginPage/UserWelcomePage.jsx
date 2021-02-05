@@ -1,5 +1,6 @@
 import useUser from "../../hooks/useUser";
 import useTotalisator from "../../hooks/useTotalisator";
+import image from "../../assets/bg-images/bicycle-kick-01-small-flip-hue.png";
 
 const UserWelcomePage = () => {
 
@@ -45,14 +46,19 @@ const UserWelcomePage = () => {
                     </p>
                 </div>
             </article>
+
         )
     }
 
     return (
         <main className="default">
-            <section className="text-section">
+            <section className="graph-section">
+                <img src={image} alt="ball in net"/>
+            </section>
+            <section className="text-section text-section--welcome">
                 {hasTotalisators ? renderUsual() : renderForNewUser() }
             </section>
+
         </main>
     )
 }

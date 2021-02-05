@@ -9,3 +9,5 @@ export const fetchUpdatedMatch = (totalisatorId, match) => HTTP.patch(`/totalisa
 export const fetchPlayerNotPredictedMatches = (totalisatorId) => HTTP.get(`/totalisator/${totalisatorId}/match/player/not-predicted/`);
 export const fetchPlayerPendingMatches = (totalisatorId) => HTTP.get(`/totalisator/${totalisatorId}/match/player/pending/`);
 export const fetchMonitoredMatches = (totalisatorId) => HTTP.get(`/totalisator/${totalisatorId}/match/monitored`)
+
+export const deleteMatch = (totalisatorId, matchId) => HTTP.delete(`/totalisator/${totalisatorId}/match/${matchId}`)

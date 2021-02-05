@@ -8,6 +8,10 @@ body {
   width: 100%;
 }
 
+main {
+  min-height: calc(100vh - 325px);
+}
+
 section {
   width: 100%;
 }

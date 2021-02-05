@@ -7,22 +7,23 @@ import useUser from "../../hooks/useUser";
 import blink from "../../assets/images/blink.gif"
 import LiveFeedMonitor from "../../monitor/LiveFeedMonitor";
 import {Provider} from "react-redux";
+import useMonitor from "../../hooks/useMonitor";
 
 const Header = () => {
 
 
     const user = useUser();
     const totalisator = useTotalisator()
-    // const liveMatches = totalisator.matches?.filter(m => m.statusName === "Inplay")
+    const monitor = useMonitor();
 
     const renderLiveMatch = (m) => {
         // console.log("rendering live match", m)
         return (
-            <div>
+            <div className="header__live-match">
                 {m.statusName==="Inplay" &&
-                <div>
+                <div className="header__live-status">
                     <img style={{width: "10px", height: "10px"}} src={blink} alt="blink"/>
-                    <span>&nbsp;LIVE</span>
+                    <span >&nbsp;LIVE</span>
                 </div>
                 }
                 {m.statusName==="Finished" &&
@@ -30,26 +31,36 @@ const Header = () => {
                     <span>&nbsp;FINISHED</span>
                 </div>
                 }
-                <p>{m.homeTeam.shortCode} {m.homeScore} : {m.awayScore} {m.awayTeam.shortCode}</p>
+                <span className="header__live-team">{m.homeTeam.shortCode}</span>
+                <span className="header__live-score">{m.homeScore}</span>
+                <span>:</span>
+                <span className="header__live-score">{m.awayScore}</span>
+                <span className="header__live-team">{m.awayTeam.shortCode}</span>
             </div>
         )
     }
 
     return (
         <header>
-            {user && totalisator?.id && <LiveFeedMonitor/>}
-            <Logo/>
-            <nav>
-                {totalisator && user && totalisator.managerId === user.id &&
-                <ManagerMenu/>
-                }
-                <PlayerMenu/>
-            </nav>
+            <div className = "header__menu">
+                {user && totalisator?.id && <LiveFeedMonitor/>}
+                <Logo/>
+                <nav>
+                    {totalisator && user && totalisator.managerId === user.id &&
+                    <ManagerMenu/>
+                    }
+                    <PlayerMenu/>
+                </nav>
 
-            <UserMenu/>
-            {/*{*/}
-            {/*    liveMatches?.length > 0 && liveMatches.map(renderLiveMatch)*/}
-            {/*}*/}
+                <UserMenu/>
+
+            </div>
+            <div className = "header__live-feed">
+                {
+                    monitor.liveFeed.length > 0 && monitor.liveFeed.map(renderLiveMatch)
+                }
+            </div>
+
         </header>
     )
 }

@@ -7,7 +7,7 @@
     padding: 5px 20px 5px 20px;
     margin: 5px;
     display: flex;
-    width: 300px;
+    width: 250px;
     justify-items: center;
     align-items: center;
 }
@@ -50,4 +50,14 @@
 .found-user__link:hover {
     text-decoration: underline;
     cursor: pointer;
+}
+
+.friendlist-section p {
+    color: var(--white-blue);
+}
+
+.friendlist-section .found-user__link {
+    color: var(--light-teal);
+    font-size: 9pt;
+    margin: 10px;
 }
