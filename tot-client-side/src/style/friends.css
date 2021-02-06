@@ -1,3 +1,39 @@
+.friendlist-section h2 {
+    margin-top: 40px;
+    font-weight: normal;
+    color: var(--white-blue);
+}
+
+.friendlist-section {
+    padding-left: 30px;
+    color: var(--light-teal);
+    width: 70%;
+    background-color: rgba(22, 30, 33, 0.7);
+    backdrop-filter: blur(7px);
+}
+
+.friendlist-section .found-users {
+    flex-direction: column;
+}
+
+.friendlist-section.friendlist-section--players {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: unset;
+    padding: unset;
+    margin: unset;
+}
+
+.friendlist-section--players .form-section__article {
+    width: 50%;
+}
+
+.friendlist-section--players .found-users {
+    flex-direction: unset;
+    justify-content: center;
+}
+
 .found-users{
     display: flex;
     flex-wrap: wrap;

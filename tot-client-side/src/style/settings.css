@@ -1,0 +1,23 @@
+.settings input{
+    max-width: 50px;
+    margin: 10px;
+}
+
+.settings h3 {
+    font-weight: normal;
+    color: var(--light-teal);
+}
+
+.settings label {
+    color: var(--white-blue);
+}
+
+.settings label span{
+    color: var(--light-teal);
+}
+
+.settings .form-section__undertext {
+    font-size: 10pt;
+    color: var(--light-teal);
+    margin: 5px 0 0 0;
+}

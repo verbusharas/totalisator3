@@ -14,6 +14,7 @@ import UserWelcomePage from "../../pages/UserLoginPage/UserWelcomePage";
 import ManagePlayersPage from "../../pages/ManagePlayersPage/ManagePlayersPage";
 import ManagerRoute from "../ManagerRoute/ManagerRoute";
 import DeniedAccessPage from "../../pages/DeniedAccessPage/DeniedAccessPage";
+import ManageSettingsPage from "../../pages/ManageSettingsPage/ManageSettingsPage";
 
 const Content = () => {
     return (
@@ -52,6 +53,9 @@ const Content = () => {
             </ManagerRoute>
             <ManagerRoute exact path="/totalisator/manage/players" roles={['USER']}>
                 <ManagePlayersPage/>
+            </ManagerRoute>
+            <ManagerRoute exact path="/totalisator/manage/settings" roles={['USER']}>
+                <ManageSettingsPage/>
             </ManagerRoute>
             <ManagerRoute exact path="/totalisator/manage" roles={['USER']}>
                 <ManagerHomePage/>

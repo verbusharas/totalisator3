@@ -19,7 +19,7 @@ const Header = () => {
     const renderLiveMatch = (m) => {
         // console.log("rendering live match", m)
         return (
-            <div className="header__live-match">
+            <div className="header__live-match" key={"live" + m.entityId}>
                 {m.statusName==="Inplay" &&
                 <div className="header__live-status">
                     <img style={{width: "10px", height: "10px"}} src={blink} alt="blink"/>

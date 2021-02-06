@@ -13,10 +13,8 @@ const UserRegisterPage = () => {
     const history = useHistory();
 
     const handleOnSubmit = (formValues) => {
-        console.log("FORM VALUES", formValues)
         saveUser(formValues)
-            .then(res => {
-                console.log("res", res)
+            .then(() => {
                 history.push("/user/login");
             }).catch(err => {
                 setServerValidationErrors(err.response.data)

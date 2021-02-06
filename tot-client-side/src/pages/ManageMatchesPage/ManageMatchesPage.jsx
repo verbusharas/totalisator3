@@ -7,8 +7,6 @@ import React, {useEffect, useState} from "react";
 import {fetchFakeFixtures, fetchFifaFixtures} from "../../api/fixtureApi";
 import {deleteMatch, fetchFinishedMatches, fetchRegisteredMatches, saveAsMatch} from "../../api/matchApi";
 import useTotalisator from "../../hooks/useTotalisator";
-import {addMatch, setMatches} from "../../store/slices/totalisatorSlice";
-import {useDispatch} from "react-redux";
 import DemoSwitch from "../../components/Header/HeaderFragments/DemoSwitch";
 import usePreferences from "../../hooks/usePreferences";
 
