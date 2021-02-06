@@ -13,6 +13,8 @@ import lombok.Setter;
 @AllArgsConstructor
 public class PredictionCalcDTO {
 
+    private Long totalisatorId;
+
     private Integer home;
 
     private Integer away;

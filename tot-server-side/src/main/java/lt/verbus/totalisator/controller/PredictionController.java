@@ -25,13 +25,6 @@ public class PredictionController {
         this.payoutService = payoutService;
     }
 
-//    @PostMapping
-//    @ResponseStatus(HttpStatus.ACCEPTED)
-//    public PredictionDTO predict(@RequestBody PredictionRegistrationDTO predictionRegistrationDTO) {
-//        return predictionService
-//                .savePrediction(predictionRegistrationDTO);
-//    }
-
     @PostMapping
     @ResponseStatus(HttpStatus.ACCEPTED)
     public List<MatchDTO> predictAndGetUpdatedPendingList(@RequestBody PredictionRegistrationDTO predictionRegistrationDTO,

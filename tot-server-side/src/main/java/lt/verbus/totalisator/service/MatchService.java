@@ -6,15 +6,13 @@ import lt.verbus.totalisator.domain.entity.Totalisator;
 import lt.verbus.totalisator.domain.entity.User;
 import lt.verbus.totalisator.exception.DuplicateEntryException;
 import lt.verbus.totalisator.repository.MatchRepository;
-import lt.verbus.totalisator.util.MatchMapper;
+import lt.verbus.totalisator.util.mapper.MatchMapper;
 import lt.verbus.totalisator.util.UpdateQualifier;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 

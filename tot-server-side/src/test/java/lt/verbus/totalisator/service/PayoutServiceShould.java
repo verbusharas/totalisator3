@@ -3,7 +3,8 @@ package lt.verbus.totalisator.service;
 import lt.verbus.totalisator.domain.entity.Match;
 import lt.verbus.totalisator.domain.entity.Prediction;
 import lt.verbus.totalisator.domain.entity.Settings;
-import lt.verbus.totalisator.util.PredictionCalcMapper;
+import lt.verbus.totalisator.domain.entity.Totalisator;
+import lt.verbus.totalisator.util.mapper.PredictionCalcMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,14 +19,15 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class PayoutServiceShould {
 
-    private final Match MATCH_0_0 = Match.builder().homeScore(0).awayScore(0).build();
-    private final Match MATCH_1_0 = Match.builder().homeScore(1).awayScore(0).build();
-    private final Match MATCH_0_2 = Match.builder().homeScore(0).awayScore(2).build();
-    private final Match MATCH_2_4 = Match.builder().homeScore(2).awayScore(4).build();
-    private final Match MATCH_3_3 = Match.builder().homeScore(3).awayScore(3).build();
-    private final Match MATCH_4_0 = Match.builder().homeScore(4).awayScore(0).build();
-    private final Match MATCH_2_2 = Match.builder().homeScore(2).awayScore(2).build();
-    private final Match MATCH_5_4 = Match.builder().homeScore(5).awayScore(4).build();
+    private final Totalisator totalisator = Totalisator.builder().id(9999L).build();
+    private final Match MATCH_0_0 = Match.builder().homeScore(0).awayScore(0).totalisator(totalisator).build();
+    private final Match MATCH_1_0 = Match.builder().homeScore(1).awayScore(0).totalisator(totalisator).build();
+    private final Match MATCH_0_2 = Match.builder().homeScore(0).awayScore(2).totalisator(totalisator).build();
+    private final Match MATCH_2_4 = Match.builder().homeScore(2).awayScore(4).totalisator(totalisator).build();
+    private final Match MATCH_3_3 = Match.builder().homeScore(3).awayScore(3).totalisator(totalisator).build();
+    private final Match MATCH_4_0 = Match.builder().homeScore(4).awayScore(0).totalisator(totalisator).build();
+    private final Match MATCH_2_2 = Match.builder().homeScore(2).awayScore(2).totalisator(totalisator).build();
+    private final Match MATCH_5_4 = Match.builder().homeScore(5).awayScore(4).totalisator(totalisator).build();
     private final Prediction PREDICTION_4_2 = Prediction.builder().homeScore(4).awayScore(2).build();
     private final Prediction PREDICTION_4_3 = Prediction.builder().homeScore(4).awayScore(3).build();
     private final Prediction PREDICTION_5_7 = Prediction.builder().homeScore(5).awayScore(7).build();

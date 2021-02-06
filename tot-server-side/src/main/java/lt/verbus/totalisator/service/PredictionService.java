@@ -4,6 +4,7 @@ import lt.verbus.totalisator.controller.dto.MatchDTO;
 import lt.verbus.totalisator.controller.dto.PredictionRegistrationDTO;
 import lt.verbus.totalisator.domain.entity.Match;
 import lt.verbus.totalisator.domain.entity.Prediction;
+import lt.verbus.totalisator.domain.entity.Totalisator;
 import lt.verbus.totalisator.domain.entity.User;
 import lt.verbus.totalisator.exception.EntityNotFoundException;
 import lt.verbus.totalisator.repository.PredictionRepository;
@@ -47,7 +48,7 @@ public class PredictionService {
 
 
     public Prediction findByMatchIdPlayerId(Long matchId, Long playerId) {
-        return predictionRepository.findByMatchIdAndPlayerId(matchId, playerId).orElseThrow(()->new EntityNotFoundException("Prediction was not found"));
+        return predictionRepository.findByMatchIdAndPlayerId(matchId, playerId).orElseThrow(() -> new EntityNotFoundException("Prediction was not found"));
     }
 
     public List<Prediction> findByMatchId(Long matchId) {
@@ -61,7 +62,7 @@ public class PredictionService {
     public List<MatchDTO> savePredictionAndGetUpdatedPendingList(PredictionRegistrationDTO predictionRegistrationDTO, User user) {
         Match match = matchService.getById(predictionRegistrationDTO.getMatchId());
         match = updateService.updateIfMonitored(match);
-        if(!updateQualifier.hasStarted(match)) {
+        if (!updateQualifier.hasStarted(match)) {
             Prediction prediction =
                     Prediction.builder()
                             .match(match)
@@ -72,7 +73,7 @@ public class PredictionService {
             match.getPredictions().add(prediction);
             matchService.save(match);
         }
-        return  matchService.getPendingByUserAndTotalisatorId(match.getTotalisator().getId(), user.getId());
+        return matchService.getPendingByUserAndTotalisatorId(match.getTotalisator().getId(), user.getId());
     }
 
     public Match defaultMissingIfDue(Match match) {
@@ -88,10 +89,10 @@ public class PredictionService {
                     .collect(Collectors.toList());
 
             List<User> latePlayers = allPlayers.stream()
-                    .filter(p->!predictedPlayers.contains(p))
+                    .filter(p -> !predictedPlayers.contains(p))
                     .collect(Collectors.toList());
 
-            latePlayers.forEach(player-> {
+            latePlayers.forEach(player -> {
                 match.getPredictions().add(Prediction.builder()
                         .match(match)
                         .awayScore(DEFAULT_AWAY_PREDICTION)
@@ -113,4 +114,13 @@ public class PredictionService {
         this.updateService = updateService;
     }
 
+    public List<Prediction> getDefaultPredictionList(Totalisator totalisator, User user) {
+        return totalisator.getMatches().stream().map(match ->
+                Prediction.builder()
+                        .match(match)
+                        .awayScore(DEFAULT_AWAY_PREDICTION)
+                        .homeScore(DEFAULT_HOME_PREDICTION)
+                        .user(user)
+                        .build()).collect(Collectors.toList());
+    }
 }

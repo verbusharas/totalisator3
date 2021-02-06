@@ -2,12 +2,14 @@ package lt.verbus.totalisator.service;
 
 import lt.verbus.totalisator.controller.dto.TotalisatorBasicDTO;
 import lt.verbus.totalisator.controller.dto.UserDTO;
+import lt.verbus.totalisator.domain.entity.Prediction;
 import lt.verbus.totalisator.domain.entity.Totalisator;
 import lt.verbus.totalisator.domain.entity.User;
+import lt.verbus.totalisator.exception.DuplicateEntryException;
 import lt.verbus.totalisator.exception.OperationNotAllowed;
 import lt.verbus.totalisator.repository.TotalisatorRepository;
 import lt.verbus.totalisator.controller.dto.TotalisatorDTO;
-import lt.verbus.totalisator.util.TotalisatorMapper;
+import lt.verbus.totalisator.util.mapper.TotalisatorMapper;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -56,15 +58,14 @@ public class TotalisatorService {
     public TotalisatorDTO addPlayer (Long userId, Long totalisatorId) {
         User user = userService.getById(userId);
         Totalisator totalisator = totalisatorRepository.getOne(totalisatorId);
-        boolean isUserInTotalisator = user
-                .getTotalisators()
-                .stream()
-                .anyMatch(tot-> tot.getId().equals(totalisator.getId()));
 
-        if (isUserInTotalisator) {
-            return totalisatorMapper
-                    .convertToDTO(totalisator);
+        if (isUserInTotalisator(user, totalisator)) {
+            throw new DuplicateEntryException("Player already exists");
         }
+        
+        List<Prediction> defaultNewUserPredictions = predictionService.getDefaultPredictionList(totalisator, user);
+        user.getPredictions().addAll(defaultNewUserPredictions);
+
         totalisator.getPlayers().add(user);
         Totalisator savedTotalisator = totalisatorRepository.save(totalisator);
         user.getTotalisators().add(totalisator);
@@ -86,6 +87,13 @@ public class TotalisatorService {
         Totalisator savedTotalisator = totalisatorRepository.save(totalisator);
         predictionService.deleteAllByUserAndTotalisatorId(playerId, totalisatorId);
         return totalisatorMapper.convertToDTO(savedTotalisator);
+    }
+
+    protected boolean isUserInTotalisator(User user, Totalisator totalisator) {
+        return   user
+                .getTotalisators()
+                .stream()
+                .anyMatch(tot-> tot.getId().equals(totalisator.getId()));
     }
 
 

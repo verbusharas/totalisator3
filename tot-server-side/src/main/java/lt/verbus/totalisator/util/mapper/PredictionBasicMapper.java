@@ -1,4 +1,4 @@
-package lt.verbus.totalisator.util;
+package lt.verbus.totalisator.util.mapper;
 
 import lt.verbus.totalisator.controller.dto.PredictionBasicDTO;
 import lt.verbus.totalisator.domain.entity.Prediction;

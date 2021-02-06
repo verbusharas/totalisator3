@@ -5,8 +5,8 @@ import lt.verbus.totalisator.controller.dto.PredictionCalcDTO;
 import lt.verbus.totalisator.domain.entity.Prediction;
 import lt.verbus.totalisator.domain.entity.Settings;
 import lt.verbus.totalisator.domain.model.Payout;
-import lt.verbus.totalisator.util.PayoutMapper;
-import lt.verbus.totalisator.util.PredictionCalcMapper;
+import lt.verbus.totalisator.util.mapper.PayoutMapper;
+import lt.verbus.totalisator.util.mapper.PredictionCalcMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -39,7 +39,8 @@ public class PayoutService {
 
     public List<PayoutDTO> calculateByTotalisator(Long totalisatorId) {
         List<Prediction> predictions = predictionService.findByTotalisatorId(totalisatorId);
-        return predictions.stream().filter(this::hasFinalScore).map(this::getPayoutByPrediction).collect(Collectors.toList());
+        List<PayoutDTO> payouts = predictions.stream().filter(this::hasFinalScore).map(this::getPayoutByPrediction).collect(Collectors.toList());
+        return payouts;
     }
 
     private boolean hasFinalScore(Prediction p) {
@@ -54,10 +55,8 @@ public class PayoutService {
         return payoutMapper.mapModelToDTO(payout);
     }
 
-
     protected Integer calculateAwards (PredictionCalcDTO prediction) {
-        Settings settings = settingsService.findByTotalisatorId(1L);
-        //        Settings settings = settingsService.findByTotalisatorId(predictionEntity.getMatch().getTotalisator().getId());
+        Settings settings = settingsService.findByTotalisatorId(prediction.getTotalisatorId());
         int totalAward = 0;
 
         if (hasAccurateWinner(prediction)) {
@@ -75,7 +74,6 @@ public class PayoutService {
 
         return totalAward;
     }
-
 
     protected boolean hasAccurateWinner(PredictionCalcDTO prediction) {
         boolean hasPredictedHomeWin = prediction.getHome() > prediction.getAway() && prediction.getActualHome() > prediction.getActualAway();
@@ -117,7 +115,6 @@ public class PayoutService {
         } else {
             accurateGoalCount += prediction.getActualAway();
         }
-
         return accurateGoalCount;
     }
 
@@ -125,8 +122,6 @@ public class PayoutService {
         int homeDeviation = Math.abs(prediction.getHome() - prediction.getActualHome());
         int awayDeviation = Math.abs(prediction.getAway() - prediction.getActualAway());
         return homeDeviation + awayDeviation;
-
     }
-
 
 }

@@ -5,7 +5,7 @@ import lt.verbus.totalisator.domain.entity.User;
 import lt.verbus.totalisator.repository.FriendshipRepository;
 import lt.verbus.totalisator.controller.dto.FriendshipDTO;
 import lt.verbus.totalisator.exception.EntityNotFoundException;
-import lt.verbus.totalisator.util.FriendshipMapper;
+import lt.verbus.totalisator.util.mapper.FriendshipMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

@@ -7,7 +7,7 @@ import lt.verbus.totalisator.repository.RoleRepository;
 import lt.verbus.totalisator.repository.UserRepository;
 import lt.verbus.totalisator.controller.dto.UserDTO;
 import lt.verbus.totalisator.exception.EntityNotFoundException;
-import lt.verbus.totalisator.util.UserMapper;
+import lt.verbus.totalisator.util.mapper.UserMapper;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
