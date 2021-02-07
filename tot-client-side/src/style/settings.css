@@ -21,3 +21,56 @@
     color: var(--light-teal);
     margin: 5px 0 0 0;
 }
+
+.settings .tote-board__score-predict input {
+    background-color: var(--white-blue);
+    border: 1px solid var(--medium-teal);
+    color: var(--medium-teal);
+    width: 50px;
+}
+
+.settings .tote-board__score-predict p {
+    width: 150px;
+}
+
+.settings .tote-board__score-predict--actual input {
+    background-color: var(--dark-teal);
+    color: var(--white-blue);
+    width: 50px;
+}
+
+.settings__sample-table {
+    text-align: right;
+    font-size: 10pt;
+}
+.settings__sample-table td{
+    padding: 3px;
+}
+
+
+.settings__sample-row--total-award {
+    color: var(--yellow);
+}
+
+.settings__sample-row--prediction {
+    color: var(--white-blue);
+}
+
+.form-section.settings--tryout {
+    display: flex;
+    flex-direction: column;
+    padding: unset;
+    width: 50%;
+    text-align: center;
+    align-items: center;
+}
+
+.settings--tryout input{
+    border: none;
+    height: 50px;
+    background-color: var(--white-blue);
+    color: var(--black-teal);
+    font-size: 15pt;
+    font-weight: bold;
+    text-align: center;
+}

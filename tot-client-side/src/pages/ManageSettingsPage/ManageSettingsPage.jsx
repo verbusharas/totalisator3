@@ -7,11 +7,15 @@ import Button from "../../components/Forms/Button";
 import Undertext from "../../components/Forms/Undertext";
 import {saveUser} from "../../api/userApi";
 import {useHistory} from "react-router-dom";
+import SettingsSampleRow from "./SettingsSampleRow";
+import {getSamplePayouts} from "../../api/predictionApi";
 
 const ManageSettingsPage = () => {
 
-    const [settings, setSettings] = useState({});
     const totalisator = useTotalisator();
+    const [settings, setSettings] = useState({});
+    const [tryoutScore, setTryoutScore] = useState({totalisatorId: totalisator.id, home:0, away:0})
+    const [samplePayouts, setSamplePayouts] = useState([])
     const history = useHistory();
 
     useEffect(()=>{
@@ -20,19 +24,70 @@ const ManageSettingsPage = () => {
             if(isSubscribed) {
                 setSettings(res.data);
             }
-            console.log("RETRIEVED SETTINGS:", res.data)
             return () => isSubscribed = false;
         })
+
+        const sampleScore = {
+            totalisatorId: totalisator.id,
+            actualHome: 0,
+            actualAway: 0,
+        }
+        getSamplePayouts(sampleScore).then(res=> {
+            setSamplePayouts(res.data);
+        })
+
+
     },[totalisator.id])
 
     const handleSubmit = (formValues) => {
         console.log("formValues", formValues)
         saveSettings(totalisator.id, formValues)
             .then((res) => {
-                console.log("saved", res.data)
                 history.push("/totalisator/manage/settings");
+                const sampleScore = {
+                    totalisatorId: totalisator.id,
+                    actualHome: tryoutScore.home,
+                    actualAway: tryoutScore.away,
+                }
+                getSamplePayouts(sampleScore).then(res=> {
+                    setSamplePayouts(res.data);
+                })
             })
     }
+
+    const handleHomeScoreChange = (e) => {
+        const homeScore = e.target.value;
+        setTryoutScore(prev => ({...prev, home:homeScore}));
+        const sampleScore = {
+            totalisatorId: totalisator.id,
+            actualHome: homeScore,
+            actualAway: tryoutScore.away,
+        }
+        getSamplePayouts(sampleScore).then(res=> {
+            setSamplePayouts(res.data);
+        })
+
+    }
+
+    const handleAwayScoreChange = (e) => {
+        const awayScore = e.target.value;
+        setTryoutScore(prev => ({...prev, away:awayScore}));
+        const sampleScore = {
+            totalisatorId: totalisator.id,
+            actualHome: tryoutScore.home,
+            actualAway: awayScore,
+        }
+        getSamplePayouts(sampleScore).then(res=> {
+            setSamplePayouts(res.data);
+        })
+    }
+
+    const renderSamplePayoutRow  = (samplePayout) => (
+        <SettingsSampleRow
+            className = "settings__sample-row"
+            payout={samplePayout}
+            key={Math.random() + " " + samplePayout.award}/>
+    )
 
     return (
         <main className="default settings">
@@ -114,9 +169,52 @@ const ManageSettingsPage = () => {
                 </article>
 
             </section>
-            <section className="form-section">
+            <section className="form-section settings--tryout">
                 <h2>TRY IT OUT</h2>
-                <article className="form-section__article">
+                <article>
+                    <div>
+                        <p>ENTER FINAL SCORE:</p>
+                    </div>
+                    <div>
+                        <input type="number" value={tryoutScore.home} onChange={handleHomeScoreChange}/>
+                        <input type="number" value={tryoutScore.away} onChange={handleAwayScoreChange}/>
+                    </div>
+                    <div>
+                        <div>
+                            <p>AWARD DISTRIBUTION WITH CURRENT SETTINGS:</p>
+                        </div>
+                        <table className="settings__sample-table">
+                            <thead>
+                                <td>
+                                    <strong className="settings__sample-row--prediction">prediction</strong>
+                                </td>
+                                <td>
+                                    <strong className="settings__sample-row--total-award">award</strong>
+                                </td>
+                                <td>
+                                    AEP
+                                </td>
+                                <td>
+                                   AGD
+                                </td>
+                                <td>
+                                    AWT
+                                </td>
+                                <td>
+                                    Σ PG
+                                </td>
+                                <td>
+                                   ACC
+                                </td>
+                                <td>
+                                    Σ PEN
+                                </td>
+                            </thead>
+                            <tbody>
+                            {samplePayouts?.map(renderSamplePayoutRow)}
+                            </tbody>
+                        </table>
+                    </div>
                 </article>
             </section>
         </main>
