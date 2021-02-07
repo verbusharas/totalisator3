@@ -30,7 +30,7 @@ const PrivateRoute = ({ children, roles, requiresTotalisator, ...props }) => {
                 authorized ? children : (
                     <Redirect
                         to={{
-                            pathname: '/user/login',
+                            pathname: '/forbidden',
                             state: {
                                 from: location
                             }

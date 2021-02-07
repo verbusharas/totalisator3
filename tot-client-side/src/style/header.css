@@ -3,7 +3,6 @@ header {
     display: flex;
     flex-direction: column;
 
-    /*align-items: center;*/
     align-content: center;
     justify-content: space-between;
     height: 200px;
@@ -45,8 +44,6 @@ header {
 .header__live-score {
     font-weight: bold;
 }
-
-
 
 .logo {
   font-size: 9pt;
@@ -121,6 +118,16 @@ header {
 .user-menu__lang-select {
   margin: 5px;
 }
+
+.user-menu__lang-select button{
+    outline: none;
+}
+
+
+.user-menu__lang-select .nav__link--active{
+    color: var(--white-blue);
+}
+
 
   .user-menu__text {
     color: var(--white-blue);

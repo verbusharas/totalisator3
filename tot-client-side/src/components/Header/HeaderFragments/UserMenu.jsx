@@ -2,11 +2,16 @@ import useUser from "../../../hooks/useUser";
 import {useDispatch} from "react-redux";
 import {clearJwt, clearUserData} from "../../../store/slices/userSlice";
 import {clearTotalisator} from "../../../store/slices/totalisatorSlice";
+import {useTranslation} from "react-i18next";
+import cx from "classnames";
 
 const UserMenu = () => {
 
     const user = useUser();
     const dispatch = useDispatch()
+
+    const {t, i18n} = useTranslation();
+
 
     const logout = () => {
         dispatch(clearJwt())
@@ -14,11 +19,22 @@ const UserMenu = () => {
         dispatch(clearTotalisator())
     }
 
+    const handleClick = (langCode) => {
+        console.log("i18n", i18n)
+        i18n.changeLanguage(langCode);
+    }
+
     return (
         <div className="user-menu">
             <div className="user-menu__lang-select">
-                <a href="/" className="user-menu__link">LT</a>
-                <a href="/" className="user-menu__link">EN</a>
+                <button className={cx({"user-menu__link": true, "nav__link--active": i18n.language==="lt"})}
+                        onClick={()=>handleClick("lt")}>
+                    LT
+                </button>
+                <button className={cx({"user-menu__link": true, "nav__link--active": i18n.language==="en"})}
+                    onClick={()=>handleClick("en")}>
+                    EN
+                </button>
             </div>
             {
                 user ?

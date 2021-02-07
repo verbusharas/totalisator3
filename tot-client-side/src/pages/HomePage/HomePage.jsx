@@ -3,10 +3,11 @@ import mid from "../../assets/bg-images/chest/chest3-mid1.png"
 import preBottom from "../../assets/bg-images/chest/chest3-pre-bottom.png"
 import bottom from "../../assets/bg-images/chest/chest3-bottom.png"
 import {useEffect} from "react";
-
-
+import {useTranslation} from "react-i18next";
 
 const HomePage = () => {
+
+    const { t } = useTranslation('common');
 
     useEffect(() => {
         const itemsHTMLCollection = document.getElementsByClassName("parallax-item");
@@ -181,6 +182,7 @@ const HomePage = () => {
         <main className="default">
             <section className="text-section">
                 <article className="text-section__article">
+                    <h2>{t("homepage-welcome-title")}</h2>
                     <h2>WELCOME TO FRESH NEW <strong>TOTALISATOR 3.0</strong>!</h2>
                     <div className="text-section__description">
                         <div>
