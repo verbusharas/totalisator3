@@ -4,10 +4,6 @@ import Content from "./components/Content/Content";
 import Footer from "./components/Footer/Footer";
 import {Provider} from "react-redux";
 import store from "./store"
-import LiveFeedMonitor from "./monitor/LiveFeedMonitor";
-import useTotalisator from "./hooks/useTotalisator";
-import useUser from "./hooks/useUser";
-
 
 function App() {
     return (

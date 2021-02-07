@@ -6,8 +6,6 @@ export const getMatchPayouts = (matchId) => HTTP.get(`/totalisator/prediction/pa
 export const getTotalisatorPayouts = (totalisatorId) => HTTP.get(`/totalisator/prediction/payout/all/${totalisatorId}`)
 
 export const getSamplePayouts = (sampleScore) => {
-    console.log("Kreipiamasi i /totalisator/prediction/payout/sample")
-    console.log("Su payload:", sampleScore)
     return HTTP.post(`/totalisator/prediction/payout/sample`, sampleScore);
 }
 

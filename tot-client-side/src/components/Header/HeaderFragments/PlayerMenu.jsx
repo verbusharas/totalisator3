@@ -1,6 +1,8 @@
 import {NavLink} from "react-router-dom";
+import useUser from "../../../hooks/useUser";
 
 const PlayerMenu = () => {
+    const user = useUser();
     return (
         <div className="nav">
             <NavLink exact to="/totalisator" className="nav__link" activeClassName="nav__link--active">
@@ -18,6 +20,11 @@ const PlayerMenu = () => {
             <NavLink exact to="/about" className="nav__link" activeClassName="nav__link--active">
                 ABOUT
             </NavLink>
+            {user?.roles.includes("ADMIN") &&
+            <NavLink exact to="/admin" className="nav__link" activeClassName="nav__link--active">
+                ADMIN
+            </NavLink>
+            }
         </div>
     )
 }

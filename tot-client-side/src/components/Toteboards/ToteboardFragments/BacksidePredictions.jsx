@@ -23,7 +23,7 @@ const BacksidePredictions = ({match, variant, getScoreboard, flipToteboard}) => 
                 setPayouts(res.data);
             }).finally("from finallu");
         }
-    },[])
+    },[match.entityId, totalisator.id, variant])
 
     const getPredictionByPlayerId = (id) => {
         return match.predictions.find(pr=>pr.userId===id)

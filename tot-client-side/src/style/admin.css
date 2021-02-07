@@ -1,0 +1,24 @@
+.admin table {
+    color: var(--white-blue);
+    font-size: 10pt;
+}
+
+.admin thead {
+    font-weight: bold;
+}
+
+.admin button {
+    background-color: transparent;
+    border: none;
+    color: var(--yellow);
+    font-size: 6pt;
+}
+
+.admin button span{
+    font-size: 8pt;
+}
+
+.admin button:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}

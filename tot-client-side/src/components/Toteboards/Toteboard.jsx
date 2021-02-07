@@ -10,9 +10,6 @@ import cx from "classnames";
 import useTotalisator from "../../hooks/useTotalisator";
 import BacksidePredictions from "./ToteboardFragments/BacksidePredictions";
 import {fetchPlayers} from "../../api/totalisatorApi";
-import {getMatchPlayerPayout} from "../../api/predictionApi";
-import useMonitor from "../../hooks/useMonitor";
-import {deleteMatch} from "../../api/matchApi";
 
 // Variant structure: "{environment}-{status}"
 // Supported variants:
@@ -62,7 +59,7 @@ const Toteboard = ({match,
             }
         })
         return () => isSubscribed = false;
-    },[])
+    },[totalisator.id])
 
 
     const validateValue = (value) => {

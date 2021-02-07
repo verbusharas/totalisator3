@@ -16,7 +16,7 @@ const ToteboardPayout = ({match, handleFlip}) => {
             }
         })
         return () => isSubscribed = false;
-    }, [user.id])
+    }, [user.id, match.entityId])
 
     return (
         <div className="tote-board__results">

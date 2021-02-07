@@ -23,6 +23,7 @@ const TotalisatorOverviewPage = (() => {
             loadPlayers();
             loadPendingMatches();
             loadFinishedMatches();
+            // eslint-disable-next-line react-hooks/exhaustive-deps
         },[totalisator.id])
 
         const registerPrediction = (match, home, away) => {

@@ -6,7 +6,6 @@ import useTotalisator from "../../hooks/useTotalisator";
 import useUser from "../../hooks/useUser";
 import blink from "../../assets/images/blink.gif"
 import LiveFeedMonitor from "../../monitor/LiveFeedMonitor";
-import {Provider} from "react-redux";
 import useMonitor from "../../hooks/useMonitor";
 
 const Header = () => {
@@ -17,7 +16,6 @@ const Header = () => {
     const monitor = useMonitor();
 
     const renderLiveMatch = (m) => {
-        // console.log("rendering live match", m)
         return (
             <div className="header__live-match" key={"live" + m.entityId}>
                 {m.statusName==="Inplay" &&

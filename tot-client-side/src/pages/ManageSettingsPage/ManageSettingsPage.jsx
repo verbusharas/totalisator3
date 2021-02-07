@@ -5,7 +5,6 @@ import useTotalisator from "../../hooks/useTotalisator";
 import {fetchSettings, saveSettings} from "../../api/settingsApi";
 import Button from "../../components/Forms/Button";
 import Undertext from "../../components/Forms/Undertext";
-import {saveUser} from "../../api/userApi";
 import {useHistory} from "react-router-dom";
 import SettingsSampleRow from "./SettingsSampleRow";
 import {getSamplePayouts} from "../../api/predictionApi";
@@ -35,7 +34,6 @@ const ManageSettingsPage = () => {
         getSamplePayouts(sampleScore).then(res=> {
             setSamplePayouts(res.data);
         })
-
 
     },[totalisator.id])
 
@@ -107,8 +105,6 @@ const ManageSettingsPage = () => {
                                 pointsForNoGoalDeviation: settings.pointsForNoGoalDeviation || "",
                                 penaltyForMissedGoal: settings.penaltyForMissedGoal || "",
                                 canGetNegativePoints: settings.canGetNegativePoints || false,
-                                // defaultHome: 0,
-                                // defaultAway: 0
                             }}
                             onSubmit={handleSubmit}>
                         {(props) =>
@@ -147,21 +143,10 @@ const ManageSettingsPage = () => {
                                             <td><label>Allow accuracy points to be less than zero</label></td>
                                             <td><Field type="checkbox" name="canGetNegativePoints" id="canGetNegativePoints"/></td>
                                         </tr>
-                                        {/*<tr>*/}
-                                        {/*    <td><label>Default home score prediction when due</label></td>*/}
-                                        {/*    <td><Field name="defaultHome" id="defaultHome" autoComplete="off"/></td>*/}
-                                        {/*</tr>*/}
-                                        {/*<tr>*/}
-                                        {/*    <td><label>Default away score prediction when due</label></td>*/}
-                                        {/*    <td><Field name="defaultAway" id="defaultAway" autoComplete="off"/></td>*/}
-                                        {/*</tr>*/}
                                         </tbody>
                                     </table>
-
                                     <Button text="Save" type="submit"/>
                                     <Undertext text="Hitting save will have immediate effect on player standings."/>
-
-
                                 </Form>
                             )
                         }
@@ -185,30 +170,16 @@ const ManageSettingsPage = () => {
                         </div>
                         <table className="settings__sample-table">
                             <thead>
-                                <td>
-                                    <strong className="settings__sample-row--prediction">prediction</strong>
-                                </td>
-                                <td>
-                                    <strong className="settings__sample-row--total-award">award</strong>
-                                </td>
-                                <td>
-                                    AEP
-                                </td>
-                                <td>
-                                   AGD
-                                </td>
-                                <td>
-                                    AWT
-                                </td>
-                                <td>
-                                    Σ PG
-                                </td>
-                                <td>
-                                   ACC
-                                </td>
-                                <td>
-                                    Σ PEN
-                                </td>
+                            <tr>
+                                <th><strong className="settings__sample-row--prediction">prediction</strong></th>
+                                <th><strong className="settings__sample-row--total-award">award</strong></th>
+                                <th>AEP</th>
+                                <th>AGD</th>
+                                <th>AWT</th>
+                                <th>Σ PG</th>
+                                <th>ACC</th>
+                                <th>Σ PEN</th>
+                            </tr>
                             </thead>
                             <tbody>
                             {samplePayouts?.map(renderSamplePayoutRow)}
