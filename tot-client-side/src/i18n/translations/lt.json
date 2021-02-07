@@ -1,8 +1,67 @@
 {
-  "common": {
-    "homepage-welcome-title": "SVEIKI"
+  "header": {
+    "sign-out": "Atsijungti",
+    "navlink-totalisator-overview": "TOTALIZATORIAUS APŽVALGA",
+    "navlink-chat-log": "POKALBIAI",
+    "navlink-friends": "DRAUGAI",
+    "navlink-create-new-totalisator": "SUKURTI NAUJĄ TOTALIZATORIŲ",
+    "navlink-about": "APIE",
+    "navlink-add-remove-matches": "PRIDĖTI / PAŠALINTI RUNGTYNES",
+    "navlink-manage-players": "ŽAIDĖJŲ SĄRAŠAS",
+    "navlink-totalisator-settings": "TOTALIZATORIAUS NUSTATYMAI"
   },
-  "products": {
-    "copyright-text" : "Visos teisės saugomos"
+  "footer": {
+    "copyright-text": "Visos teisės saugomos."
+  },
+  "homepage": {
+    "welcome-title":"SVEIKI ATVYKĘ Į NAUJĄJĮ <1>TOTALISATOR 3.0<1/>!",
+    "octopus-question": "Kas geresnis orakulas, tu ar <1><0>Aštuonkojis Paulius</1></0>?",
+    "create-your-totalisator": "Susikurk savo totalizatorių ir sužinok!",
+    "invite-incentive": "Pakviesk bendradarbius, draugus ar bendramokslius, fiksuokite spėjimus, varžykitės tarpusavyje, bei sirkite ne tik už mėgstamas komandas bet ir už savo prognozių išsipildymą!",
+    "homepage:easy-and-free": "Susikurti totalizatorių paprasta ir visiškai <1>nemokama</1>.",
+    "signup-call": "Registruokis ir išbandyk pats!",
+    "btn-sign-up": "Registruotis",
+    "not-your-first-time": "Ne pirmas kartas? <1><0>Prisijunk</1></0>",
+    "title-not-convinced": "KYLA ABEJONĖS?",
+    "screenshots-call": "Užmesk akį į šiuos totalizatorių <1><0>pavyzdžius</1></0>",
+    "homepage:easy-to-use": "Valdyti totalizatorių aišku ir paprasta. Rungtynių nereikia kurti pačiam - užtenka nurodyti datą ir pasirinkti, kurias rungtynes žaidėjai turės nuspėti.",
+    "if-you-have-suggestions": "Jei turi idėjų ar pasiūlymų, kaip svetainę patobulinti, <1><0>susisiek su mumis</1></0>."
+  },
+  "overview": {
+    "title-feed-player-not-predicted": "RUNGTYNĖS LAUKIANČIOS TAVO SPĖJIMŲ",
+    "empty-feed-player-not-predicted-text": "šiuo metu neturi registruotų rungtynių tavo spėjimams. Reikia sulaukti, kol administratorius parinks ir paskelbs naujus susitikimus.",
+    "empty-feed-player-not-predicted-meanwhile": "Tuo tarpu galima apžvelgti dabartinę situaciją turnyrinėje lentelėje žemiau.",
+    "title-standings": "TOTALIZATORIAUS TURNYRINĖ LENTELĖ IR TAISYKLĖS",
+    "title-general-rules": "Bendros taisyklės",
+    "rules-when-calculated":"Taškai skaičiuojami pasibaigus rungtynėms, kai oficialiai paskelbiamas galutinis rungtynių rezultatas.",
+    "rules-when-to-predict": "Rezultato spėjimai gali būti registruojami bet kada, tačiau ne vėliau nei varžybų pradžia. Jei totalizatoriaus žaidėjas nepateikia spėjimo laiku - automatiškai užregistruojamas standartinis spėjimas (0 - 0).",
+    "rules-what-happens-next": "Pasibaigus rungtynėms, oficialus rezultatas yra lyginamas su žaidėjų spėjimais. Kuo tikslesnė prognozėm tuo daugiau žaidėjas gauna taškų. Taškų skaičiavimo taisykles parenka administratorius - totalizatoriaus nustatymuose.",
+    "title-point-calc-rules": "Taškų skaičiavimo taisyklės",
+    "rules-calc-accurate":"Už teisingai nuspėtą komandą-nugalėtoją gaunama <1>+{{pointsForAccurateWinner}}</1> tšk. Jei pataikomas ir įvarčių skirtumas, papildomai skiriama <1>+{{pointsForAccurateGoalDifference}}</1> tšk. Atspėjus taip pat ir tikslų rungtynių baigties rezultatą, gaunami taškai padidėja dar<1> +{{pointsForAccurateScore}}</1>.",
+    "rules-calc-bonus":"PAPILDOMI DINAMINIAI TAŠKAI: kiekvienoms rungtynėms gaunate pradinį <1>+{{pointsForNoGoalDeviation}}</1> dinaminių taškų kraitį. Nebijokite rizikuoti spėdami rezultatyvias rungtynių baigtis, nes kiekvienas teisingai pataikytas įvartis padidina dinaminius taškus <1>+{{pointsForEachAccurateGoal}}</1>. Tačiau per daug neįsibėgėkite, kadangi kiekvienas neatspėtas įvartis kainuoja <1>-{{penaltyForMissedGoal}}</1> dinaminių tšk.",
+    "yes": "TAIP",
+    "no": "NE",
+    "rules-about-negative": "O ar labai smarkiai prašovus galima surinkti neigiamą dinaminių bonus taškų kiekį? Pagal dabartinius nustatymus:",
+    "title-manager-message": "Pranešimas nuo administratoriaus",
+    "title-feed-player-pending": "TAVO REGISTRUOTI SPĖJIMAI",
+    "empty-feed-player-pending": "Kol kas rungtynių laukiančių spėjimų nėra.",
+    "title-feed-player-history": "TAVO SPĖJIMŲ ISTORIJA",
+    "empty-feed-player-history": "Kol kas užbaigtų rungtynių sąrašas tuščias."
+  },
+  "manage-matches": {
+    "title-find-and-add": "RUNGTYNIŲ PAIEŠKA IR REGISTRACIJA",
+    "fixtures-description": "Čia ieškomos ir registruojamos rungtynės spėjimams. Pasirink datą oficialiems tai dienai registruotiems FIFA susitikimams pamatyti. Pridėjus norimas rungtynes, totalizatoriaus žaidėjai iškart gali pradėti registruoti spėjimus.",
+    "select-date": "Pasirink datą:",
+    "include-demo-fixtures": "Rodyti demonstracines varžybas?",
+    "choose-fixtures": "Pasirink rungtynes:",
+    "loading": "KRAUNASI...",
+    "no-fixtures-found": "Šiai dienai rungtynės neregistruotos. Bandyk kitą datą.",
+    "title-manage-registered-matches": "REGISTRUOTŲ RUNGTYNIŲ VALDYMAS",
+    "registered-matches-description": "Čia rodomos naujai pridėtos rungtynės. Šį sąrašą žaidėjai mato savo totalizatoriaus apžvalgos puslapio viršuje, jei rungtynės neprasidėjo, ir jei dar spėjimai dar neatlikti. Rungtynes galima pašalinti spaudžiant 'X' viršutiniame kortelės kampe.",
+    "match-delete-warning": "Rungtynių pašalinimas šioje stadijoje panaikina visus joms registruotus spėjimus, ir taškų už spėjimus neskiria.",
+    "empty-feed-pending": "Kol kas registruotų rungtynių nėra. Naujus susitikimus gali pridėti puslapio viršuje.",
+    "title-history": "PASIBAIGUSIŲ RUNGTYNIŲ ISTORIJA",
+    "history-description": "Čia pateikiamas sąrašas registruotų rungtynių kurios jau pasibaigė. Kiekvienoje šių rungtynių yra registruoti visų totalizatoriaus žaidėjų spėjimai ir uždirbti taškai. Šias rungtynes taip pat galima ištrinti - tokiu atveju žaidėjų taškai gauti už jas atimami iš bendro jų turimo taškų kiekio.",
+    "empty-feed-history": "Kol kas baigtų rungtynių sąrašas tuščias. Rungtynes spėjimams galima pridėti puslapio viršuje."
   }
 }

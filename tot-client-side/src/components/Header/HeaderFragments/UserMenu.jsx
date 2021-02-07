@@ -10,7 +10,7 @@ const UserMenu = () => {
     const user = useUser();
     const dispatch = useDispatch()
 
-    const {t, i18n} = useTranslation();
+    const {t, i18n} = useTranslation('header');
 
 
     const logout = () => {
@@ -20,7 +20,6 @@ const UserMenu = () => {
     }
 
     const handleClick = (langCode) => {
-        console.log("i18n", i18n)
         i18n.changeLanguage(langCode);
     }
 
@@ -40,7 +39,7 @@ const UserMenu = () => {
                 user ?
                     <>
                         <span className="user-menu__text">{`${user.name}`}</span>
-                        <button className="user-menu__link" onClick={logout}>Sign Out</button>
+                        <button className="user-menu__link" onClick={logout}>{t("sign-out")}</button>
                     </>
                     : <a href="/user/login" className="user-menu__link">Sign In</a>
             }

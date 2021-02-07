@@ -1,8 +1,68 @@
 {
-  "common": {
-    "homepage-welcome-title": "HELLO HELLO"
+  "header": {
+    "sign-out": "Sign Out",
+    "navlink-totalisator-overview": "TOTALISATOR OVERVIEW",
+    "navlink-chat-log": "CHAT & LOG",
+    "navlink-friends": "FRIENDS",
+    "navlink-create-new-totalisator": "CREATE NEW TOTALISATOR",
+    "navlink-about": "ABOUT",
+    "navlink-add-remove-matches": "ADD / REMOVE MATCHES",
+    "navlink-manage-players": "MANAGE PLAYERS",
+    "navlink-totalisator-settings": "TOTALISATOR SETTINGS"
   },
-  "products": {
-    "copyright-text" : "Visos teisės saugomos"
+  "footer": {
+    "copyright-text": "All Rights Reserved"
+  },
+  "homepage": {
+    "welcome-title":"WELCOME TO FRESH NEW <1>TOTALISATOR 3.0<1/>!",
+    "octopus-question": "Who is better soccer oracle you or <1><0>Paul the Octopus</1></0>?",
+    "create-your-totalisator": "Create your custom totalisator and find out!",
+    "invite-incentive": "Invite colleagues or friends to compete against place your predictions and cheer for your score to be the most accurate.",
+    "homepage:easy-and-free": "Creating your totalisator is super easy and completely <1>free</1>.",
+    "signup-call": "Sign up and try it yourself!",
+    "btn-sign-up": "Sign up",
+    "not-your-first-time": "Not your first time? <1><0>Sign In</1></0>",
+    "title-not-convinced": "NOT CONVINCED?",
+    "screenshots-call": "If having doubts check out these example <1><0>screenshots</1></0>",
+    "homepage:easy-to-use": "Managing totalisator is clear and simple. You don't need to create matches manually - just select a date and pick out matches you like from the list.",
+    "if-you-have-suggestions": "If you have any suggestions how to make this page more awesome feel free to <1><0>contact us</1></0>."
+  },
+  "overview": {
+    "title-feed-player-not-predicted": "MATCHES WAITING FOR YOUR PREDICTION",
+    "empty-feed-player-not-predicted-text": "currently doesn't have any matches for you to predict. Wait for manager to announce new fixtures.",
+    "empty-feed-player-not-predicted-meanwhile": "Meanwhile check out the latest standings below.",
+    "title-standings": "CURRENT TOTALISATOR STANDINGS AND RULES",
+    "title-general-rules": "General rules",
+    "rules-when-calculated":"Points are calculated for matches that have finished and have official final scores announced.",
+    "rules-when-to-predict": "Score predictions can be registered any time but not after the match starts. If player fails to supply the prediction on time - default prediction is registered automatically (0-0).",
+    "rules-what-happens-next": "Official final scores are compared to the score prediction of players. The more accurate prediction the more points player gets in return. Point calculation rules are determined by your totalisator settings.",
+    "title-point-calc-rules": "Point calculation rules",
+    "rules-calc-accurate":"For correctly predicting a winner team of the game you are rewarded <1>+{{pointsForAccurateWinner}}</1>. If you also got the goal difference right you get additional <1>+{{pointsForAccurateGoalDifference}}</1>. In addition to that, accurately predicting the exact score gets you extra <1> +{{pointsForAccurateScore}}</1>.",
+    "rules-calc-bonus":"DYNAMIC BONUS: initially you always get <1>+{{pointsForNoGoalDeviation}}</1> starting bonus points. Don't be afraid to predict fat scores, because each correctly predicted goal increases your initial bonus points by <1>+{{pointsForEachAccurateGoal}}</1>. However don't be too liberate since each missed goal costs <1>-{{penaltyForMissedGoal}}</1> bonus points.",
+    "yes": "YES",
+    "no": "NO",
+    "rules-about-negative": "So, in case of crazily misjudged prediction, can the dynamic bonus become negative value? According to current settings:",
+    "title-manager-message": "Manager message",
+    "title-feed-player-pending": "YOUR REGISTERED PREDICTIONS",
+    "empty-feed-player-pending": "You currently don't have any pending matches.",
+    "title-feed-player-history": "YOUR PREDICTTION HISTORY",
+    "empty-feed-player-history": "You currently don't have any finished matches."
+  },
+  "manage-matches": {
+    "title-find-and-add": "FIND & ADD MATCHES",
+    "fixtures-description": "You can add new matches to your totalisator here. Select a date to get official Fifa fixtures for. Choose and add the desired ones to your managed totalisator. Once the match is added, players can immediately start registering their predictions.",
+    "select-date": "Select date:",
+    "include-demo-fixtures": "Include demo fixtures?",
+    "choose-fixtures": "Choose fixtures:",
+    "loading": "LOADING...",
+    "no-fixtures-found": "No fixtures found. Try another date.",
+    "title-manage-registered-matches": "MANAGE REGISTERED MATCHES",
+    "registered-matches-description": "The newly added, not started matches can be viewed here. This is the list that players see on top of their page if they have not yet registered their predictions. You can remove any match by clicking “X” on the top corner of corresponding tote board.",
+    "match-delete-warning": "Please note that by removing the match at any stage, also deletes its registered predictions and subtracts earned points.",
+    "empty-feed-pending": "Currently there are no matches pending. Try adding some in the section above.",
+    "title-history": "HISTORY OF FINISHED MATCHES",
+    "history-description": "This is a list of added matches that have already finished. These matches contain predictions of all participants, and their earned points. You can still delete any of these matches, in which case the  corresponding earned points get subtracted from total score.",
+    "empty-feed-history": "Currently there are no finished matches. Try adding some in the top section of the page."
   }
+
 }

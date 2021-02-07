@@ -57,6 +57,11 @@ section {
   text-decoration: none;
 }
 
+.default u {
+  color: var(--light-teal);
+  text-decoration: none;
+}
+
 .default a:hover {
   text-decoration: underline;
 }

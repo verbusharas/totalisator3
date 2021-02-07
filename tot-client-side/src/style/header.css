@@ -9,8 +9,8 @@ header {
     color: var(--white-blue);
 
     width: 100%;
-  background-color: var(--black-brown);
-  }
+    background-color: var(--black-brown);
+}
 
 .header__menu {
     margin-top: 30px;
@@ -46,105 +46,103 @@ header {
 }
 
 .logo {
-  font-size: 9pt;
+    font-size: 9pt;
 }
 
-  .logo__img {
+.logo__img {
     width: 290px;
     height: 32px;
-  }
-  
-  /* HEADER - NAV */
+}
 
- .navigations-root {
-   display: flex;
- }
-  .nav {
+/* HEADER - NAV */
+.navigations-root {
+    display: flex;
+}
+
+.nav {
     font-size: 10pt;
     font-weight: normal;
     color: var(--light-teal);
     margin: 10px;
-  }
-  
-  .nav--manager {
+}
+
+.nav--manager {
     color: var(--yellow);
-  }
-  
-  .nav--manager .nav__link {
+}
+
+.nav--manager .nav__link {
     font-size: 10pt;
     color: var(--yellow);
-  }
-  
-  .nav--manager .nav__link:hover {
+}
+
+.nav--manager .nav__link:hover {
     border-bottom: 1px solid var(--yellow);
-  }
-  
-  .nav__text {
-    font-weight:normal;
+}
+
+.nav__text {
+    font-weight: normal;
     font-size: 10pt;
-  }
-  
-  .nav__link {
+}
+
+.nav__link {
     text-decoration: none;
     color: var(--light-teal);
     margin: 20px;
     padding-bottom: 3px;
     border: 1px solid transparent;
     transition-duration: 0.5s;
-  }
-  
-  .nav__link:hover {
+}
+
+.nav__link:hover {
     border-bottom: 1px solid var(--light-teal);
-  }
-  
-  .nav__link--active {
+}
+
+.nav__link--active {
     font-weight: bold;
     color: var(--white-blue);
     border-bottom: 1px solid var(--light-teal);
-  }
-  
-  /* HEADER - USER MENU */
-  
-  .user-menu {
+}
+
+/* HEADER - USER MENU */
+
+.user-menu {
     width: 170px;
     min-height: 100px;
     font-size: 10pt;
     display: flex;
     flex-direction: column;
     align-items: center;
-      justify-content: center;
-  }
-
-.user-menu__lang-select {
-  margin: 5px;
+    justify-content: center;
 }
 
-.user-menu__lang-select button{
+.user-menu__lang-select {
+    margin: 5px;
+}
+
+.user-menu__lang-select button {
     outline: none;
 }
 
-
-.user-menu__lang-select .nav__link--active{
+.user-menu__lang-select .nav__link--active {
     color: var(--white-blue);
 }
 
-
-  .user-menu__text {
+.user-menu__text {
     color: var(--white-blue);
     margin: 5px;
-  }
-  
-  .user-menu__link {
+}
+
+.user-menu__link {
     color: var(--light-teal);
     text-decoration: none;
     margin: 5px;
     background-color: transparent;
     border: none;
     border-bottom: 1px solid transparent;
-  }
+}
 
 .user-menu__link:hover {
-  border-bottom: 1px solid var(--light-teal);
-  cursor: pointer;
+    border-bottom: 1px solid var(--light-teal);
+    cursor: pointer;
 
 }

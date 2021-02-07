@@ -9,8 +9,11 @@ import {deleteMatch, fetchFinishedMatches, fetchRegisteredMatches, saveAsMatch} 
 import useTotalisator from "../../hooks/useTotalisator";
 import DemoSwitch from "../../components/Header/HeaderFragments/DemoSwitch";
 import usePreferences from "../../hooks/usePreferences";
+import {Trans, useTranslation} from "react-i18next";
 
 const ManageMatchesPage = () => {
+
+    const {t} = useTranslation('manage-matches');
 
     const [fifaFixtures, setFifaFixtures] = useState([]);
     const [selectedDate, setSelectedDate] = useState(new Date());
@@ -23,19 +26,14 @@ const ManageMatchesPage = () => {
 
     const totalisator = useTotalisator();
     const preferences = usePreferences();
-    // const dispatch = useDispatch();
 
     useEffect(() => {
         fetchRegisteredMatches(totalisator.id)
             .then(res => {
-                // const pending = res.data;
                 setManagerPendingMatches(res.data)
                 fetchFinishedMatches(totalisator.id)
                     .then(response => {
-                        // const finished = response.data;
                         setManagerFinishedMatches(response.data)
-                        // const registered = pending.concat(finished)
-                        // dispatch(setMatches(registered))
                         loadFixtures(selectedDate);
                     }).catch(err => console.log("Error:", err.response.data));
             }).catch(err => console.log("Error:", err.response.data));
@@ -83,18 +81,16 @@ const ManageMatchesPage = () => {
     const handleFixtureSelect = (fixture) => {
         setAddingIds([...addingIds, fixture.fifaId]);
         fixture.totalisatorId = totalisator.id;
-
         saveAsMatch(totalisator.id, fixture).then((res) => {
             loadTotalisatorMatches();
-            // dispatch(addMatch(res.data));
         });
     }
 
     const handleDelete = (match) => {
         deleteMatch(totalisator.id, match.entityId).then(res => {
             if (res.status === 204) {
-                const pendingWithoutDeleted = managerPendingMatches.filter(m=>m.entityId !== match.entityId);
-                const finishedWithoutDeleted = managerFinishedMatches.filter(m=>m.entityId !== match.entityId);
+                const pendingWithoutDeleted = managerPendingMatches.filter(m => m.entityId !== match.entityId);
+                const finishedWithoutDeleted = managerFinishedMatches.filter(m => m.entityId !== match.entityId);
                 setManagerPendingMatches(pendingWithoutDeleted);
                 setManagerFinishedMatches(finishedWithoutDeleted);
             }
@@ -165,73 +161,100 @@ const ManageMatchesPage = () => {
     const createManagerPendingToteboard = (match) => {
         return <Toteboard key={"mp" + match.entityId}
                           match={match}
-                          handleDelete={()=>handleDelete(match)}
+                          handleDelete={() => handleDelete(match)}
                           variant="manager-pending"/>
     }
 
     const createManagerFinishedToteboard = (match) => {
         return <Toteboard key={"mf" + match.entityId}
                           match={match}
-                          handleDelete={()=>handleDelete(match)}
+                          handleDelete={() => handleDelete(match)}
                           variant="manager-finished"/>
     }
 
     return (
         <main>
             <section className="feed feed--fifa">
-                <h2 className="feed__title">FIND & ADD MATCHES</h2>
+                <h2 className="feed__title">{t("title-find-and-add")}</h2>
                 <article className="feed__description">
                     <p>
-                        You can add new matches to your totalisator here. Select a date to
-                        get official Fifa fixtures for. Choose and add the desired ones to
-                        your managed totalisator. Once the match is added, players can
-                        immediately start registering their predictions.
+                        <Trans i18nKey="manage-matches:fixtures-description">
+                            You can add new matches to your totalisator here. Select a date to
+                            get official Fifa fixtures for. Choose and add the desired ones to
+                            your managed totalisator. Once the match is added, players can
+                            immediately start registering their predictions.
+                        </Trans>
                     </p>
-                    <p>Select date:</p>
+                    <p>
+                        <Trans i18nKey="manage-matches:select-date">
+                            Select date:
+                        </Trans>
+                    </p>
                     {createDatePicker()}
                     <div style={{display: "flex"}}>
-                        <span>Include demo fixtures?</span><DemoSwitch/>
+                        <Trans i18nKey="manage-matches:include-demo-fixtures">
+                            <span>Include demo fixtures?</span>
+                        </Trans>
+                        <DemoSwitch/>
                     </div>
-                    <p>Choose fixtures:</p>
-                    {isLoading && <p>LOADING...</p>}
+                    <p>
+                        <Trans i18nKey="manage-matches:choose-fixtures">
+                            Choose fixtures:
+                        </Trans>
+                    </p>
+                    {isLoading && <p>{t("loading")}</p>}
                 </article>
-                {fifaFixtures
+                {fifaFixtures.length > 0
                     ? fifaFixtures.map((m) => createFifaToteboard(m))
-                    : <p className="feed__description">No fixtures found. Try another date.</p>}
+                    : <p className="feed__description">{t("no-fixtures-found")}</p>}
             </section>
             <section className="feed feed--added">
-                <h2 className="feed__title">MANAGE REGISTERED MATCHES</h2>
+                <h2 className="feed__title">{t("title-manage-registered-matches")}</h2>
                 <article className="feed__description">
                     <p>
-                        The newly added, not started matches can be viewed here. This is the
-                        list that players see on top of their page if they have not yet
-                        registered their predictions. You can remove any match by clicking
-                        “X” on the top corner of corresponding tote board.
+                        <Trans i18nKey="manage-matches:registered-matches-description">
+                            The newly added, not started matches can be viewed here. This is the
+                            list that players see on top of their page if they have not yet
+                            registered their predictions. You can remove any match by clicking
+                            “X” on the top corner of corresponding tote board.
+                        </Trans>
                     </p>
                     <p>
-                        Please note that by removing the match at any stage, also deletes
-                        its registered predictions and subtracts earned points.
+                        <Trans i18nKey="manage-matches:match-delete-warning">
+                            Please note that by removing the match at any stage, also deletes
+                            its registered predictions and subtracts earned points.
+                        </Trans>
                     </p>
                 </article>
                 {managerPendingMatches
                     ? managerPendingMatches.map((m) => createManagerPendingToteboard(m))
-                    : <p className="feed__description">Currently there are no matches pending. Try adding some
-                        in the section above.</p>}
+                    : <Trans i18nKey="manage-matches:empty-feed-pending">
+                        <p className="feed__description">Currently there are no matches pending. Try adding some
+                            in the section above.
+                        </p>
+                    </Trans>}
             </section>
             <section className="feed feed--finished">
-                <h2 className="feed__title">HISTORY OF FINISHED MATCHES</h2>
+                <h2 className="feed__title">{t("title-history")}</h2>
                 <article className="feed__description">
                     <p>
+                        <Trans i18nKey="manage-matches:history-description">
                         This is a list of added matches that have already finished. These
                         matches contain predictions of all participants, and their earned
                         points. You can still delete any of these matches, in which case the
                         corresponding earned points get subtracted from total score.
+                        </Trans>
                     </p>
                 </article>
                 {managerFinishedMatches
                     ? managerFinishedMatches.map((m) => createManagerFinishedToteboard(m))
-                    : <p className="feed__description">Currently there are no matches pending for a game. Try adding some
-                        in the section above.</p>}
+                    :
+                    <p className="feed__description">
+                        <Trans i18nKey="manage-matches:empty-feed-history">
+                        Currently there are no matches pending for a game. Try adding some
+                        in the section above.
+                        </Trans>
+                    </p>}
             </section>
         </main>
     )

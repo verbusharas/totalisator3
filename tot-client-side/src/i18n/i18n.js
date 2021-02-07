@@ -16,12 +16,12 @@ i18next
         // language codes to lookup.
         // 'all' --> ['en-US', 'en', 'dev'], 'currentOnly' --> 'en-US', 'languageOnly' --> 'en'
         load: 'all',
-        ns: ['common', 'products'], // string or array of namespaces to load
-        defaultNS: 'common',  // default namespace used
-        fallbackLng: 'en', // language to use if translations in user language are not available
+        ns: ['header', 'overview', 'homepage', 'footer', 'manage-matches'], // string or array of namespaces to load
+        defaultNS: 'homepage',  // default namespace used
+        fallbackLng: 'lt', // language to use if translations in user language are not available
         whitelist: ['lt', 'en'], // array of allowed languages
         // logs info level to console output. Helps finding issues with loading not working.
-        debug: false,//process.env.NODE_ENV !== 'production',
+        debug: true,//process.env.NODE_ENV !== 'production',
         // interpolation config
         interpolation: {
             escapeValue: false, // not needed for react as it escapes by default
