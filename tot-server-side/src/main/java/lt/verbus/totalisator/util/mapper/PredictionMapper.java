@@ -20,17 +20,13 @@ public class PredictionMapper {
 
     public PredictionDTO mapEntityToDTO(Prediction prediction) {
 
-        PredictionDTO predictionDTO = PredictionDTO.builder()
+        return PredictionDTO.builder()
                 .id(prediction.getId())
                 .user(userMapper.mapEntityToDTO(prediction.getUser()))
                 .match(matchMapper.mapEntityToDTO(prediction.getMatch()))
                 .homeScore(prediction.getHomeScore())
                 .awayScore(prediction.getAwayScore())
                 .build();
-        if (prediction.getAccuracy() != null) {
-            predictionDTO.setAccuracy(prediction.getAccuracy());
-        }
-        return predictionDTO;
     }
 
     public PredictionBasicDTO mapEntityToBasicDTO(Prediction prediction) {
@@ -47,8 +43,5 @@ public class PredictionMapper {
         BeanUtils.copyProperties(predictionDTO, prediction);
         return prediction;
     }
-
-
-
 
 }

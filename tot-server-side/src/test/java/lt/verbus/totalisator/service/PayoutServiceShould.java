@@ -330,7 +330,7 @@ class PayoutServiceShould {
         prediction4Against2.setMatch(MATCH_4_0);
         // then
         Assertions.assertEquals(60,
-                payoutService.calculateAwards(predCalcMapper.mapEntityToCalcDTO(prediction4Against2)));
+                payoutService.calculateAwards(predCalcMapper.mapEntityToCalcDTO(prediction4Against2)).getAward());
 
     }
 
@@ -342,7 +342,7 @@ class PayoutServiceShould {
         prediction0Against0.setMatch(MATCH_0_0);
         // then
         Assertions.assertEquals(150,
-                payoutService.calculateAwards(predCalcMapper.mapEntityToCalcDTO(prediction0Against0)));
+                payoutService.calculateAwards(predCalcMapper.mapEntityToCalcDTO(prediction0Against0)).getAward());
 
     }
 
@@ -354,7 +354,7 @@ class PayoutServiceShould {
         prediction0Against0.setMatch(MATCH_2_4);
         // then
         Assertions.assertEquals(180,
-                payoutService.calculateAwards(predCalcMapper.mapEntityToCalcDTO(prediction0Against0)));
+                payoutService.calculateAwards(predCalcMapper.mapEntityToCalcDTO(prediction0Against0)).getAward());
 
     }
 
@@ -366,7 +366,7 @@ class PayoutServiceShould {
         prediction0Against0.setMatch(MATCH_2_4);
         // then
         Assertions.assertEquals(0,
-                payoutService.calculateAwards(predCalcMapper.mapEntityToCalcDTO(prediction0Against0)));
+                payoutService.calculateAwards(predCalcMapper.mapEntityToCalcDTO(prediction0Against0)).getAward());
 
     }
 
@@ -381,7 +381,7 @@ class PayoutServiceShould {
         prediction0Against0.setMatch(MATCH_2_4);
         // then
         Assertions.assertEquals(-5,
-                payoutService.calculateAwards(predCalcMapper.mapEntityToCalcDTO(prediction0Against0)));
+                payoutService.calculateAwards(predCalcMapper.mapEntityToCalcDTO(prediction0Against0)).getAward());
 
     }
 
@@ -396,7 +396,7 @@ class PayoutServiceShould {
         prediction0Against0.setMatch(MATCH_5_4);
         // then
         Assertions.assertEquals(-10,
-                payoutService.calculateAwards(predCalcMapper.mapEntityToCalcDTO(prediction0Against0)));
+                payoutService.calculateAwards(predCalcMapper.mapEntityToCalcDTO(prediction0Against0)).getAward());
 
     }
 

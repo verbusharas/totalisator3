@@ -34,6 +34,4 @@ public class Prediction {
 
     private Integer awayScore;
 
-    private Float accuracy;
-
 }

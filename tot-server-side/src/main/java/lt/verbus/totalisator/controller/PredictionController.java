@@ -2,6 +2,7 @@ package lt.verbus.totalisator.controller;
 
 import lt.verbus.totalisator.controller.dto.MatchDTO;
 import lt.verbus.totalisator.controller.dto.PayoutDTO;
+import lt.verbus.totalisator.controller.dto.PredictionCalcDTO;
 import lt.verbus.totalisator.controller.dto.PredictionRegistrationDTO;
 import lt.verbus.totalisator.controller.dto.PredictionDTO;
 import lt.verbus.totalisator.domain.entity.User;
@@ -47,5 +48,11 @@ public class PredictionController {
     public List<PayoutDTO> calculateTotalisatorPayouts(@PathVariable Long totalisatorId) {
         return payoutService.calculateByTotalisator(totalisatorId);
     }
+
+    @PostMapping("/payout/sample")
+    public List<PayoutDTO> calculateTotalisatorPayouts(@RequestBody PredictionCalcDTO predictionCalcDTO) {
+        return payoutService.calculateSamplePayouts(predictionCalcDTO);
+    }
+
 
 }

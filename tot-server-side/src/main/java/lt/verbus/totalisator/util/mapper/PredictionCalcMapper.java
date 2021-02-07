@@ -17,4 +17,13 @@ public class PredictionCalcMapper {
                 .actualAway(prediction.getMatch().getAwayScore())
                 .build();
     }
+
+    public Prediction mapCalcDTOtoEntity(PredictionCalcDTO calcDTO) {
+
+        return Prediction.builder()
+                .homeScore(calcDTO.getHome())
+                .awayScore(calcDTO.getAway())
+                .build();
+    }
+
 }

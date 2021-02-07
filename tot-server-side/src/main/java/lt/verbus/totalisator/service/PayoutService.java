@@ -9,6 +9,8 @@ import lt.verbus.totalisator.util.mapper.PayoutMapper;
 import lt.verbus.totalisator.util.mapper.PredictionCalcMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -39,8 +41,20 @@ public class PayoutService {
 
     public List<PayoutDTO> calculateByTotalisator(Long totalisatorId) {
         List<Prediction> predictions = predictionService.findByTotalisatorId(totalisatorId);
-        List<PayoutDTO> payouts = predictions.stream().filter(this::hasFinalScore).map(this::getPayoutByPrediction).collect(Collectors.toList());
-        return payouts;
+        return predictions.stream().filter(this::hasFinalScore).map(this::getPayoutByPrediction).collect(Collectors.toList());
+    }
+
+    public List<PayoutDTO> calculateSamplePayouts(PredictionCalcDTO prediction) {
+        List<PayoutDTO> samplePayouts = new ArrayList<>();
+        for (int h = 0; h<=5; h++) {
+            for (int a = 0; a<=5; a++) {
+                prediction.setHome(h);
+                prediction.setAway(a);
+                samplePayouts.add(getSamplePayout(prediction));
+            }
+        }
+        samplePayouts.sort(Collections.reverseOrder());
+        return samplePayouts;
     }
 
     private boolean hasFinalScore(Prediction p) {
@@ -49,31 +63,65 @@ public class PayoutService {
 
     protected PayoutDTO getPayoutByPrediction(Prediction predictionEntity) {
         PredictionCalcDTO predictionCalcDTO = predictionCalcMapper.mapEntityToCalcDTO(predictionEntity);
-        Payout payout = new Payout();
+        Payout payout = calculateAwards(predictionCalcDTO);
         payout.setPrediction(predictionEntity);
-        payout.setAward(calculateAwards(predictionCalcDTO));
         return payoutMapper.mapModelToDTO(payout);
     }
 
-    protected Integer calculateAwards (PredictionCalcDTO prediction) {
+    protected PayoutDTO getSamplePayout(PredictionCalcDTO prediction) {
+        Payout payout = calculateAwards(prediction);
+        //FIXME: review DTOs and mappers to refactor this builder
+        return PayoutDTO.builder()
+                .homeScoreActual(prediction.getActualHome())
+                .awayScoreActual(prediction.getActualAway())
+                .homeScorePrediction(prediction.getHome())
+                .awayScorePrediction(prediction.getAway())
+                .pointsForAccurateWinner(payout.getPointsForAccurateWinner())
+                .pointsForAccurateGoalDifference(payout.getPointsForAccurateGoalDifference())
+                .pointsForAccurateScore(payout.getPointsForAccurateScore())
+                .pointsForAccurateGoals(payout.getPointsForAccurateGoals())
+                .pointsForAccuracy(payout.getSmallDeviationPoints())
+                .penaltyForMissedGoals(payout.getPenaltyForMissedGoals())
+                .award(payout.getAward())
+                .build();
+    }
+
+    protected Payout calculateAwards (PredictionCalcDTO prediction) {
         Settings settings = settingsService.findByTotalisatorId(prediction.getTotalisatorId());
+
+        Payout payout = new Payout();
+
         int totalAward = 0;
 
         if (hasAccurateWinner(prediction)) {
-            totalAward += settings.getPointsForAccurateWinner();
+            payout.setPointsForAccurateWinner(settings.getPointsForAccurateWinner());
+            totalAward += payout.getPointsForAccurateWinner();
         }
         if (hasAccurateDiff(prediction)) {
-            totalAward += settings.getPointsForAccurateGoalDifference();
+            payout.setPointsForAccurateGoalDifference(settings.getPointsForAccurateGoalDifference());
+            totalAward += payout.getPointsForAccurateGoalDifference();
         }
         if (hasAccurateScore(prediction)) {
-            totalAward += settings.getPointsForAccurateScore();
+            payout.setPointsForAccurateScore(settings.getPointsForAccurateScore());
+            totalAward += payout.getPointsForAccurateScore();
         }
 
-        totalAward += getAwardForAccurateGoals(prediction, settings);
-        totalAward += getAwardForSmallDeviation(prediction, settings);
+        payout.setPointsForAccurateGoals(getAwardForAccurateGoals(prediction, settings));
+        totalAward += payout.getPointsForAccurateGoals();
 
-        return totalAward;
+        int maxDeviationAward = settings.getPointsForNoGoalDeviation();
+        int deviationAward = getAwardForSmallDeviation(prediction, settings);
+
+        payout.setSmallDeviationPoints(settings.getPointsForNoGoalDeviation());
+        payout.setPenaltyForMissedGoals(deviationAward - maxDeviationAward);
+
+        totalAward += deviationAward;
+
+        payout.setAward(totalAward);
+
+        return payout;
     }
+
 
     protected boolean hasAccurateWinner(PredictionCalcDTO prediction) {
         boolean hasPredictedHomeWin = prediction.getHome() > prediction.getAway() && prediction.getActualHome() > prediction.getActualAway();
