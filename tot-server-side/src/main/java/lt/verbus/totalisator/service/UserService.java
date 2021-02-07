@@ -77,4 +77,7 @@ public class UserService implements UserDetailsService {
         return users.stream().map(userMapper::mapEntityToDTO).collect(Collectors.toList());
     }
 
+    public void delete(Long id) {
+        userRepository.deleteById(id);
+    }
 }

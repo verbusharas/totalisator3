@@ -43,7 +43,7 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "requester", cascade = CascadeType.ALL)
     private Set<Friendship> friendships;
 
-    @ManyToMany(cascade=CascadeType.ALL)
+    @ManyToMany(cascade=CascadeType.PERSIST)
     @JoinTable(
             name="user_role",
             joinColumns = {@JoinColumn(name = "user_id")},

@@ -6,6 +6,7 @@ import lt.verbus.totalisator.service.UserService;
 import lt.verbus.totalisator.controller.dto.FriendshipDTO;
 import lt.verbus.totalisator.controller.dto.UserDTO;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -29,14 +30,22 @@ public class UserController {
         return userService.saveUser(user);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping
     public List<UserDTO> getAllUsers() {
         return userService.getAllUsers();
     }
 
     @GetMapping("/{id}")
-    public UserDTO getUserById(@PathVariable long id) {
+    public UserDTO getUserById(@PathVariable Long id) {
         return userService.getUserDTOById(id);
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteUser(@PathVariable Long id) {
+        userService.delete(id);
     }
 
     @GetMapping("/{id}/friends")
