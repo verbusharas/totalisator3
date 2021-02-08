@@ -1,0 +1,81 @@
+{
+    "requestsLeft": "99",
+    "data": [
+        {
+            "fifaId": 1348811,
+            "date": "2021-01-16 06:00:00",
+            "homeTeam": {
+                "shortCode": "MEV",
+                "id": 1100,
+                "name": "Melbourne Victory",
+                "img": "https://cdn.soccersapi.com/images/soccer/teams/80/1100.png"
+            },
+            "awayTeam": {
+                "shortCode": "WPH",
+                "id": 1102,
+                "name": "Wellington",
+                "img": "https://cdn.soccersapi.com/images/soccer/teams/80/1102.png"
+            },
+            "statusName": "Postponed",
+            "league": {
+                "countryName": "Australia",
+                "id": 974,
+                "name": "A-League"
+            }
+        },
+        {
+            "fifaId": 1348812,
+            "date": "2021-01-16 06:05:00",
+            "homeTeam": {
+                "shortCode": "SFC",
+                "id": 1097,
+                "name": "Sydney",
+                "img": "https://cdn.soccersapi.com/images/soccer/teams/80/1097.png"
+            },
+            "awayTeam": {
+                "shortCode": "WSY",
+                "id": 1098,
+                "name": "W. Sydney",
+                "img": "https://cdn.soccersapi.com/images/soccer/teams/80/1098.png"
+            },
+            "homeScore": "1",
+            "awayScore": "1",
+            "htScore": "0-0",
+            "ftScore": "1-1",
+            "statusName": "Finished",
+            "league": {
+                "countryName": "Australia",
+                "id": 974,
+                "name": "A-League"
+            }
+        },
+        {
+            "fifaId": 1348815,
+            "date": "2021-01-16 08:10:00",
+            "homeTeam": {
+                "shortCode": "MBC",
+                "id": 1101,
+                "name": "Melbourne City",
+                "img": "https://cdn.soccersapi.com/images/soccer/teams/80/1101.png"
+            },
+            "awayTeam": {
+                "shortCode": "WEU",
+                "id": 1103,
+                "name": "Western United",
+                "img": "https://cdn.soccersapi.com/images/soccer/teams/80/1103.png"
+            },
+            "homeScore": "2",
+            "awayScore": "1",
+            "htScore": "1-1",
+            "ftScore": "2-1",
+            "statusName": "Finished",
+            "winner_team_id": "1101",
+            "league": {
+                "countryName": "Australia",
+                "id": 974,
+                "name": "A-League"
+            }
+        }
+    ]
+}
+
