@@ -3,8 +3,11 @@
 
 ### LAUNCHING INSTRUCTIONS
 1. `git clone https://github.com/verbusharas/totalisator3.git`
-2. Rename `application-example.properties` to `application-properties` and configure it according to your database and credentials
-3. In case want to use demo soccer fixtures api, i recommend using nodemon for enabling live updates. Launch API with `nodemon app.js`. Server will run on port 3001.
+2. Rename `application-example.properties` to `application.properties` and configure it according to your database and credentials, or in case of a live demonstration - switch with the developer provided application.properties file.
+4. Run tot-server-side (Spring Boot Application)
+5. Run tot-client-side (React Web Application)
+6. Try out the application on localhost:3000
+7. In case of wanting to use demo soccer fixtures api, launch tot-demo-fixtures-api/App.js (Node Express Application). I recommend using nodemon for enabling live updates. Start API with command `nodemon app.js`. Server will run on port 3001.
 
  ### APPLICATION DESCRIPTION AND FEATURES
  
@@ -14,7 +17,7 @@
 #### Totalisators
 Registered users can create or participate in prediction tournaments called "Totalisators". Each totalisator can host unlimited amount of players and matches to predict. 
 
-### Managers
+#### Managers
 User who decides to create a new totalisator becomes a manager of that totalisator and can start inviting players form his/her friend list. Manager can attend the tournament together with other players but is also responsible for selecting which matches for players to predict and can customize point calculation settings, add/remove players. 
 
 #### Soccer match selection
