@@ -37,7 +37,7 @@ public class Totalisator {
     )
     List<User> players;
 
-    @OneToOne
+    @OneToOne(mappedBy = "totalisator", cascade = CascadeType.ALL)
     private Settings settings;
 
 }

@@ -1,8 +1,10 @@
 package lt.verbus.totalisator.service;
 
+import com.fasterxml.jackson.databind.util.BeanUtil;
 import lt.verbus.totalisator.controller.dto.TotalisatorBasicDTO;
 import lt.verbus.totalisator.controller.dto.UserDTO;
 import lt.verbus.totalisator.domain.entity.Prediction;
+import lt.verbus.totalisator.domain.entity.Settings;
 import lt.verbus.totalisator.domain.entity.Totalisator;
 import lt.verbus.totalisator.domain.entity.User;
 import lt.verbus.totalisator.exception.DuplicateEntryException;
@@ -10,6 +12,7 @@ import lt.verbus.totalisator.exception.OperationNotAllowed;
 import lt.verbus.totalisator.repository.TotalisatorRepository;
 import lt.verbus.totalisator.controller.dto.TotalisatorDTO;
 import lt.verbus.totalisator.util.mapper.TotalisatorMapper;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -24,12 +27,14 @@ public class TotalisatorService {
     private final UserService userService;
     private final TotalisatorMapper totalisatorMapper;
     private final PredictionService predictionService;
+    private final SettingsService settingsService;
 
-    public TotalisatorService(TotalisatorRepository totalisatorRepository, UserService userService, TotalisatorMapper totalisatorMapper, PredictionService predictionService) {
+    public TotalisatorService(TotalisatorRepository totalisatorRepository, UserService userService, TotalisatorMapper totalisatorMapper, PredictionService predictionService, SettingsService settingsService) {
         this.totalisatorRepository = totalisatorRepository;
         this.userService = userService;
         this.totalisatorMapper = totalisatorMapper;
         this.predictionService = predictionService;
+        this.settingsService = settingsService;
     }
 
     public TotalisatorBasicDTO getBasicDTObyId(Long id) {
@@ -43,7 +48,16 @@ public class TotalisatorService {
 
     public TotalisatorBasicDTO save(TotalisatorDTO totalisatorDTO) {
         User manager = userService.getById(totalisatorDTO.getManagerId());
+
+        //FIXME:initialize default settings properly
+        Settings settings = new Settings();
+        Settings defaultSettings = settingsService.findById(1L);
+        BeanUtils.copyProperties(defaultSettings, settings);
+        settings.setId(null);
+
         Totalisator totalisator =  totalisatorMapper.convertTotalisatorDTOtoEntity(totalisatorDTO);
+        totalisator.setSettings(settings);
+        settings.setTotalisator(totalisator);
         totalisator.setManager(manager);
         totalisator.setPlayers(List.of(manager));
         Totalisator savedTotalisator = totalisatorRepository.save(totalisator);

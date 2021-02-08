@@ -21,6 +21,10 @@ public class SettingsService {
         this.settingsMapper = settingsMapper;
     }
 
+    public Settings findById(Long id){
+        return settingsRepository.findById(id).orElseThrow(()->new EntityNotFoundException("Settings were not found"));
+    }
+
     public Settings findByTotalisatorId(Long totalisatorId) {
         return settingsRepository.findByTotalisatorId(totalisatorId).orElseThrow(()-> new EntityNotFoundException("Settings were not found"));
     }
@@ -35,5 +39,9 @@ public class SettingsService {
         Settings currentSettings = settingsRepository.findByTotalisatorId(totalisatorId).orElseThrow(()->new EntityNotFoundException("Settings were not found"));
         BeanUtils.copyProperties(newSettings, currentSettings);
         return settingsMapper.mapEntityToDTO(settingsRepository.save(currentSettings));
+    }
+
+    protected Settings save(Settings settings){
+        return settingsRepository.save(settings);
     }
 }
