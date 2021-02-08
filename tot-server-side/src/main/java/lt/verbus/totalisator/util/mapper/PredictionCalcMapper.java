@@ -18,12 +18,4 @@ public class PredictionCalcMapper {
                 .build();
     }
 
-    public Prediction mapCalcDTOtoEntity(PredictionCalcDTO calcDTO) {
-
-        return Prediction.builder()
-                .homeScore(calcDTO.getHome())
-                .awayScore(calcDTO.getAway())
-                .build();
-    }
-
 }

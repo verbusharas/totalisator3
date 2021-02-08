@@ -1,6 +1,5 @@
 package lt.verbus.totalisator.service;
 
-import com.fasterxml.jackson.databind.util.BeanUtil;
 import lt.verbus.totalisator.controller.dto.TotalisatorBasicDTO;
 import lt.verbus.totalisator.controller.dto.UserDTO;
 import lt.verbus.totalisator.domain.entity.Prediction;

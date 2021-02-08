@@ -49,14 +49,6 @@ public class MatchService {
         } else throw new DuplicateEntryException("Totalisator already contains this match");
     }
 
-//    public List<MatchDTO> getAllByTotalisatorId(Long totalisatorId) {
-//        return matchRepository
-//                .findAllByTotalisatorId(totalisatorId)
-//                .stream()
-//                .map(matchMapper::mapEntityToDTO)
-//                .collect(Collectors.toList());
-//    }
-
     public List<MatchDTO> getPendingByTotalisatorId(Long totalisatorId) {
         return matchRepository
                 .findPendingByTotalisatorId(totalisatorId)
@@ -79,7 +71,6 @@ public class MatchService {
         List<Match> updatedMatches = matches.stream()
                         .map(updateService::updateIfMonitored)
                         .map(predictionService::defaultMissingIfDue)
-//                        .map(match -> payoutService.calculatePayouts())
                         .collect(Collectors.toList());
         return matchRepository.saveAll(updatedMatches);
     }

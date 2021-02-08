@@ -3,8 +3,6 @@ package lt.verbus.totalisator.util.mapper;
 import lt.verbus.totalisator.controller.dto.TotalisatorBasicDTO;
 import lt.verbus.totalisator.domain.entity.Totalisator;
 import lt.verbus.totalisator.controller.dto.TotalisatorDTO;
-import lt.verbus.totalisator.util.mapper.MatchMapper;
-import lt.verbus.totalisator.util.mapper.PlayerMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 

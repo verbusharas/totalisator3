@@ -36,7 +36,6 @@ public class FifaService {
         try {
             String json = soccersApi.getFixtureJson(String.valueOf(id));
             ObjectNode root = objectMapper.readValue(json, ObjectNode.class);
-            String data = root.get("data").toString();
             if (root.get("data").toString().equals("[]")) {
                 // For demonstration purposes: if match ID was of fake match
                 // SoccersAPI returns empty array since not found in their database

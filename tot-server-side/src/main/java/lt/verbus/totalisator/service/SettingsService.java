@@ -41,7 +41,4 @@ public class SettingsService {
         return settingsMapper.mapEntityToDTO(settingsRepository.save(currentSettings));
     }
 
-    protected Settings save(Settings settings){
-        return settingsRepository.save(settings);
-    }
 }

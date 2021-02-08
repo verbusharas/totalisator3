@@ -23,13 +23,4 @@ public class FriendshipMapper {
         return friendshipDTO;
     }
 
-    public Friendship convertFriendshipDTOtoEntity(FriendshipDTO friendshipDTO) {
-        Friendship friendship = new Friendship();
-        friendship.setId(friendshipDTO.getId());
-        friendship.setRequester(userMapper.convertUserDTOtoEntity(friendshipDTO.getRequester()));
-        friendship.setReceiver(userMapper.convertUserDTOtoEntity(friendshipDTO.getReceiver()));
-        friendship.setIsAccepted(friendshipDTO.getIsAccepted());
-        return friendship;
-    }
-
 }

@@ -47,10 +47,4 @@ public class UserMapper {
         return userDTO;
     }
 
-    public User convertUserDTOtoEntity(UserDTO userDTO) {
-        User user = new User();
-        BeanUtils.copyProperties(userDTO, user);
-        return user;
-    }
-
 }

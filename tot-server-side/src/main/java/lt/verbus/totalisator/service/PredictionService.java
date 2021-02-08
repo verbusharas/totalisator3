@@ -21,9 +21,6 @@ import java.util.stream.Collectors;
 @Service
 public class PredictionService {
 
-    @Value("${minutes.to.match.when.start.monitoring}")
-    private String MINUTES_TO_MATCH_WHEN_START_MONITORING;
-
     @Value("${prediction.default.away}")
     public Integer DEFAULT_AWAY_PREDICTION;
 
