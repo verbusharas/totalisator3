@@ -84,6 +84,45 @@
     "final-score": "REZULTATAS:"
   },
   "forms": {
-
+    "login-title": "PRISIJUNK:",
+    "login-email": "El.paštas (prisijungimo vardas):",
+    "login-password": "Slaptažodis:",
+    "btn-login": "Prisijungti",
+    "login-not-a-member": "Neturi paskyros?",
+    "btn-sign-up": "Registruotis",
+    "register-title": "VARTOTOJO REGISTRACIJA",
+    "register-username": "El.paštas (prisijungimo vardas):",
+    "register-username-placeholder": "Tai bus tavo prisijungimo vardas",
+    "register-password": "Slaptažodis:",
+    "register-password-confirm": "Slaptažodis pakartotinai:",
+    "register-name": "Vardas:",
+    "register-name-placeholder":"Šiuo vardu būsi matomas kitiems vartotojams",
+    "btn-register": "Registruotis",
+    "register-already-member":"Jau narys?",
+    "btn-sign-in": "Prisijungti",
+    "validation-error-valid-email": "Prašome įvesti teisingą el. pašto adresą",
+    "validation-error-password-length": "Slaptažodį turi sudaryti bent 8 simboliai",
+    "validation-error-email-required": "El. paštas yra privalomas",
+    "validation-error-password-required": "Slaptažodis yra privalomas",
+    "validation-error-password-mismatch":"Slaptažodžiai turi sutapti",
+    "validation-error-name-length":"Vardą turi sudaryti bent 3 simboliai",
+    "validation-error-name-required": "Vardas yra privalomas"
+  },
+  "friends": {
+    "title-friend-requests": "PAKVIETIMAI Į DRAUGUS",
+    "description-friend-requests": "Gauti pakvietimai į draugus, laukiantys tavo veiksmų:",
+    "title-find-people": "VARTOTOJŲ PAIEŠKA",
+    "person-name" : "Asmens vardas:",
+    "person-name-placeholder" : "Pradėk rašyti vardą...",
+    "title-found-users": "Rasti vartotojai:",
+    "title-friends": "DRAUGAI ",
+    "empty-friends-list": "Kol kas draugų sąrašas tuščias. Surask žmonių paieškoje žemiau ir pakviesk į draugus.",
+    "send-friend-request": "Siųsti draugo pakvietimą",
+    "sending": "Siunčiama...",
+    "request-sent": "Pakvietimas nusiųstas",
+    "accept": "Priimti",
+    "dismiss": "Ignoruoti",
+    "remove": "Pašalinti",
+    "include": "Įtraukti"
   }
 }

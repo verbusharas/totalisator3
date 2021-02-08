@@ -9,8 +9,11 @@ import {setJwt, setUserData} from "../../store/slices/userSlice";
 import {fetchTotalisatorById} from "../../api/totalisatorApi";
 import {loadTotalisatorFromStorage, setTotalisator} from "../../store/slices/totalisatorSlice";
 import image from "../../assets/bg-images/ball-in-net-01-small.png";
+import {useTranslation} from "react-i18next";
 
 const UserLoginPage = () => {
+
+    const {t} = useTranslation('forms');
 
     const history = useHistory();
     const location = useLocation();
@@ -54,25 +57,25 @@ const UserLoginPage = () => {
             </section>
             <section className="form-section">
                 <article className="form-section__article">
-                    <h2>PLEASE LOGIN</h2>
+                    <h2>{t("login-title")}</h2>
 
                     <Formik initialValues={{username: "", password: "", passwordConfirm: "", name: ""}}
                             onSubmit={handleLogin}>
                         {(props) =>
                             (
                                 <Form>
-                                    <label>Email (username):</label>
+                                    <label>{t("login-email")}</label>
                                     <Field name="username" id="username"/>
                                     <ErrorMessage name="username" component="small"
                                                   className="form-section__field-error"/>
 
-                                    <label>Password:</label>
+                                    <label>{t("login-password")}</label>
                                     <Field name="password" id="password" type="password"/>
                                     <ErrorMessage name="password" component="small"
                                                   className="form-section__field-error"/>
 
-                                    <Button text="Login" type="submit" disabled={props.isSubmitting}/>
-                                    <Undertext text="Not a member?" link="Sign Up" to="/user/register"/>
+                                    <Button text={t("btn-login")} type="submit" disabled={props.isSubmitting}/>
+                                    <Undertext text={t("login-not-a-member")} link={t("btn-sign-up")} to="/user/register"/>
                                 </Form>
                             )
                         }

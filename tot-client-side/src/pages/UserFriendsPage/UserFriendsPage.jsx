@@ -10,8 +10,11 @@ import FoundPersonCard from "./PersonCards/FoundPersonCard";
 import FriendCard from "./PersonCards/FriendCard";
 import useUser from "../../hooks/useUser";
 import image from "../../assets/bg-images/ball3.png"
+import {useTranslation} from "react-i18next";
 
 const UserFriendsPage = () => {
+
+    const {t} = useTranslation('friends');
 
     const [partialName, setPartialName] = useState("");
     const [foundPeople, setFoundPeople] = useState({typed: "", entities: []});
@@ -52,7 +55,6 @@ const UserFriendsPage = () => {
         acceptFriendRequest(user.id, friendship.requester.id)
             .then((res) => {
                 loadFriends();
-                console.log("Friend Request Accepted", res)
             });
     }
 
@@ -60,7 +62,6 @@ const UserFriendsPage = () => {
         dismissFriendRequest(requester.id, receiver.id)
             .then((res) => {
                 loadFriends();
-                console.log("Friendship Deleted", res)
             });
     }
 
@@ -120,8 +121,8 @@ const UserFriendsPage = () => {
                 <article className="form-section__article">
                     {getFriendRequests().length > 0 &&
                     <>
-                        <h2>FRIEND REQUESTS</h2>
-                        <p>Received friend requests waiting for your action:</p>
+                        <h2>{t("title-friend-requests")}</h2>
+                        <p>{t("description-friend-requests")}</p>
                         <div className="found-users">
                             {getFriendRequests().map((f) => renderFriendRequest(f))}
                         </div>
@@ -130,17 +131,17 @@ const UserFriendsPage = () => {
 
                 </article>
                 <article className="form-section__article">
-                    <h2>FIND PEOPLE</h2>
+                    <h2>{t("title-find-people")}</h2>
                     <Formik initialValues={{name: ""}}>
                         {(props) =>
                             (
                                 <Form>
-                                    <label>Person's name:</label>
+                                    <label>{t("person-name")}</label>
                                     <Field name="name" id="name" value={partialName} onChange={handleSearchTyping}
-                                           placeholder="Start typing a name..." autoComplete="off"/>
+                                           placeholder={t("person-name-placeholder")} autoComplete="off"/>
                                     {!!foundPeople.entities.length &&
                                     <>
-                                    <p>Found users:</p>
+                                    <p>{t("title-found-users")}</p>
                                     <div className="found-users">
                                         {foundPeople.entities.map(u => renderPerson(u))}
                                     </div>
@@ -155,13 +156,14 @@ const UserFriendsPage = () => {
             }
             <section className="friendlist-section">
                 <article className="form-section__article">
-                    <h2>FRIENDS ({getFriends().length})</h2>
+                    <h2>{t("title-friends")} ({getFriends().length})</h2>
 
                     <div className="found-users">
                         {getFriends().map((f) => renderFriend(f))}
                         {!getFriends().length &&
-                        <p>You don't have any friends yet.
-                            Find people in the search below and add them as your friends.</p>}
+                        <p>
+                            {t("empty-friends-list")}
+                        </p>}
                     </div>
 
                 </article>

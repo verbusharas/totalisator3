@@ -7,8 +7,12 @@ import {useHistory} from "react-router-dom";
 import {useState} from "react";
 import ServerErrorMessage from "../../components/Forms/ServerErrorMessage";
 import image from "../../assets/bg-images/kick-01-small.png";
+import {useTranslation} from "react-i18next";
 
 const UserRegisterPage = () => {
+
+    const {t} = useTranslation('forms');
+
     const [serverValidationErrors, setServerValidationErrors] = useState({});
     const history = useHistory();
 
@@ -25,19 +29,19 @@ const UserRegisterPage = () => {
     const validationSchema = Yup.object().shape({
         username: Yup
             .string()
-            .email("Please enter a valid email address")
-            .required("Email is required"),
+            .email(t("validation-error-valid-email"))
+            .required(t("validation-error-email-required")),
         password: Yup
             .string()
-            .min(8, "Password must be at least 8 characters long")
-            .required("Password is required"),
+            .min(8, t("validation-error-password-length"))
+            .required(t("validation-error-password-required")),
         passwordConfirm: Yup
             .string()
-            .oneOf([Yup.ref('password'), null], 'Passwords must match'),
+            .oneOf([Yup.ref('password'), null], t("validation-error-password-mismatch")),
         name: Yup
             .string()
-            .min(3, "Name must be at least 3 characters long")
-            .required("Name is required")
+            .min(3, t("validation-error-name-length"))
+            .required(t("validation-error-name-required"))
     });
 
 
@@ -48,35 +52,35 @@ const UserRegisterPage = () => {
             </section>
             <section className="form-section">
                 <article className="form-section__article">
-                    <h2>USER REGISTRATION</h2>
+                    <h2>{t("register-title")}</h2>
                     <Formik initialValues={{username: "", password: "", passwordConfirm: "", name: ""}}
                             onSubmit={handleOnSubmit}
                             validationSchema={validationSchema}>
                         {(props) =>
                             (
                                 <Form>
-                                    <label>Email (username):</label>
-                                    <Field name="username" id="username" placeholder="This will be your username"/>
+                                    <label>{t("register-username")}</label>
+                                    <Field name="username" id="username" placeholder={t("register-username-placeholder")}/>
                                     <ErrorMessage name="username" component="small" className="form-section__field-error"/>
                                     <ServerErrorMessage message={serverValidationErrors.username}/>
 
-                                    <label>Password:</label>
+                                    <label>{t("register-password")}</label>
                                     <Field name="password" id="password" type="password"/>
                                     <ErrorMessage name="password" component="small" className="form-section__field-error"/>
                                     <ServerErrorMessage message={serverValidationErrors.password}/>
 
-                                    <label>Password confirm:</label>
+                                    <label>{t("register-password-confirm")}</label>
                                     <Field name="passwordConfirm" id="passwordConfirm" type="password"/>
                                     <ErrorMessage name="passwordConfirm" component="small" className="form-section__field-error"/>
 
 
-                                    <label>Name:</label>
-                                    <Field name="name" id="name" placeholder="This name will be visible by others"/>
+                                    <label>{t("register-name")}</label>
+                                    <Field name="name" id="name" placeholder={t("register-name-placeholder")}/>
                                     <ErrorMessage name="name" component="small" className="form-section__field-error"/>
                                     <ServerErrorMessage message={serverValidationErrors.name}/>
 
-                                    <Button text="Register" type="submit"/>
-                                    <Undertext text="Already a member?" link="Sign In" to="/user/login"/>
+                                    <Button text={t("btn-register")} type="submit"/>
+                                    <Undertext text={t("register-already-member")} link={t("btn-sign-in")} to="/user/login"/>
 
                                 </Form>
                             )

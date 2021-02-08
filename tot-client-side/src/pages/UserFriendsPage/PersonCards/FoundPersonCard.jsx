@@ -2,8 +2,11 @@ import profilePic from "../../../assets/images/profile-small.png"
 import {useState} from "react";
 import {createFriendRequest} from "../../../api/userApi";
 import useUser from "../../../hooks/useUser";
+import {Trans, useTranslation} from "react-i18next";
 
 const FoundPersonCard = ({person, typedPart, isRequested}) => {
+
+    const {t} = useTranslation('friends');
 
     const [gotRequested, setGotRequested] = useState(isRequested);
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -36,15 +39,21 @@ const FoundPersonCard = ({person, typedPart, isRequested}) => {
             <div className="found-user__info-container">
                 {!gotRequested && !isSubmitting &&
                 <p className="found-user__link" onClick={handleClick}>
-                    Send friend request
+                    <Trans i18nKey="friends:send-friend-request">
+                        Send friend request
+                    </Trans>
                 </p>}
                 {isSubmitting &&
                 <p className="found-user__link" onClick={handleClick}>
-                    Sending...
+                    <Trans i18nKey="friends:sending">
+                        Sending...
+                    </Trans>
                 </p>}
                 {gotRequested &&
                 <p className="found-user__info">
-                    Friend request was sent
+                    <Trans i18nKey="friends:request-sent">
+                        Friend request was sent
+                    </Trans>
                 </p>}
                 <p>{splitPerson}</p>
             </div>
