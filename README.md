@@ -1,2 +1,3 @@
-# totalisator3
-(Soccer) Totalisator v3.0. Final Project for CodeAcademy. Spring REST API + React.
+![Totalisator banner](/readme-assets/logo.png)
+## TOTALISATOR 3.0 - Web Application
+
