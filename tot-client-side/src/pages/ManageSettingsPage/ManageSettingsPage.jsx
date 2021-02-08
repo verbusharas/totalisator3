@@ -8,8 +8,11 @@ import Undertext from "../../components/Forms/Undertext";
 import {useHistory} from "react-router-dom";
 import SettingsSampleRow from "./SettingsSampleRow";
 import {getSamplePayouts} from "../../api/predictionApi";
+import {useTranslation} from "react-i18next";
 
 const ManageSettingsPage = () => {
+
+    const {t} = useTranslation('manage-totalisator');
 
     const totalisator = useTotalisator();
     const [settings, setSettings] = useState({});
@@ -94,8 +97,8 @@ const ManageSettingsPage = () => {
             </section>
             <section className="form-section">
                 <article className="form-section__article">
-                    <h2>CUSTOMIZE YOUR TOTALISATOR SETTINGS</h2>
-                    <h3>POINT REWARD CALCULATIONS</h3>
+                    <h2>{t("title-settings")}</h2>
+                    <h3>{t("title-point-calculations")}</h3>
                     <Formik enableReinitialize={true}
                             initialValues={{
                                 pointsForAccurateScore: settings.pointsForAccurateScore || "",
@@ -113,40 +116,40 @@ const ManageSettingsPage = () => {
                                     <table>
                                         <tbody>
                                         <tr>
-                                            <td><label>Points for accurate exact prediction <span>(AEP)</span> :</label></td>
+                                            <td><label>{t("points-for-accurate-score")}<span>(AEP)</span> :</label></td>
                                             <td><Field name="pointsForAccurateScore" id="pointsForAccurateScore" autoComplete="off"/></td>
                                         </tr>
                                         <tr>
-                                            <td><label>Points for accurate goal difference <span>(AGD)</span> :</label></td>
+                                            <td><label>{t("points-for-accurate-goal-diff")}<span>(AGD)</span> :</label></td>
                                             <td><Field name="pointsForAccurateGoalDifference" id="pointsForAccurateGoalDifference" autoComplete="off"/></td>
                                         </tr>
                                         <tr>
-                                            <td><label>Points for accurate winner team <span>(AWT)</span> :</label></td>
+                                            <td><label>{t("points-for-accurate-winner-team")}<span>(AWT)</span> :</label></td>
                                             <td><Field name="pointsForAccurateWinner" id="pointsForAccurateWinner" autoComplete="off"/></td>
                                         </tr>
                                         <tr>
-                                            <td><label>Bonus points for each predicted goal <span>(PG)</span> :</label></td>
+                                            <td><label>{t("bonus-for-each-goal")}<span>(PG)</span> :</label></td>
                                             <td><Field name="pointsForEachAccurateGoal" id="pointsForEachAccurateGoal" autoComplete="off"/></td>
                                         </tr>
                                         <tr>
-                                            <td><label>Initial accuracy points <span>(ACC)</span> :</label></td>
+                                            <td><label>{t("initial-accuracy-points")}<span>(ACC)</span> :</label></td>
                                             <td><Field name="pointsForNoGoalDeviation" id="pointsForNoGoalDeviation" autoComplete="off"/></td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <label>Penalty for each unpredicted goal <span>(PEN)</span> :</label>
-                                                <p className="form-section__undertext">(subtracted from initial accuracy points)</p>
+                                                <label>{t("penalty-for-each-missed")}<span>(PEN)</span> :</label>
+                                                <p className="form-section__undertext">{t("penalty-for-each-missed-undertext")}</p>
                                             </td>
                                             <td><Field name="penaltyForMissedGoal" id="penaltyForMissedGoal" autoComplete="off"/></td>
                                         </tr>
                                         <tr>
-                                            <td><label>Allow accuracy points to be less than zero</label></td>
+                                            <td><label>{t("allow-less-than-zero")}</label></td>
                                             <td><Field type="checkbox" name="canGetNegativePoints" id="canGetNegativePoints"/></td>
                                         </tr>
                                         </tbody>
                                     </table>
-                                    <Button text="Save" type="submit"/>
-                                    <Undertext text="Hitting save will have immediate effect on player standings."/>
+                                    <Button text={t("btn-save")} type="submit"/>
+                                    <Undertext text={t("btn-save-undertext")}/>
                                 </Form>
                             )
                         }
@@ -155,10 +158,10 @@ const ManageSettingsPage = () => {
 
             </section>
             <section className="form-section settings--tryout">
-                <h2>TRY IT OUT</h2>
+                <h2>{t("title-tryout")}</h2>
                 <article>
                     <div>
-                        <p>ENTER FINAL SCORE:</p>
+                        <p>{t("enter-score")}</p>
                     </div>
                     <div>
                         <input type="number" value={tryoutScore.home} onChange={handleHomeScoreChange}/>
@@ -166,13 +169,13 @@ const ManageSettingsPage = () => {
                     </div>
                     <div>
                         <div>
-                            <p>AWARD DISTRIBUTION WITH CURRENT SETTINGS:</p>
+                            <p>{t("title-award-distribution")}</p>
                         </div>
                         <table className="settings__sample-table">
                             <thead>
                             <tr>
-                                <th><strong className="settings__sample-row--prediction">prediction</strong></th>
-                                <th><strong className="settings__sample-row--total-award">award</strong></th>
+                                <th><strong className="settings__sample-row--prediction">{t("thead-prediction")}</strong></th>
+                                <th><strong className="settings__sample-row--total-award">{t("thead-award")}</strong></th>
                                 <th>AEP</th>
                                 <th>AGD</th>
                                 <th>AWT</th>

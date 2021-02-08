@@ -1,8 +1,11 @@
 import useUser from "../../hooks/useUser";
 import cx from "classnames";
 import useTotalisator from "../../hooks/useTotalisator";
+import {useTranslation} from "react-i18next";
 
 const StandingsEntry = ({player, handleKick, totals}) => {
+
+    const {t} = useTranslation('manage-totalisator');
 
     const user = useUser();
     const totalisator = useTotalisator();
@@ -20,7 +23,7 @@ const StandingsEntry = ({player, handleKick, totals}) => {
                 {totals}
             </td>
             {handleKick && (player.id !== totalisator.managerId) &&
-            <td className="standings__kick-button" onClick={() => handleKick(player)}>kick</td>
+            <td className="standings__kick-button" onClick={() => handleKick(player)}>{t("kick")}</td>
             }
         </tr>
         )

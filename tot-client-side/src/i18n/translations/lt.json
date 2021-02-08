@@ -106,7 +106,13 @@
     "validation-error-password-required": "Slaptažodis yra privalomas",
     "validation-error-password-mismatch":"Slaptažodžiai turi sutapti",
     "validation-error-name-length":"Vardą turi sudaryti bent 3 simboliai",
-    "validation-error-name-required": "Vardas yra privalomas"
+    "validation-error-name-required": "Vardas yra privalomas",
+    "title-new-totalisator": "NAUJAS TOTALIZATORIUS",
+    "create-totalisator-title": "Totalizatoriaus pavadinimas:",
+    "create-totalisator-title-placeholder": "pvz. Draugų Totalizatorius 2021",
+    "btn-breate": "Kurti",
+    "validation-error-empty-title": "Pavadinimas negali būti tuščias",
+    "validation-error-title-length": "Pavadinimą turi sudaryti bent 3 simboliai"
   },
   "friends": {
     "title-friend-requests": "PAKVIETIMAI Į DRAUGUS",
@@ -124,5 +130,46 @@
     "dismiss": "Ignoruoti",
     "remove": "Pašalinti",
     "include": "Įtraukti"
+  },
+  "manage-totalisator": {
+    "title-created-totalisator": "TOTALIZATORIUS SĖKMINGAI SUKURTAS!",
+    "description-created-totalisator":"Tu būsi <1>{{title}}</1> administratorius. Pasirink, ką daryti toliau:",
+    "btn-add-remove-matches": "PRIDĖTI/PAŠALINTI RUNGTYNES SPĖJIMAMS",
+    "btn-add-players": "PRIDĖTI ŽAIDĖJUS",
+    "btn-configure-settings": "TVARKYTI TOTALIZATORIAUS NUSTATYMUS",
+    "access-anytime": "Šiuos puslapius gali pasiekti bet kuriuo metu geltonai paryškintame administratoriaus meniu viršuje.",
+    "keep-busy": "Nepamiršk palaikyti žaidėjų užimtumo - reguliariai pridėk naujas rungtynes spėjimams atlikti.",
+    "title-manage-players": "ŽAIDĖJŲ SĄRAŠAS",
+    "description-players": "Čia gali pridėti/šalinti žaidėjus totalizatoriuje <1>\"{{title}}\"</1>. Atkreipk dėmesį, kad pašalinus žaidėją, ištrinami ir jo registruoti spėjimai.",
+    "player-count": "Dabartinis totalizatoriaus žaidėjų skaičius: {{count}}:",
+    "title-include-friends": "ĮTRAUK DRAUGUS",
+    "kick": "ŠALINTI",
+    "title-settings": "TOTALIZATORIAUS NUSTATYMŲ PARINKTYS",
+    "title-point-calculations": "SKIRIAMŲ TAŠKŲ SKAIČIAVIMAS",
+    "points-for-accurate-score": "Taškai už tikslų rezultatą ",
+    "points-for-accurate-goal-diff": "Taškai už tikslų įvarčių skirtumą ",
+    "points-for-accurate-winner-team": "Taškai už tikslų nugalėtoją ",
+    "bonus-for-each-goal": "Papildomi taškai už kiekvieną nuspėtą įvartį ",
+    "initial-accuracy-points": "Pradiniai dinaminiai taškai ",
+    "penalty-for-each-missed": "Baudos taškai už kiekvieną neatspėtą įvartį ",
+    "penalty-for-each-missed-undertext": "(atimami iš pradinių dinaminių taškų)",
+    "allow-less-than-zero": "Leisti dinaminiams taškams nukristi žemiau nulio",
+    "btn-save": "Išsaugoti",
+    "btn-save-undertext": "Išsaugojus nustatymus turnyrinė lentelė bus perskaičiuota.",
+    "title-tryout": "IŠBANDYK",
+    "enter-score": "RUNGTYNIŲ REZULTATAS:",
+    "title-award-distribution": "TAŠKŲ PASKIRSTYMAS PAGAL DABARTINIUS NUSTATYMUS:",
+    "thead-prediction": "spėjimas",
+    "thead-award": "taškai"
+  },
+  "user-welcome-page": {
+    "greeting": "LABAS ORAKULE! <1>PRADĖKIME!</1>",
+    "empty-totalisators-list": "Regis dar nedalyvauji nei viename totalizatoriuje. Jokių bėdų!",
+    "options": "Laikas <1><0>sukurti savo totalizatorių </1></0> arba laukti pakvietimo į totalizatorius, kuriuos sukūrė tavo <1><0>draugai</1></0>.",
+    "ability-to-participate": "Kaip žaidėjas gali dalyvauti ir savo sukurtame bei administruojamame totalizatoriuje.",
+    "greeting-continuous": "LABAS ORAKULE! <1>TĘSK SAVO PRANAŠYSTES!</1>",
+    "whats-new": "Žvilgtelk kas naujo totalizatoriuje ",
+    "ability-participate-create": "Nepamiršk - gali dalyvauti neribotame skaičiuje totalizatorių, arba <1><0>susikurti</1></0> tiek kiek reikia savų. Surask ir prisijunk prie kitų, kurie jau naudojasi Totalisator 3.0 <1><0>draugų skiltyje</1></0>.",
+    "reminder": "Tik priminimas - savo sukurtuose ir administruojamuose totalizatoriuose taip pat gali dalyvauti kaip žaidėjas."
   }
 }

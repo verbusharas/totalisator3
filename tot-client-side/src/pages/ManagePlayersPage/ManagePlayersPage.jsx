@@ -10,8 +10,11 @@ import {
     kickPlayerFromTotalisator
 } from "../../api/totalisatorApi";
 import convertFriendshipsToFriends from "../../utils/mapper";
+import {Trans, useTranslation} from "react-i18next";
 
 const ManagePlayersPage = () => {
+
+    const {t} = useTranslation('manage-totalisator');
 
     const totalisator = useTotalisator();
     const user = useUser();
@@ -59,20 +62,24 @@ const ManagePlayersPage = () => {
     return (
         <main>
             <section className="feed feed--fifa">
-                <h2 className="feed__title">MANAGE PLAYERS</h2>
+                <h2 className="feed__title">{t("title-manage-players")}</h2>
                 <article className="feed__description">
                     <p>
-                        You can add/remove players to <strong>"{totalisator.title}"</strong> here.
+                        <Trans i18nKey="manage-totalisator:description-players">
+                        You can add/remove players to <strong>"{{title:totalisator.title}}"</strong> here.
                         Beware - kicking a player is irrevertable.
+                        </Trans>
                     </p>
                     <p>
-                        Currently there are {totalisator.players?.length} players in this totalisator:
+                        <Trans i18nKey="manage-totalisator:player-count">
+                        Currently there are {{count:totalisator.players?.length}} players in this totalisator:
+                        </Trans>
                     </p>
                     <StandingsTable players={players} handleKick={kickPlayer}/>
                 </article>
             </section>
             <section className="friendlist-section  friendlist-section--players">
-                <h2>INCLUDE FRIENDS AS PLAYERS</h2>
+                <h2>{t("title-include-friends")}</h2>
                 <article className="form-section__article">
                     <div className="found-users">
                         {possiblePlayers?.map(pp => renderFriend(pp))}

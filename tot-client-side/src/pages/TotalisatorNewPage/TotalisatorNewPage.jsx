@@ -9,8 +9,11 @@ import {setUserData} from "../../store/slices/userSlice";
 import {setTotalisator} from "../../store/slices/totalisatorSlice";
 import {useHistory} from "react-router-dom";
 import image from "../../assets/bg-images/header-01-small-flip.png";
+import {useTranslation} from "react-i18next";
 
 const TotalisatorNewPage = () => {
+
+    const {t} = useTranslation('forms');
 
     const user = useUser();
     const dispatch = useDispatch();
@@ -19,8 +22,8 @@ const TotalisatorNewPage = () => {
     const validationSchema = Yup.object().shape({
         title: Yup
             .string()
-            .required("Title cannot be empty")
-            .min(3, "Title must be at least 3 characters long")
+            .required(t("validation-error-empty-title"))
+            .min(3, t("validation-error-title-length"))
     });
 
     const handleCreate = (formValues) => {
@@ -42,7 +45,7 @@ const TotalisatorNewPage = () => {
             </section>
             <section className="form-section">
                 <article className="form-section__article">
-                    <h2>NEW TOTALISATOR</h2>
+                    <h2>{t("title-new-totalisator")}</h2>
 
                     <Formik initialValues={{title: ""}}
                             onSubmit={handleCreate}
@@ -50,12 +53,12 @@ const TotalisatorNewPage = () => {
                         {(props) =>
                             (
                                 <Form>
-                                    <label>Totalisator title:</label>
-                                    <Field name="title" id="title" placeholder="e.g. Friends Totalisator 2021"/>
+                                    <label>{t("create-totalisator-title")}</label>
+                                    <Field name="title" id="title" placeholder={t("create-totalisator-title-placeholder")}/>
                                     <ErrorMessage name="title" component="small"
                                                   className="form-section__field-error"/>
 
-                                    <Button text="Create" type="submit" disabled={props.isSubmitting}/>
+                                    <Button text={t("btn-breate")} type="submit" disabled={props.isSubmitting}/>
                                 </Form>
                             )
                         }

@@ -16,7 +16,7 @@ i18next
         // language codes to lookup.
         // 'all' --> ['en-US', 'en', 'dev'], 'currentOnly' --> 'en-US', 'languageOnly' --> 'en'
         load: 'all',
-        ns: ['header', 'overview', 'homepage', 'footer', 'manage-matches', 'toteboard', 'forms', 'friends'], // string or array of namespaces to load
+        ns: ['header', 'overview', 'homepage', 'footer', 'manage-matches', 'toteboard', 'forms', 'friends', 'manage-totalisator', 'user-welcome-page'], // string or array of namespaces to load
         defaultNS: 'homepage',  // default namespace used
         fallbackLng: 'lt', // language to use if translations in user language are not available
         whitelist: ['lt', 'en'], // array of allowed languages
