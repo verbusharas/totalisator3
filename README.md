@@ -4,7 +4,7 @@
 ### LAUNCHING INSTRUCTIONS
 1. `git clone https://github.com/verbusharas/totalisator3.git`
 2. Rename `application-example.properties` to `application.properties` and configure it according to your database and credentials, or in case of a live demonstration - switch with the developer provided application.properties file.
-4. Run tot-server-side (Spring Boot Application)
+4. Run tot-server-side (Java Spring Boot Application)
 5. Run tot-client-side (React Web Application) with `npm i` and `npm start`
 6. Try out the application on localhost:3000
 7. In case of wanting to use demo soccer fixtures api, launch tot-demo-fixtures-api/App.js (Node Express Application). I recommend using nodemon for enabling live updates. Start API with command `nodemon app.js`. Server will run on port 3001.
