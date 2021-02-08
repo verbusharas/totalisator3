@@ -2,7 +2,7 @@ const fixtures = {
     data: [
         {
             fifaId: 9000011,
-            date: "2021-02-05 17:25:00",
+            date: "2021-02-08 12:25:00",
             homeTeam: {
                 shortCode: "CAC",
                 id: 9011,
@@ -16,21 +16,21 @@ const fixtures = {
                 img: "https://www.pipelinersales.com/wp-content/uploads/2019/06/large-udemy.jpg"
             },
             status: 0,
-            statusName: "Notstarted",
+            statusName: "Finished",
             league: {
                 countryName: "Lithuania",
                 id: 9011,
                 name: "Programuotojų lyga"
             },
-            // scores: {
-            //     home_score: "0",
-            //     away_score: "0",
-            // }
+            scores: {
+                home_score: "1",
+                away_score: "0",
+            }
         },
 
         {
             fifaId: 9000012,
-            date: "2021-02-05 17:23:00",
+            date: "2021-02-08 12:15:00",
             homeTeam: {
                 id: 9013,
                 name: "Verbus Architects",
@@ -59,7 +59,7 @@ const fixtures = {
 
         {
             fifaId: 9000013,
-            "date": "2021-02-05 17:24:00",
+            "date": "2021-02-08 12:10:00",
             "homeTeam": {
                 id: 9015,
                 name: "Charlie Charlington",
