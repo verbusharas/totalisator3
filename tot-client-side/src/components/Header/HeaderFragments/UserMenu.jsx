@@ -41,7 +41,7 @@ const UserMenu = () => {
                         <span className="user-menu__text">{`${user.name}`}</span>
                         <button className="user-menu__link" onClick={logout}>{t("sign-out")}</button>
                     </>
-                    : <a href="/user/login" className="user-menu__link">Sign In</a>
+                    : <a href="/user/login" className="user-menu__link">{t("sign-in")}</a>
             }
         </div>
     )

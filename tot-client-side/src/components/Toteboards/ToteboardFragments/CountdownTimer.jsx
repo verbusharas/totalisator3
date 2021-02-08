@@ -1,6 +1,9 @@
 import {useEffect, useState} from "react";
+import {Trans, useTranslation} from "react-i18next";
 
  const CountdownTimer = ({countdownTo}) => {
+     const {t} = useTranslation('toteboard');
+
     useEffect(() => {
         const timer = setTimeout(() => {
             setTimeLeft(calculateTimeLeft());
@@ -39,9 +42,9 @@ import {useEffect, useState} from "react";
                 <span className="tote-board__incentives--highlighted">
                     {timerComponents.length
                         ? timerComponents
-                        : <span>Time's up!</span>}
+                        : <Trans i18nKey="toteboard:counter-times-up">Time's up! </Trans>}
                 </span>
-            to predict this score.
+            {t("counter-to-predict-this-score")}
         </p>
     )
 

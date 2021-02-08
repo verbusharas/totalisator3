@@ -1,4 +1,8 @@
+import {useTranslation} from "react-i18next";
+
 const SeePredictionsLink = ({isFinished, hasStats, handleFlip, totalPlayers, totalPredictions}) => {
+
+    const {t} = useTranslation('toteboard');
 
     const showStatsAndLink = ()=>{
         return (
@@ -6,9 +10,9 @@ const SeePredictionsLink = ({isFinished, hasStats, handleFlip, totalPlayers, tot
                     <span className="tote-board__incentives--highlighted">
                         {`${totalPredictions}/${totalPlayers} `}
                     </span>
-                people have already predicted.
+                {t("people-have-already-predicted")}
                 <button className="tote-board__incentives--link" type="button" onClick={handleFlip}>
-                    Flip to see >
+                    {t("btn-flip-to-see")}
                 </button>
             </p>
         )
@@ -18,7 +22,7 @@ const SeePredictionsLink = ({isFinished, hasStats, handleFlip, totalPlayers, tot
         return (
             <p>
                 <button className="tote-board__incentives--link" type="button" onClick={handleFlip}>
-                    See predictions of other players >
+                    {t("btn-see-predictions")}
                 </button>
             </p>
         )
@@ -28,7 +32,7 @@ const SeePredictionsLink = ({isFinished, hasStats, handleFlip, totalPlayers, tot
         return (
             <p style={{margin:0}}>
                 <button className="tote-board__incentives--link" type="button" onClick={handleFlip}>
-                    See all >
+                    {t("btn-see-all")}
                 </button>
             </p>
         )

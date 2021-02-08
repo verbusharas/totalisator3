@@ -1,6 +1,7 @@
 {
   "header": {
     "sign-out": "Sign Out",
+    "sign-in": "Sign In",
     "navlink-totalisator-overview": "TOTALISATOR OVERVIEW",
     "navlink-chat-log": "CHAT & LOG",
     "navlink-friends": "FRIENDS",
@@ -63,6 +64,25 @@
     "title-history": "HISTORY OF FINISHED MATCHES",
     "history-description": "This is a list of added matches that have already finished. These matches contain predictions of all participants, and their earned points. You can still delete any of these matches, in which case the  corresponding earned points get subtracted from total score.",
     "empty-feed-history": "Currently there are no finished matches. Try adding some in the top section of the page."
+  },
+  "toteboard": {
+    "vs": "vs",
+    "your-prediction": "Your prediction:",
+    "btn-register-prediction": "REGISTER PREDICTION",
+    "btn-add-to-totalisator": "ADD TO TOTALISATOR",
+    "btn-finished": "FINISHED",
+    "btn-added": "ADDED",
+    "status" : "STATUS: ",
+    "counter-times-up": "Time's up! ",
+    "counter-to-predict-this-score": "to predict this score.",
+    "people-have-already-predicted": "people have already predicted.",
+    "btn-flip-to-see": "Flip to see >",
+    "btn-see-predictions" : "See predictions of other players >",
+    "btn-see-all": "See all >",
+    "points": "Points",
+    "points-lower-case": "points",
+    "final-score": "FINAL SCORE:"
+
   }
 
 }

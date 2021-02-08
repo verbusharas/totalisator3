@@ -5,9 +5,11 @@ import {useEffect, useState} from "react";
 import {fetchPlayers} from "../../../api/totalisatorApi";
 import useTotalisator from "../../../hooks/useTotalisator";
 import {getMatchPayouts} from "../../../api/predictionApi";
+import {useTranslation} from "react-i18next";
 
 const BacksidePredictions = ({match, variant, getScoreboard, flipToteboard}) => {
 
+    const {t} = useTranslation('toteboard');
     const status = variant.split("-")[1];
     const user = useUser();
     const totalisator = useTotalisator();
@@ -21,7 +23,7 @@ const BacksidePredictions = ({match, variant, getScoreboard, flipToteboard}) => 
         if (variant==="user-finished" || variant==="manager-finished"){
             getMatchPayouts(match.entityId).then(res=>{
                 setPayouts(res.data);
-            }).finally("from finallu");
+            }).finally("from finally");
         }
     },[match.entityId, totalisator.id, variant])
 
@@ -44,7 +46,7 @@ const BacksidePredictions = ({match, variant, getScoreboard, flipToteboard}) => 
                 <span>{match.homeTeam.shortCode}</span>
                 {status === "finished" ?
                     <div className="tote-board__label tote-board__label--highlighted">
-                        <p style={{margin:"0px 10px 10px 0px"}}>FINAL SCORE:</p>
+                        <p style={{margin:"0px 10px 10px 0px"}}>{t("final-score")}</p>
                         <Scoreboard homeScore = {match.homeScore} awayScore={match.awayScore}/>
                     </div>
                     : getScoreboard()

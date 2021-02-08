@@ -1,4 +1,8 @@
+import {useTranslation} from "react-i18next";
+
 const ToteboardScoreboard = ({isEmpty, homeScore, awayScore, isEditable, homeInput, awayInput}) => {
+
+    const {t} = useTranslation("toteboard")
 
     const editableDigits = () => {
         return (
@@ -22,7 +26,7 @@ const ToteboardScoreboard = ({isEmpty, homeScore, awayScore, isEditable, homeInp
     const noDigits = () => {
         return (
             <div className="tote-board__score-predict">
-                <h2>vs</h2>
+                <h2>{t("vs")}</h2>
             </div>
         )
     }

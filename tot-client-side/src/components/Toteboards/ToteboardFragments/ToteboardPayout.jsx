@@ -2,8 +2,11 @@ import SeePredictionsLink from "./SeePredictionsLink";
 import {useEffect, useState} from "react";
 import {getMatchPlayerPayout} from "../../../api/predictionApi";
 import useUser from "../../../hooks/useUser";
+import {useTranslation} from "react-i18next";
 
 const ToteboardPayout = ({match, handleFlip}) => {
+
+    const {t} = useTranslation('toteboard');
 
     const [payout, setPayout] = useState({});
     const user = useUser();
@@ -21,12 +24,12 @@ const ToteboardPayout = ({match, handleFlip}) => {
     return (
         <div className="tote-board__results">
             <div className="tote-board__points">
-                <span>{`+${payout.award || '0'} Points`}</span>
+                <span>{`+${payout.award || '0'} ` + t("points") }</span>
                 <SeePredictionsLink isFinished handleFlip={handleFlip}/>
             </div>
             <div>
                 <div className="tote-board__label tote-board__label--highlighted">
-                    <p>FINAL SCORE:</p>
+                    <p>{t("final-score")}</p>
                 </div>
                 <div className="tote-board__score-predict tote-board__score-predict--actual">
                     <input type="text" disabled value={match.homeScore}/>

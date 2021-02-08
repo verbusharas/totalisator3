@@ -1,6 +1,7 @@
 {
   "header": {
     "sign-out": "Atsijungti",
+    "sign-in": "Prisijungti",
     "navlink-totalisator-overview": "TOTALIZATORIAUS APŽVALGA",
     "navlink-chat-log": "POKALBIAI",
     "navlink-friends": "DRAUGAI",
@@ -63,5 +64,23 @@
     "title-history": "PASIBAIGUSIŲ RUNGTYNIŲ ISTORIJA",
     "history-description": "Čia pateikiamas sąrašas registruotų rungtynių kurios jau pasibaigė. Kiekvienoje šių rungtynių yra registruoti visų totalizatoriaus žaidėjų spėjimai ir uždirbti taškai. Šias rungtynes taip pat galima ištrinti - tokiu atveju žaidėjų taškai gauti už jas atimami iš bendro jų turimo taškų kiekio.",
     "empty-feed-history": "Kol kas baigtų rungtynių sąrašas tuščias. Rungtynes spėjimams galima pridėti puslapio viršuje."
+  },
+  "toteboard": {
+    "vs": "prieš",
+    "your-prediction": "Tavo spėjimas:",
+    "btn-register-prediction": "REGISTRUOTI SPĖJIMĄ",
+    "btn-add-to-totalisator": "PRIDĖTI",
+    "btn-finished": "BAIGTOS",
+    "btn-added": "PRIDĖTA",
+    "status" : "STATUSAS: ",
+    "counter-times-up": "Laikas baigėsi! ",
+    "counter-to-predict-this-score": "šiam spėjimui atlikti.",
+    "people-have-already-predicted": "žaidėjai jau atliko spėjimus.",
+    "btn-flip-to-see": "Versk, kad pamatyti >",
+    "btn-see-predictions" : "Pamatyk kitų žaidėjų spėjimus >",
+    "btn-see-all": "Žiūrėti visus >",
+    "points": "Tašk.",
+    "points-lower-case": "tašk.",
+    "final-score": "REZULTATAS:"
   }
 }

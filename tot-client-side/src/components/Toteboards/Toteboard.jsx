@@ -10,6 +10,7 @@ import cx from "classnames";
 import useTotalisator from "../../hooks/useTotalisator";
 import BacksidePredictions from "./ToteboardFragments/BacksidePredictions";
 import {fetchPlayers} from "../../api/totalisatorApi";
+import {Trans, useTranslation} from "react-i18next";
 
 // Variant structure: "{environment}-{status}"
 // Supported variants:
@@ -31,6 +32,8 @@ const Toteboard = ({match,
                        handleDelete,
                        handleRegisterPrediction}) => {
 
+    const {t} = useTranslation('toteboard');
+
     const totalisator = useTotalisator();
 
     const environment = variant.split("-")[0];
@@ -41,7 +44,6 @@ const Toteboard = ({match,
         || variant === "fifa-invalid");
 
     const isFlippable = (environment !== "fifa");
-
     const hasDelete = (environment === "manager")
 
     const [isFlipped, setIsFlipped] = useState(false);
@@ -133,9 +135,6 @@ const Toteboard = ({match,
        setIsFlipped(!isFlipped);
     }
 
-
-
-
     const showAverse = () => {
         return (
             <article className={cx({"tote-board": true, "tote-board--disabled": isDisabled})}>
@@ -143,7 +142,7 @@ const Toteboard = ({match,
                     <button type="button" onClick={handleDelete}>x</button>
                 </div>}
                 <ToteboardHeader date={match.date} league={match.league}/>
-                {environment === "user" && <ToteboardScoreLabel text="Your prediction:"/>}
+                {environment === "user" && <ToteboardScoreLabel text={t("your-prediction")}/>}
                 <div className="tote-board__main">
                     <ToteboardTeam team={match.homeTeam} status="home"
                                    hasCrest={environment !== "fifa" && status !== "finished"}/>
@@ -165,12 +164,12 @@ const Toteboard = ({match,
                 <ToteboardPayout match={match} handleFlip={flipToteboard}/>}
 
                 <div className="tote-board__footer">
-                    {status === "not_predicted"     && <ToteboardButton text="REGISTER PREDICTION" handleClick={registerPrediction}/>}
-                    {variant === "fifa-listed"      && <ToteboardButton text="ADD TO TOTALISATOR" handleClick={handleClick}/>}
-                    {variant === "fifa-finished"    && <ToteboardButton text="FINISHED" disabled/>}
-                    {variant === "fifa-added"       && <ToteboardButton text="ADDED" disabled/>}
+                    {status === "not_predicted"     && <ToteboardButton text={t("btn-register-prediction")} handleClick={registerPrediction}/>}
+                    {variant === "fifa-listed"      && <ToteboardButton text={t("btn-add-to-totalisator")} handleClick={handleClick}/>}
+                    {variant === "fifa-finished"    && <ToteboardButton text={t("btn-finished")} disabled/>}
+                    {variant === "fifa-added"       && <ToteboardButton text={t("btn-added")} disabled/>}
                     {validateMatchStatus()}
-                    {variant === "fifa-invalid"     && <ToteboardButton text={`STATUS: ${match.statusName.toUpperCase()}`} disabled/>}
+                    {variant === "fifa-invalid"     && <ToteboardButton text={t("status") + match.statusName.toUpperCase()} disabled/>}
                 </div>
             </article>
         )

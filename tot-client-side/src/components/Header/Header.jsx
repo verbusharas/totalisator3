@@ -55,7 +55,7 @@ const Header = () => {
             </div>
             <div className = "header__live-feed">
                 {
-                    monitor.liveFeed.length > 0 && monitor.liveFeed.map(renderLiveMatch)
+                    user && monitor.liveFeed.length > 0 && monitor.liveFeed.map(renderLiveMatch)
                 }
             </div>
 

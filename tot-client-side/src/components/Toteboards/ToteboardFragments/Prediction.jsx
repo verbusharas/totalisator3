@@ -1,7 +1,10 @@
+import {useTranslation} from "react-i18next";
+
 const Prediction = ({player, prediction, payout}) => {
 
-    const sliceName = (name) => {
+    const {t} = useTranslation('toteboard');
 
+    const sliceName = (name) => {
         const maxLength = 14;
 
         if (name.length<=maxLength) {
@@ -32,7 +35,7 @@ const Prediction = ({player, prediction, payout}) => {
 
         <div className="tote-board__prediction">
             <div className="tote-board__prediction-user">
-                {payout && <strong>+{payout?.award} points</strong>}
+                {payout && <strong>+{payout?.award} {t("points-lower-case")}</strong>}
                 <span>{sliceName(player.name)}</span>
             </div>
             <div className="tote-board__prediction-digit">
