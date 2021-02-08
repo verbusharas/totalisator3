@@ -1,9 +1,16 @@
+
+.overview-and-pending {
+  background-image: url("../assets/bg-images/ball1-mid.png");
+  background-repeat: no-repeat;
+  background-position:  left bottom -250px;
+  background-color: var(--black-teal);
+}
+
 /* PENDING SECTION */
-.feed--pending {
-    background-color: var(--black-teal);
-    background-image: url("../assets/bg-images/ball1-mid.png");
-    background-repeat: no-repeat;
-  }
+/*.feed--pending {*/
+
+
+/*  }*/
   
   .feed--pending .feed__title {
     color: var(--yellow);

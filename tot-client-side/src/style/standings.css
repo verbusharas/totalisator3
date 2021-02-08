@@ -4,12 +4,11 @@
 .overview {
   /*position: absolute;*/
   /*z-index: 10;*/
-    background-color: var(--black-teal);
+  /*  background-color: var(--black-teal);*/
     padding-top: 80px;
-    background-color: var(--black-teal);
-    /* background-image: url("../../bg-img/feet1-mid.png");
-    background-size: 800px; */
-    background-position: bottom -20px right -100px;
+    background-image: url("../assets/bg-images/ball-gatekeeper-hand-01-small.png");
+    background-size: 1000px;
+    background-position:  right -450px top;
     background-repeat: no-repeat;
   }
   
@@ -40,6 +39,8 @@
     color: var(--white-blue);
     font-size: 11pt;
     line-height: 20px;
+    background-color: rgba(22, 30, 33, 0.5);
+    backdrop-filter: blur(7px);
   }
   
   .rules p {

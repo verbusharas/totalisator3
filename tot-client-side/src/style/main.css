@@ -6,6 +6,7 @@ body {
   flex-direction: column;
   align-items: center;
   width: 100%;
+
 }
 
 main {
@@ -22,23 +23,33 @@ section {
   justify-content: center;
   background-color: var(--black-teal);
   width: 90%;
+
 }
+
+.text-section {
+  margin-left: 200px;
+}
+
+/*.vfx-section {*/
+/*  width: 60%;*/
+/*}*/
 
 .text-section--welcome {
   background-color: rgba(22, 30, 33, 0.5);
   backdrop-filter: blur(7px);
+  margin-right: 150px;
 }
 
 .default .text-section {
   color: var(--white-blue);
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  /*align-items: flex-end;*/
   line-height: 25px;
 }
 
 .text-section__article {
-  width: 90%;
+  width: 100%;
 }
 
 .text-section__article h2 {
@@ -49,7 +60,7 @@ section {
 
 .text-section__description {
   padding-left: 50px;
-  width: 80%;
+  width: 100%;
 }
 
 .default a {

@@ -8,6 +8,7 @@ import {savePrediction} from "../../api/predictionApi";
 import {fetchFinishedMatches, fetchPlayerNotPredictedMatches, fetchPlayerPendingMatches} from "../../api/matchApi";
 import {fetchPlayers} from "../../api/totalisatorApi";
 import {Trans, useTranslation} from "react-i18next";
+import image from "../../assets/bg-images/ball-gatekeeper-hand-01-small.png";
 
 const TotalisatorOverviewPage = (() => {
 
@@ -125,11 +126,15 @@ const TotalisatorOverviewPage = (() => {
                 }
                 {notPredictedMatches.feed.map(m => renderNotPredictedMatch(m))}
             </section>
+            <div className="overview-and-pending">
             <section className="overview">
                 <h2 className="overview__title">{t("title-standings")}</h2>
                 <div className="overview__container">
                     <StandingsTable players={players}/>
                     <Rules/>
+                    {/*<div className="graph-section">*/}
+                    {/*    <img src={image} alt="ball in net"/>*/}
+                    {/*</div>*/}
                 </div>
             </section>
             <section className="feed feed--pending">
@@ -140,6 +145,7 @@ const TotalisatorOverviewPage = (() => {
                 </p>}
                 {pendingMatches.feed.map(m => renderPredictedMatch(m))}
             </section>
+            </div>
             <section className="feed feed--history">
                 <h2 className="feed__title">{t("title-feed-player-history")}</h2>
                 {finishedMatches.feed.length === 0 &&

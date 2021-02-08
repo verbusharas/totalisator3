@@ -11,7 +11,6 @@ const PrivateRoute = ({ children, roles, requiresTotalisator, ...props }) => {
     const authorized = roles ? !!_.intersection(user?.roles, roles).length : !!user
 
     if (requiresTotalisator && !totalisator.id) {
-        console.log("sorry need tote")
         return (
             <Redirect
                 to={{
@@ -30,7 +29,7 @@ const PrivateRoute = ({ children, roles, requiresTotalisator, ...props }) => {
                 authorized ? children : (
                     <Redirect
                         to={{
-                            pathname: '/forbidden',
+                            pathname: '/user/login',
                             state: {
                                 from: location
                             }

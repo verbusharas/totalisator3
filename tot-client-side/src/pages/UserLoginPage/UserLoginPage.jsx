@@ -47,16 +47,6 @@ const UserLoginPage = () => {
             .finally(() => setSubmitting(false))
     }
 
-    const validationSchema = Yup.object().shape({
-        username: Yup
-            .string()
-            .required("Enter your email address"),
-        password: Yup
-            .string()
-            .min(8, "Password must be at least 8 characters long")
-            .required("Enter password"),
-    });
-
     return (
         <main className="default">
             <section className="graph-section">
@@ -67,8 +57,7 @@ const UserLoginPage = () => {
                     <h2>PLEASE LOGIN</h2>
 
                     <Formik initialValues={{username: "", password: "", passwordConfirm: "", name: ""}}
-                            onSubmit={handleLogin}
-                            validationSchema={validationSchema}>
+                            onSubmit={handleLogin}>
                         {(props) =>
                             (
                                 <Form>

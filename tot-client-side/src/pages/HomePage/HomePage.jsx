@@ -191,7 +191,6 @@ const HomePage = () => {
                     </h2>
                     <div className="text-section__description">
                         <div>
-
                             <p>
                                 <Trans i18nKey="homepage:octopus-question">
                                     Who is better soccer oracle you or

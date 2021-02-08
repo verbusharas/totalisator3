@@ -8,6 +8,7 @@ import {useDispatch} from "react-redux";
 import {setUserData} from "../../store/slices/userSlice";
 import {setTotalisator} from "../../store/slices/totalisatorSlice";
 import {useHistory} from "react-router-dom";
+import image from "../../assets/bg-images/header-01-small-flip.png";
 
 const TotalisatorNewPage = () => {
 
@@ -37,6 +38,7 @@ const TotalisatorNewPage = () => {
     return (
         <main className="default">
             <section className="graph-section">
+                <img src={image} alt="ball in net"/>
             </section>
             <section className="form-section">
                 <article className="form-section__article">
@@ -45,7 +47,6 @@ const TotalisatorNewPage = () => {
                     <Formik initialValues={{title: ""}}
                             onSubmit={handleCreate}
                             validationSchema={validationSchema}>
-                        {/*validationSchema={validationSchema}>*/}
                         {(props) =>
                             (
                                 <Form>

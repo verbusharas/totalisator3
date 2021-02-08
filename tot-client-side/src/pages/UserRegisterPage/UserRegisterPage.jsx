@@ -6,7 +6,7 @@ import {saveUser} from "../../api/userApi";
 import {useHistory} from "react-router-dom";
 import {useState} from "react";
 import ServerErrorMessage from "../../components/Forms/ServerErrorMessage";
-import image from "../../assets/bg-images/ball-gatekeeper-hand-01-small.png";
+import image from "../../assets/bg-images/kick-01-small.png";
 
 const UserRegisterPage = () => {
     const [serverValidationErrors, setServerValidationErrors] = useState({});
